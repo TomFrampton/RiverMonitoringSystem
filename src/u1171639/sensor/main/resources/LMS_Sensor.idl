@@ -1,0 +1,5 @@
+module lms_sensor {
+	interface LMS {
+		void raiseAlarm();
+	};
+};
