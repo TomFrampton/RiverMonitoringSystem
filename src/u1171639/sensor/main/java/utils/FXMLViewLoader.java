@@ -9,7 +9,7 @@ import javafx.util.Callback;
 
 public class FXMLViewLoader {
 	public static void loadView(final ViewController controller, String fxmlResource) {
-		FXMLLoader fxmlLoader = new FXMLLoader(FXMLViewLoader.class.getClass().getResource("/u1171639/main/resources/fxml/" + fxmlResource));
+		FXMLLoader fxmlLoader = new FXMLLoader(FXMLViewLoader.class.getClass().getResource("/u1171639/sensor/main/resources/fxml/" + fxmlResource));
 		
 		try {
 			fxmlLoader.setControllerFactory(new Callback<Class<?>, Object>() {

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.BorderPane ?>
+<?import javafx.scene.text.Text ?>
+<?import javafx.scene.control.Slider ?>
+
+<BorderPane xmlns:fx="http://javafx.com/fxml" fx:controller="u1171639.sensor.main.java.view.fxml.SimulationViewController">
+	<center>
+		<Slider 
+			fx:id="waterLevelSlider" 
+			orientation="VERTICAL"
+			showTickMarks="true"
+			showTickLabels="true"
+			prefHeight="100"/>
+	</center>
+</BorderPane>
