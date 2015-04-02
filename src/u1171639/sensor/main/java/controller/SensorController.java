@@ -17,9 +17,13 @@ public class SensorController {
 		SensorConfig.setMonitoringInterval(5000);
 		SensorConfig.setWarningWaterLevel(70);
 		
-		LMSClient lms = new CorbaLMSClient();
+		CorbaLMSClient lms = new CorbaLMSClient();
+		lms.connect(args, "LMSSensorServer");
 		SimulatedWaterLevelMonitor monitor = new SimulatedWaterLevelMonitor(lms);
-		SensorService service = new CorbaSensorService();
+		
+		//CorbaSensorService service = new CorbaSensorService(monitor);
+		//service.connect(args);
+		
 		SimulationView view = new JavaFXSimulationView();
 		
 		monitor.monitorWaterLevel();

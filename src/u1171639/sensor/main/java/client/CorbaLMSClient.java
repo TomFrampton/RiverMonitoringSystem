@@ -11,6 +11,7 @@ import u1171639.sensor.main.java.corba.lms_sensor.LMS;
 import u1171639.sensor.main.java.corba.lms_sensor.LMSHelper;
 
 public class CorbaLMSClient implements LMSClient {
+	private LMS lms = null;
 	
 	public CorbaLMSClient() {
 	}
@@ -36,7 +37,7 @@ public class CorbaLMSClient implements LMSClient {
 			
 			// Resolve the servant object reference in the naming service
 			String name = servantName;
-			LMS hello = LMSHelper.narrow(nameService.resolve_str(name));
+			this.lms = LMSHelper.narrow(nameService.resolve_str(name));
 			
 		} catch (NotFound | CannotProceed | InvalidName | org.omg.CORBA.ORBPackage.InvalidName e) {
 			// TODO Auto-generated catch block
@@ -46,8 +47,7 @@ public class CorbaLMSClient implements LMSClient {
 	
 	@Override
 	public void raiseAlarm() {
-		// TODO Auto-generated method stub
-		
+		lms.raiseAlarm();
 	}
 
 }
