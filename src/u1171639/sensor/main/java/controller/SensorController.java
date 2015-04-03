@@ -27,6 +27,18 @@ public class SensorController {
 		return monitor.isAlarmRaised();
 	}
 	
+	public void activate() {
+		
+	}
+	
+	public void deactivate() {
+		
+	}
+	
+	public boolean isActive() {
+		return false;
+	}
+	
 	public static void main(String[] args) {
 		/** Set monitoring configuration */
 		// Read value every second and raise alarm if waterLevel >= 70

@@ -34,4 +34,19 @@ public class SensorService extends SensorPOA {
 	public boolean isAlarmRaised() {
 		return this.controller.isAlarmRaised();
 	}
+
+	@Override
+	public void activate() {
+		this.controller.activate();
+	}
+
+	@Override
+	public void deactivate() {
+		this.controller.deactivate();
+	}
+
+	@Override
+	public boolean isActive() {
+		return this.controller.isActive();
+	}
 }
