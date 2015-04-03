@@ -1,0 +1,6 @@
+module lms_sensor {
+	interface LMS {
+		void raiseAlarm();
+		void register(in string ior, in string zone);
+	};
+};

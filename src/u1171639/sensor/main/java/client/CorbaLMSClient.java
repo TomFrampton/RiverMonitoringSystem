@@ -49,5 +49,4 @@ public class CorbaLMSClient implements LMSClient {
 	public void raiseAlarm() {
 		lms.raiseAlarm();
 	}
-
 }
