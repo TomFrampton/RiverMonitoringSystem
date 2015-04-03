@@ -7,8 +7,8 @@ import org.omg.CosNaming.NamingContextPackage.CannotProceed;
 import org.omg.CosNaming.NamingContextPackage.InvalidName;
 import org.omg.CosNaming.NamingContextPackage.NotFound;
 
-import u1171639.sensor.main.java.corba.lms_sensor.LMS;
-import u1171639.sensor.main.java.corba.lms_sensor.LMSHelper;
+import u1171639.lms.main.java.corba.lms.LMS;
+import u1171639.lms.main.java.corba.lms.LMSHelper;
 
 public class CorbaLMSClient implements LMSClient {
 	private LMS lms = null;

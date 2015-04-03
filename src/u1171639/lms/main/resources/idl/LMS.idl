@@ -1,4 +1,4 @@
-module lms_sensor {
+module lms {
 	interface LMS {
 		void raiseAlarm();
 	};
