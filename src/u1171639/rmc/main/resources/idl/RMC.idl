@@ -1,0 +1,5 @@
+module rmc {
+	interface RMC {
+		void raiseAlarm();
+	};
+};
