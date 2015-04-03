@@ -13,6 +13,7 @@ import u1171639.sensor.main.java.view.SimulationView;
 public class SensorController {
 	private LMS lms;
 	private WaterLevelMonitor monitor;
+	private boolean isActive = true;
 	
 	public SensorController(LMS lms, WaterLevelMonitor monitor) {
 		this.lms = lms;
@@ -28,15 +29,17 @@ public class SensorController {
 	}
 	
 	public void activate() {
-		
+		// Start monitoring
+		this.isActive = true;
 	}
 	
 	public void deactivate() {
-		
+		// Pause monitoring
+		this.isActive = false;
 	}
 	
 	public boolean isActive() {
-		return false;
+		return this.isActive;
 	}
 	
 	public static void main(String[] args) {
