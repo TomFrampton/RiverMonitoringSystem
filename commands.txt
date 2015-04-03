@@ -1,0 +1,2 @@
+idlj -fall -td ..\..\..\..\..\ -pkgTranslate lms u1171639.lms.main.java.corba LMS.idl
+idlj -fall -td ..\..\..\..\..\ -pkgTranslate sensor u1171639.sensor.main.java.corba Sensor.idl

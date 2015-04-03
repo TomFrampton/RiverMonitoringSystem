@@ -3,7 +3,7 @@ package u1171639.sensor.main.java.monitor;
 import java.util.Random;
 import java.util.Timer;
 
-import u1171639.sensor.main.java.client.LMSClient;
+import u1171639.sensor.main.java.model.LMS;
 import u1171639.sensor.main.java.utils.SensorConfig;
 import u1171639.sensor.main.java.utils.SensorLogger;
 import u1171639.sensor.main.java.utils.SensorLogger.LogLevel;
@@ -11,9 +11,9 @@ import u1171639.sensor.main.java.utils.SensorLogger.LogLevel;
 public class SimulatedWaterLevelMonitor implements WaterLevelMonitor, Runnable {
 
 	private float waterLevel;
-	private LMSClient lms;
+	private LMS lms;
 	
-	public SimulatedWaterLevelMonitor(LMSClient lms) {
+	public SimulatedWaterLevelMonitor(LMS lms) {
 		this.lms = lms;
 	}
 	

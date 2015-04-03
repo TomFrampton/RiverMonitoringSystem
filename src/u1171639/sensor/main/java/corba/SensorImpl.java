@@ -1,4 +1,6 @@
-package u1171639.sensor.main.java.corba.sensor;
+package u1171639.sensor.main.java.corba;
+
+import u1171639.sensor.main.java.corba.SensorPOA;
 
 public class SensorImpl extends SensorPOA {
 

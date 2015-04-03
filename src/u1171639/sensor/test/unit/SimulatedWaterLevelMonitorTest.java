@@ -6,8 +6,8 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import u1171639.sensor.main.java.client.LMSClient;
-import u1171639.sensor.main.java.client.MockLMSClient;
+import u1171639.sensor.main.java.model.LMS;
+import u1171639.sensor.main.java.model.MockLMS;
 import u1171639.sensor.main.java.monitor.SimulatedWaterLevelMonitor;
 import u1171639.sensor.main.java.utils.SensorConfig;
 
@@ -19,14 +19,14 @@ public class SimulatedWaterLevelMonitorTest {
 	
 	@Before
 	public void setUp() throws Exception {
-		this.monitor = new SimulatedWaterLevelMonitor(new LMSClient() {
+		this.monitor = new SimulatedWaterLevelMonitor(new MockLMS() {
 			@Override
 			public void raiseAlarm() {
 				alarmRaised = true;
 				synchronized (lock) {
 					lock.notify();
 				}
-			}	
+			}
 		});
 		
 		SensorConfig.setMonitoringInterval(50);

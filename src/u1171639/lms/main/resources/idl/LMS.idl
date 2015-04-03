@@ -1,5 +1,6 @@
 module lms {
 	interface LMS {
-		void raiseAlarm();
+		void raiseAlarm(in string zone);
+		void register(in string ior, in string zone);
 	};
 };
