@@ -69,7 +69,7 @@ public class SensorLMSTest {
 	}
 	
 	@Test
-	public void test() throws InterruptedException {
+	public void testRaiseAlarm() throws InterruptedException {
 		this.monitor1.setWaterLevel(70);
 		synchronized(lock1) { lock1.wait(); }
 		assertFalse(this.rmc.isAlarmRaised());
