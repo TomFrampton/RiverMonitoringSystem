@@ -67,5 +67,33 @@ public class SimulatedWaterLevelMonitorTest {
 		monitor.setWaterLevel(-1);
 		assertTrue(monitor.getWaterLevel() == 65);
 	}
+	
+	@Test
+	public void testPauseMonitoring() throws InterruptedException {
+		monitor.monitorWaterLevel();
+		
+		monitor.setWaterLevel(70);
+		synchronized (lock) {
+			lock.wait(100);
+		}
+		
+		assertTrue(alarmRaised);
+		
+		monitor.pauseMonitoring();
+		alarmRaised = false;
+		synchronized (lock) {
+			lock.wait(100);
+		}
+		
+		assertFalse(alarmRaised);
+		
+		monitor.resumeMonitoring();
+		synchronized (lock) {
+			lock.wait(100);
+		}
+		
+		assertTrue(alarmRaised);
+		
+	}
 
 }

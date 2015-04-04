@@ -19,4 +19,16 @@ public class RealWaterLevelMonitor implements WaterLevelMonitor {
 		return false;
 	}
 
+	@Override
+	public void resumeMonitoring() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void pauseMonitoring() {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

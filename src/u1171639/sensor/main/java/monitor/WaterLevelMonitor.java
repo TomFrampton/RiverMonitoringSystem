@@ -4,4 +4,6 @@ public interface WaterLevelMonitor {
 	public void monitorWaterLevel();
 	public float getWaterLevel();
 	public boolean isAlarmRaised();
+	public void resumeMonitoring();
+	public void pauseMonitoring();
 }

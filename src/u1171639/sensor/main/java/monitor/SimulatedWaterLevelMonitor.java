@@ -10,9 +10,11 @@ import u1171639.sensor.main.java.utils.Logger;
 import u1171639.sensor.main.java.utils.Logger.LogLevel;
 
 public class SimulatedWaterLevelMonitor implements WaterLevelMonitor, Runnable {
-
 	private float waterLevel;
 	private SensorController controller;
+	// Used for pausing the monitoring thread
+	private Object lock = new Object();
+	private boolean paused;
 
 	@Override
 	public void monitorWaterLevel() {
@@ -35,22 +37,38 @@ public class SimulatedWaterLevelMonitor implements WaterLevelMonitor, Runnable {
 	public boolean isAlarmRaised() {
 		return this.waterLevel >= SensorConfig.getWarningWaterLevel();
 	}
+	
+	@Override
+	public void resumeMonitoring() {
+		this.paused = false;
+		synchronized(lock) {
+			lock.notifyAll();
+		}
+	}
+
+	@Override
+	public void pauseMonitoring() {
+		this.paused = true;
+	}
 
 	@Override
 	public void run() {
 		try {
 			for(;;Thread.sleep(SensorConfig.getMonitoringInterval())) {
-				
-				if(this.waterLevel >= SensorConfig.getWarningWaterLevel()) {
-					Logger.log(LogLevel.WARNING, "Water Level Reading Exceeded Warning Level - " + this.waterLevel);
-					Logger.log(LogLevel.WARNING, "Raising Alarm At LMS");
-					
-					controller.raiseAlarm();
+				if(!paused) {
+					if(this.waterLevel >= SensorConfig.getWarningWaterLevel()) {
+						Logger.log(LogLevel.WARNING, "Water Level Reading Exceeded Warning Level - " + this.waterLevel);
+						Logger.log(LogLevel.WARNING, "Raising Alarm At LMS");
+						
+						controller.raiseAlarm();
+					} else {
+						Logger.log(LogLevel.INFO, "Water Level Reading - " + this.waterLevel);
+					}
 				} else {
-					Logger.log(LogLevel.INFO, "Water Level Reading - " + this.waterLevel);
+					synchronized(lock) {
+						lock.wait();
+					}
 				}
-				
-				
 			}
 		} catch (InterruptedException e) {
 			// TODO Auto-generated catch block
