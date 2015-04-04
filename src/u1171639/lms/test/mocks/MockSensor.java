@@ -4,6 +4,7 @@ import u1171639.lms.main.java.model.Sensor;
 
 public class MockSensor implements Sensor {
 	private boolean alarmRaised;
+	private boolean isActive = true;
 	
 	@Override
 	public void connect() {
@@ -28,20 +29,17 @@ public class MockSensor implements Sensor {
 
 	@Override
 	public void activate() {
-		// TODO Auto-generated method stub
-		
+		this.isActive = true;
 	}
 
 	@Override
 	public void deactivate() {
-		// TODO Auto-generated method stub
-		
+		this.isActive = false;
 	}
 
 	@Override
 	public boolean isActive() {
-		// TODO Auto-generated method stub
-		return false;
+		return this.isActive;
 	}
 
 }

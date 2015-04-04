@@ -48,7 +48,7 @@ public class LMSController {
 		
 		while(it.hasNext()) {
 			Sensor sensor = it.next();
-			if(!sensor.isAlarmRaised()) {
+			if(sensor.isActive() && !sensor.isAlarmRaised()) {
 				// Write log about unconfirmed alarm condition
 				Logger.log(LogLevel.INFO, "Alarm in " + zone + " unconfirmed. Standing down.");
 				return;

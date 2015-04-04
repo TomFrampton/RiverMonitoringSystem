@@ -98,6 +98,17 @@ public class SensorLMSTest {
 		synchronized(lock1) { lock1.wait(); }
 		synchronized(lock2) { lock2.wait(); }
 		assertTrue(this.rmc.isAlarmRaised());
+		
+		this.rmc.resetAlarm();
+		monitor2.setWaterLevel(69);
+		synchronized(lock1) { lock1.wait(); }
+		assertFalse(this.rmc.isAlarmRaised());
+		
+		this.lmsController.getSensorsByZone("Zone1").get(1).deactivate();
+		synchronized(lock1) { lock1.wait(); }
+		assertTrue(this.rmc.isAlarmRaised());
+		
+		
 	}
 	
 	@Test
@@ -111,8 +122,6 @@ public class SensorLMSTest {
 		sensors.get(0).activate();
 		assertTrue(this.sensor1.isActive());
 		assertTrue(sensors.get(0).isActive());
-		
-		
 	}
 	
 	private SensorController mockSensor(final Object lock) {
