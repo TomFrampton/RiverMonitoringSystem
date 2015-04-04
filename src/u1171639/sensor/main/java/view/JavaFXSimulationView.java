@@ -22,7 +22,7 @@ public class JavaFXSimulationView extends Application implements SimulationView 
 	@Override
 	public void start(Stage stage) throws Exception {
 		SimulationViewController simulationView = new SimulationViewController(monitor);
-		Scene scene = new Scene(simulationView.getView(), 1200, 800);
+		Scene scene = new Scene(simulationView.getView(), 100, 300);
 		
 		// Load CSS
 		// Load all CSS files

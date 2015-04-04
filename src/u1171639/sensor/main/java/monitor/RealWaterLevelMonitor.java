@@ -5,7 +5,6 @@ public class RealWaterLevelMonitor implements WaterLevelMonitor {
 	@Override
 	public void monitorWaterLevel() {
 		// TODO Auto-generated method stub
-		
 	}
 
 	@Override
