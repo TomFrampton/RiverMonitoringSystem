@@ -29,17 +29,21 @@ public class SensorController {
 	}
 	
 	public void activate() {
-		// Start monitoring
+		this.monitor.resumeMonitoring();
 		this.isActive = true;
 	}
 	
 	public void deactivate() {
-		// Pause monitoring
+		this.monitor.pauseMonitoring();
 		this.isActive = false;
 	}
 	
 	public boolean isActive() {
 		return this.isActive;
+	}
+	
+	public WaterLevelMonitor getMonitor() {
+		return this.monitor;
 	}
 	
 	public static void main(String[] args) {

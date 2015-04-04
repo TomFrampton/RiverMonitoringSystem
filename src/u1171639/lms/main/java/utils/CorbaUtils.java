@@ -25,36 +25,40 @@ public class CorbaUtils {
 	}
 	
 	public static void initRootPOA() {
-		// Get reference to rootPOA and activate POAManager
-		try {
-			rootPoa = POAHelper.narrow(orb.resolve_initial_references("RootPOA"));
-			rootPoa.the_POAManager().activate();
-		} catch (InvalidName | AdapterInactive e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+		if(rootPoa == null) {
+			// Get reference to rootPOA and activate POAManager
+			try {
+				rootPoa = POAHelper.narrow(orb.resolve_initial_references("RootPOA"));
+				rootPoa.the_POAManager().activate();
+			} catch (InvalidName | AdapterInactive e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
 	}
 	
 	public static void initNameService() {
-		try {
-			// Get a reference to the naming service
-			org.omg.CORBA.Object nameServiceObj;
-			nameServiceObj = orb.resolve_initial_references("NameService");
-		
-			if(nameServiceObj == null) {
-				System.err.println("Name Service object == null");
-				return;
-			}
+		if(nameService == null) {
+			try {
+				// Get a reference to the naming service
+				org.omg.CORBA.Object nameServiceObj;
+				nameServiceObj = orb.resolve_initial_references("NameService");
 			
-			// Use NamingContextExt which is part of the Interoperable Naming Service (INS) specification
-			nameService = NamingContextExtHelper.narrow(nameServiceObj);
-			if(nameService == null) {
-				System.err.println("Name service == null");
-				return;
+				if(nameServiceObj == null) {
+					System.err.println("Name Service object == null");
+					return;
+				}
+				
+				// Use NamingContextExt which is part of the Interoperable Naming Service (INS) specification
+				nameService = NamingContextExtHelper.narrow(nameServiceObj);
+				if(nameService == null) {
+					System.err.println("Name service == null");
+					return;
+				}
+			} catch (InvalidName e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
 			}
-		} catch (InvalidName e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
 		}
 	}
 	

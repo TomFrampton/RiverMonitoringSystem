@@ -22,6 +22,7 @@ public class LMSController {
 	}
 	
 	public void registerSensor(String zone, Sensor sensor) {
+		System.out.println(this);
 		if(!this.sensors.containsKey(zone)) {
 			this.sensors.put(zone, new ArrayList<Sensor>());
 		}

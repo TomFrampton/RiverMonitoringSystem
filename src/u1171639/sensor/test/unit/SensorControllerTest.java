@@ -7,13 +7,14 @@ import org.junit.Before;
 import org.junit.Test;
 
 import u1171639.sensor.main.java.controller.SensorController;
+import u1171639.sensor.main.java.monitor.SimulatedWaterLevelMonitor;
 
 public class SensorControllerTest {
 	private SensorController controller;
 	
 	@Before
 	public void setUp() throws Exception {
-		this.controller = new SensorController(null, null);
+		this.controller = new SensorController(null, new  SimulatedWaterLevelMonitor());
 	}
 
 	@After

@@ -26,4 +26,22 @@ public class MockSensor implements Sensor {
 		this.alarmRaised = alarmRaised;
 	}
 
+	@Override
+	public void activate() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void deactivate() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public boolean isActive() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
 }

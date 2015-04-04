@@ -2,6 +2,8 @@ package u1171639.rmc.test.integration;
 
 import static org.junit.Assert.*;
 
+import java.util.List;
+
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -9,6 +11,7 @@ import org.junit.Test;
 import u1171639.lms.main.java.controller.LMSController;
 import u1171639.lms.main.java.model.CorbaRMC;
 import u1171639.lms.main.java.model.RMC;
+import u1171639.lms.main.java.model.Sensor;
 import u1171639.lms.main.java.service.LMSService;
 import u1171639.rmc.test.mocks.MockRMC;
 import u1171639.sensor.main.java.controller.SensorController;
@@ -22,10 +25,11 @@ public class SensorLMSTest {
 	private MockRMC rmc;
 	
 	// LMS objects
+	private LMSController lmsController;
 	
 	// Sensor objects
-	private SimulatedWaterLevelMonitor monitor1;
-	private SimulatedWaterLevelMonitor monitor2;
+	private SensorController sensor1;
+	private SensorController sensor2;
 	
 	// Lock for each sensor
 	private Object lock1 = new Object();
@@ -41,14 +45,16 @@ public class SensorLMSTest {
 		u1171639.lms.main.java.utils.CorbaUtils.initNameService();
 		
 		this.rmc = new MockRMC();
-		LMSController controller = new LMSController(this.rmc);
-		final LMSService lmsService = new LMSService(controller);
+		this.lmsController = new LMSController(this.rmc);
+		final LMSService lmsService = new LMSService(lmsController);
 		new Thread(new Runnable() {
 			@Override
 			public void run() {
 				lmsService.listen();
 			}
 		}).start();
+		// Brief wait while lmsService sets up
+		Thread.sleep(100);
 				
 		// Mock up two sensors
 		u1171639.sensor.main.java.utils.CorbaUtils.initOrb(args);
@@ -60,8 +66,14 @@ public class SensorLMSTest {
 		SensorConfig.setZone("Zone1");
 		
 		// Sensor 1
-		this.monitor1 = mockSensor(this.lock1);
-		this.monitor2 = mockSensor(this.lock2);
+		this.sensor1 = mockSensor(this.lock1);
+		this.sensor2 = mockSensor(this.lock2);
+		
+		SimulatedWaterLevelMonitor monitor1 = (SimulatedWaterLevelMonitor) this.sensor1.getMonitor();
+		SimulatedWaterLevelMonitor monitor2 = (SimulatedWaterLevelMonitor) this.sensor2.getMonitor();
+		
+		monitor1.monitorWaterLevel();
+		monitor2.monitorWaterLevel();
 	}
 
 	@After
@@ -70,22 +82,40 @@ public class SensorLMSTest {
 	
 	@Test
 	public void testRaiseAlarm() throws InterruptedException {
-		this.monitor1.setWaterLevel(70);
+		SimulatedWaterLevelMonitor monitor1 = (SimulatedWaterLevelMonitor) this.sensor1.getMonitor();
+		SimulatedWaterLevelMonitor monitor2 = (SimulatedWaterLevelMonitor) this.sensor2.getMonitor();
+		
+		monitor1.setWaterLevel(70);
 		synchronized(lock1) { lock1.wait(); }
 		assertFalse(this.rmc.isAlarmRaised());
 		
-		this.monitor1.setWaterLevel(69);
-		this.monitor2.setWaterLevel(70);
+		monitor1.setWaterLevel(69);
+		monitor2.setWaterLevel(70);
 		synchronized(lock2) { lock2.wait(); }
 		assertFalse(this.rmc.isAlarmRaised());
 		
-		this.monitor1.setWaterLevel(70);
+		monitor1.setWaterLevel(70);
 		synchronized(lock1) { lock1.wait(); }
 		synchronized(lock2) { lock2.wait(); }
 		assertTrue(this.rmc.isAlarmRaised());
 	}
 	
-	private SimulatedWaterLevelMonitor mockSensor(final Object lock) {
+	@Test
+	public void testRemoteSensorActivation() throws InterruptedException {
+		List<Sensor> sensors = this.lmsController.getSensorsByZone("Zone1");
+		
+		sensors.get(0).deactivate();
+		assertFalse(this.sensor1.isActive());
+		assertFalse(sensors.get(0).isActive());
+		
+		sensors.get(0).activate();
+		assertTrue(this.sensor1.isActive());
+		assertTrue(sensors.get(0).isActive());
+		
+		
+	}
+	
+	private SensorController mockSensor(final Object lock) {
 		CorbaLMS lms = new CorbaLMS("LMSServer", null);
 		SimulatedWaterLevelMonitor monitor = new SimulatedWaterLevelMonitor();
 
@@ -104,12 +134,11 @@ public class SensorLMSTest {
 		SensorService sensorService = new SensorService(sensorController);
 		
 		monitor.setController(sensorController);
-		monitor.monitorWaterLevel();
 		
 		String ior = sensorService.listen();
 		lms.setServiceIOR(ior);
 		lms.connect();
 		
-		return monitor;
+		return sensorController;
 	}
 }
