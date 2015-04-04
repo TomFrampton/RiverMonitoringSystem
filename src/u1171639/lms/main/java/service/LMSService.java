@@ -20,10 +20,9 @@ public class LMSService extends LMSPOA {
 	}
 	
 	public void listen() {
-		// Get the reference of the servant
-		org.omg.CORBA.Object servantRef;
 		try {
-			servantRef = CorbaUtils.getRootPOA().servant_to_reference(this);
+			// Get the reference of the servant
+			org.omg.CORBA.Object servantRef; servantRef = CorbaUtils.getRootPOA().servant_to_reference(this);
 			LMS ref = LMSHelper.narrow(servantRef);
 			CorbaUtils.registerWithNameService("LMSServer", ref);
 			
