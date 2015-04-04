@@ -9,6 +9,8 @@ import u1171639.lms.main.java.corba.LMSHelper;
 import u1171639.lms.main.java.corba.LMSPOA;
 import u1171639.lms.main.java.model.CorbaSensor;
 import u1171639.lms.main.java.utils.CorbaUtils;
+import u1171639.lms.main.java.utils.Logger;
+import u1171639.lms.main.java.utils.Logger.LogLevel;
 
 public class LMSService extends LMSPOA {
 	private LMSController controller;
@@ -24,6 +26,9 @@ public class LMSService extends LMSPOA {
 			servantRef = CorbaUtils.getRootPOA().servant_to_reference(this);
 			LMS ref = LMSHelper.narrow(servantRef);
 			CorbaUtils.registerWithNameService("LMSServer", ref);
+			
+			Logger.log(LogLevel.INFO, "LMS listening...");
+			
 			CorbaUtils.runOrb();
 		} catch (ServantNotActive | WrongPolicy e) {
 			// TODO Auto-generated catch block
@@ -38,9 +43,7 @@ public class LMSService extends LMSPOA {
 
 	@Override
 	public void register(String ior, String zone) {
-		CorbaSensor sensor = new CorbaSensor();
-		sensor.setIOR(CorbaUtils.getOrb().string_to_object(ior));
-		
+		CorbaSensor sensor = new CorbaSensor(CorbaUtils.getOrb().string_to_object(ior));
 		controller.registerSensor(zone, sensor);
 	}
 }

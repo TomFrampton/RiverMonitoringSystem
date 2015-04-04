@@ -14,4 +14,10 @@ public class RealWaterLevelMonitor implements WaterLevelMonitor {
 		return 0;
 	}
 
+	@Override
+	public boolean isAlarmRaised() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
 }

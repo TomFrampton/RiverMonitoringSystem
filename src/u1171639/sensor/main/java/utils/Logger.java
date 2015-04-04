@@ -1,6 +1,6 @@
 package u1171639.sensor.main.java.utils;
 
-public class SensorLogger {
+public class Logger {
 	
 	public enum LogLevel {
 		DEBUG,
@@ -14,6 +14,6 @@ public class SensorLogger {
 	}
 	
 	public static void log(LogLevel level, String message) {
-		SensorLogger.log(level.toString() + ": " + message);
+		Logger.log(level.toString() + ": " + message);
 	}
 }

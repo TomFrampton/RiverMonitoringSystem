@@ -16,22 +16,22 @@ public class SensorService extends SensorPOA {
 		this.controller = controller;
 	}
 	
-	public void listen() {
-		// Get the reference of the servant
-		org.omg.CORBA.Object servantRef;
+	public String listen() {
 		try {
-			servantRef = CorbaUtils.getRootPOA().servant_to_reference(this);
+			// Get the reference of the servant
+			org.omg.CORBA.Object servantRef = CorbaUtils.getRootPOA().servant_to_reference(this);
 			Sensor ref = SensorHelper.narrow(servantRef);
+			return CorbaUtils.getOrb().object_to_string(ref);
 			
 		} catch (ServantNotActive | WrongPolicy e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+			return null;
 		}
 	}
-	
+
 	@Override
-	public String hello() {
-		// TODO Auto-generated method stub
-		return null;
+	public boolean isAlarmRaised() {
+		return this.controller.isAlarmRaised();
 	}
 }

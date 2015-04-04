@@ -8,10 +8,13 @@ public class CorbaLMS implements LMS {
 	private u1171639.lms.main.java.corba.LMS lms = null;
 	private org.omg.CORBA.Object lmsIOR = null;
 	
+	private String serviceIOR;
+	
 	private String servantName;
 	
-	public CorbaLMS(String servantName) {
+	public CorbaLMS(String servantName, String serviceIOR) {
 		this.servantName = servantName;
+		this.serviceIOR = serviceIOR;
 	}
 	
 	@Override
@@ -21,6 +24,7 @@ public class CorbaLMS implements LMS {
 		}
 		
 		this.lms = LMSHelper.narrow(this.lmsIOR);
+		lms.register(this.serviceIOR, SensorConfig.getZone());
 	}
 	
 	@Override
@@ -31,5 +35,9 @@ public class CorbaLMS implements LMS {
 	@Override
 	public void raiseAlarm() {
 		lms.raiseAlarm(SensorConfig.getZone());
+	}
+	
+	public void setServiceIOR(String serviceIOR) {
+		this.serviceIOR = serviceIOR;
 	}
 }

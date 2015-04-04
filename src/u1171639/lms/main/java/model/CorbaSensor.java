@@ -1,29 +1,34 @@
 package u1171639.lms.main.java.model;
 
+import u1171639.sensor.main.java.corba.SensorHelper;
+
 public class CorbaSensor implements Sensor {
-	
 	private org.omg.CORBA.Object ior;
+	private u1171639.sensor.main.java.corba.Sensor sensor;
+	
+	public CorbaSensor(org.omg.CORBA.Object ior) {
+		this.ior = ior;
+	}
 	
 	@Override
 	public void connect() {
-		// TODO Auto-generated method stub
-		
+		if(this.sensor == null) {
+			this.sensor = SensorHelper.narrow(this.ior);
+		}
 	}
 
 	@Override
 	public void disconnect() {
-		// TODO Auto-generated method stub
-		
+		this.sensor = null;	
 	}
 
 	@Override
 	public boolean isAlarmRaised() {
-		// TODO Auto-generated method stub
-		return false;
+		try {
+			connect();
+			return this.sensor.isAlarmRaised();
+		} finally {
+			disconnect();
+		}
 	}
-	
-	public void setIOR(org.omg.CORBA.Object ior) {
-		this.ior = ior;
-	}
-
 }

@@ -3,20 +3,17 @@ package u1171639.sensor.main.java.monitor;
 import java.util.Random;
 import java.util.Timer;
 
+import u1171639.sensor.main.java.controller.SensorController;
 import u1171639.sensor.main.java.model.LMS;
 import u1171639.sensor.main.java.utils.SensorConfig;
-import u1171639.sensor.main.java.utils.SensorLogger;
-import u1171639.sensor.main.java.utils.SensorLogger.LogLevel;
+import u1171639.sensor.main.java.utils.Logger;
+import u1171639.sensor.main.java.utils.Logger.LogLevel;
 
 public class SimulatedWaterLevelMonitor implements WaterLevelMonitor, Runnable {
 
 	private float waterLevel;
-	private LMS lms;
-	
-	public SimulatedWaterLevelMonitor(LMS lms) {
-		this.lms = lms;
-	}
-	
+	private SensorController controller;
+
 	@Override
 	public void monitorWaterLevel() {
 		Thread t = new Thread(this);
@@ -33,6 +30,11 @@ public class SimulatedWaterLevelMonitor implements WaterLevelMonitor, Runnable {
 			this.waterLevel = waterLevel;
 		}
 	}
+	
+	@Override
+	public boolean isAlarmRaised() {
+		return this.waterLevel >= SensorConfig.getWarningWaterLevel();
+	}
 
 	@Override
 	public void run() {
@@ -40,12 +42,12 @@ public class SimulatedWaterLevelMonitor implements WaterLevelMonitor, Runnable {
 			for(;;Thread.sleep(SensorConfig.getMonitoringInterval())) {
 				
 				if(this.waterLevel >= SensorConfig.getWarningWaterLevel()) {
-					SensorLogger.log(LogLevel.WARNING, "Water Level Reading Exceeded Warning Level - " + this.waterLevel);
-					SensorLogger.log(LogLevel.WARNING, "Raising Alarm At LMS");
+					Logger.log(LogLevel.WARNING, "Water Level Reading Exceeded Warning Level - " + this.waterLevel);
+					Logger.log(LogLevel.WARNING, "Raising Alarm At LMS");
 					
-					lms.raiseAlarm();
+					controller.raiseAlarm();
 				} else {
-					SensorLogger.log(LogLevel.INFO, "Water Level Reading - " + this.waterLevel);
+					Logger.log(LogLevel.INFO, "Water Level Reading - " + this.waterLevel);
 				}
 				
 				
@@ -55,5 +57,8 @@ public class SimulatedWaterLevelMonitor implements WaterLevelMonitor, Runnable {
 			e.printStackTrace();
 		}
 	}
-
+	
+	public void setController(SensorController controller) {
+		this.controller = controller;
+	}
 }

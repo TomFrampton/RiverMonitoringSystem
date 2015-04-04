@@ -10,6 +10,7 @@ import u1171639.sensor.main.java.model.LMS;
 import u1171639.sensor.main.java.model.MockLMS;
 import u1171639.sensor.main.java.monitor.SimulatedWaterLevelMonitor;
 import u1171639.sensor.main.java.utils.SensorConfig;
+import u1171639.sensor.main.java.controller.SensorController;
 
 public class SimulatedWaterLevelMonitorTest {
 
@@ -19,7 +20,8 @@ public class SimulatedWaterLevelMonitorTest {
 	
 	@Before
 	public void setUp() throws Exception {
-		this.monitor = new SimulatedWaterLevelMonitor(new MockLMS() {
+		this.monitor = new SimulatedWaterLevelMonitor();
+		this.monitor.setController(new SensorController(null, null) {
 			@Override
 			public void raiseAlarm() {
 				alarmRaised = true;
