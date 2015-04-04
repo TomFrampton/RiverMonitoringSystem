@@ -1,5 +1,6 @@
 module rmc {
 	interface RMC {
 		void raiseAlarm();
+		void register(in string ior, in string locality);
 	};
 };

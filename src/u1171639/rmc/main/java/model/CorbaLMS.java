@@ -1,17 +1,25 @@
 package u1171639.rmc.main.java.model;
 
-public class CorbaLMS implements LMS {
+import u1171639.lms.main.java.corba.LMSHelper;
 
+public class CorbaLMS implements LMS {
+	private org.omg.CORBA.Object ior;
+	private u1171639.lms.main.java.corba.LMS lms;
+	
+	public CorbaLMS(org.omg.CORBA.Object ior) {
+		this.ior = ior;
+	}
+	
 	@Override
 	public void connect() {
-		// TODO Auto-generated method stub
-		
+		if(this.lms == null) {
+			this.lms = LMSHelper.narrow(this.ior);
+		}
 	}
 
 	@Override
 	public void disconnect() {
-		// TODO Auto-generated method stub
-		
+		this.lms = null;	
 	}
 
 }
