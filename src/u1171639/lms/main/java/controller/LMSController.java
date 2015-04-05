@@ -8,7 +8,8 @@ import java.util.List;
 import u1171639.lms.main.java.model.CorbaRMC;
 import u1171639.lms.main.java.model.RMC;
 import u1171639.lms.main.java.model.Sensor;
-import u1171639.lms.main.java.service.LMSService;
+import u1171639.lms.main.java.service.LMS_RMCService;
+import u1171639.lms.main.java.service.LMS_SensorService;
 import u1171639.lms.main.java.utils.CorbaUtils;
 import u1171639.lms.main.java.utils.Logger;
 import u1171639.lms.main.java.utils.Logger.LogLevel;
@@ -63,9 +64,15 @@ public class LMSController {
 		CorbaUtils.initRootPOA();
 		CorbaUtils.initNameService();
 		
-		RMC rmc = new CorbaRMC();
+		RMC rmc = new CorbaRMC("RMCServer", null);
 		LMSController controller = new LMSController(rmc);
-		LMSService service = new LMSService(controller);
-		service.listen();
+		
+		// Start service that listens to the sensors
+		LMS_SensorService lmsSensorService = new LMS_SensorService(controller);
+		lmsSensorService.listen();
+	
+		// Start service that listens to the RMC
+//		LMS_RMCService lmsRmcService = new LMS_RMCService(controller);
+//		String ior = lmsRmcService.listen();
 	}
 }

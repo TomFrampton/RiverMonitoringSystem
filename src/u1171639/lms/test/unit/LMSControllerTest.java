@@ -20,6 +20,18 @@ public class LMSControllerTest {
 			@Override
 			public void raiseAlarm() {
 				alarmRaised = true;
+			}
+
+			@Override
+			public void connect() {
+				// TODO Auto-generated method stub
+				
+			}
+
+			@Override
+			public void disconnect() {
+				// TODO Auto-generated method stub
+				
 			}	
 		});
 	}

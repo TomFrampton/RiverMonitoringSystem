@@ -12,7 +12,7 @@ import u1171639.lms.main.java.controller.LMSController;
 import u1171639.lms.main.java.model.CorbaRMC;
 import u1171639.lms.main.java.model.RMC;
 import u1171639.lms.main.java.model.Sensor;
-import u1171639.lms.main.java.service.LMSService;
+import u1171639.lms.main.java.service.LMS_SensorService;
 import u1171639.rmc.test.mocks.MockRMC;
 import u1171639.sensor.main.java.controller.SensorController;
 import u1171639.sensor.main.java.model.CorbaLMS;
@@ -46,7 +46,7 @@ public class SensorLMSTest {
 		
 		this.rmc = new MockRMC();
 		this.lmsController = new LMSController(this.rmc);
-		final LMSService lmsService = new LMSService(lmsController);
+		final LMS_SensorService lmsService = new LMS_SensorService(lmsController);
 		new Thread(new Runnable() {
 			@Override
 			public void run() {

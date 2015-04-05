@@ -1,0 +1,5 @@
+module lms_rmc {
+	interface LMS_RMC {
+
+	};
+};

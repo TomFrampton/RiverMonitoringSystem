@@ -17,4 +17,16 @@ public class MockRMC implements RMC {
 	public void resetAlarm() {
 		this.alarmRaised = false;
 	}
+
+	@Override
+	public void connect() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void disconnect() {
+		// TODO Auto-generated method stub
+		
+	}
 }

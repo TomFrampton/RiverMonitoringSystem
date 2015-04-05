@@ -1,5 +1,5 @@
-module lms {
-	interface LMS {
+module lms_sensor {
+	interface LMS_Sensor {
 		void raiseAlarm(in string zone);
 		void register(in string ior, in string zone);
 	};

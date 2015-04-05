@@ -1,11 +1,11 @@
 package u1171639.sensor.main.java.model;
 
-import u1171639.lms.main.java.corba.LMSHelper;
+import u1171639.lms.main.java.corba.LMS_SensorHelper;
 import u1171639.sensor.main.java.utils.CorbaUtils;
 import u1171639.sensor.main.java.utils.SensorConfig;
 
 public class CorbaLMS implements LMS {
-	private u1171639.lms.main.java.corba.LMS lms = null;
+	private u1171639.lms.main.java.corba.LMS_Sensor lms = null;
 	private org.omg.CORBA.Object lmsIOR = null;
 	
 	private String serviceIOR;
@@ -23,7 +23,7 @@ public class CorbaLMS implements LMS {
 			this.lmsIOR = CorbaUtils.resolveService(this.servantName);
 		}
 		
-		this.lms = LMSHelper.narrow(this.lmsIOR);
+		this.lms = LMS_SensorHelper.narrow(this.lmsIOR);
 		lms.register(this.serviceIOR, SensorConfig.getZone());
 	}
 	
