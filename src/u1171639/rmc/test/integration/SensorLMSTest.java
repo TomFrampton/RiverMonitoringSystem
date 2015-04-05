@@ -50,7 +50,7 @@ public class SensorLMSTest {
 		new Thread(new Runnable() {
 			@Override
 			public void run() {
-				lmsService.listen();
+				lmsService.listen("Locality1_LMSServer");
 			}
 		}).start();
 		// Brief wait while lmsService sets up
@@ -63,6 +63,7 @@ public class SensorLMSTest {
 		
 		SensorConfig.setMonitoringInterval(50);
 		SensorConfig.setWarningWaterLevel(70);
+		SensorConfig.setLocality("Locality1");
 		SensorConfig.setZone("Zone1");
 		
 		// Sensor 1
@@ -125,7 +126,7 @@ public class SensorLMSTest {
 	}
 	
 	private SensorController mockSensor(final Object lock) {
-		CorbaLMS lms = new CorbaLMS("LMSServer", null);
+		CorbaLMS lms = new CorbaLMS(SensorConfig.getLocality() + "_LMSServer", null);
 		SimulatedWaterLevelMonitor monitor = new SimulatedWaterLevelMonitor();
 
 		// Modify sensor controller to notify us when the alarm has been raised as raising an

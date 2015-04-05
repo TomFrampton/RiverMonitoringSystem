@@ -1,5 +1,12 @@
 package u1171639.sensor.main.java.controller;
 
+import org.apache.commons.cli.CommandLine;
+import org.apache.commons.cli.CommandLineParser;
+import org.apache.commons.cli.GnuParser;
+import org.apache.commons.cli.Options;
+import org.apache.commons.cli.ParseException;
+
+import u1171639.lms.main.java.utils.LMSConfig;
 import u1171639.sensor.main.java.model.CorbaLMS;
 import u1171639.sensor.main.java.model.LMS;
 import u1171639.sensor.main.java.monitor.SimulatedWaterLevelMonitor;
@@ -47,6 +54,39 @@ public class SensorController {
 	}
 	
 	public static void main(String[] args) {
+		Options options = new Options();
+		options.addOption("locality", true, "The name of the Locality this Sensor resides in.");
+		options.addOption("zone", true, "The name of the Zone this Sensor resides in.");
+		options.addOption("ORBInitialPort", true, "Port number of the Name Service.");
+		CommandLineParser parser = new GnuParser();
+		
+		try {
+			CommandLine cmd = parser.parse(options, args);
+			
+			if(!cmd.hasOption("locality")) {
+				System.err.println("-locality option required for Sensor.");
+				System.exit(1);
+			} else {
+				SensorConfig.setLocality(cmd.getOptionValue("locality"));
+			}
+			
+			if(!cmd.hasOption("zone")) {
+				System.err.println("-zone option required for Sensor.");
+				System.exit(1);
+			} else {
+				SensorConfig.setZone(cmd.getOptionValue("zone"));
+			}
+			
+			if(!cmd.hasOption("ORBInitialPort")) {
+				System.err.println("-ORBInitialPort option required.");
+				System.exit(1);
+			}
+			
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
 		/** Set monitoring configuration */
 		// Read value every second and raise alarm if waterLevel >= 70
 		SensorConfig.setMonitoringInterval(5000);
@@ -57,7 +97,7 @@ public class SensorController {
 		CorbaUtils.initRootPOA();
 		CorbaUtils.initNameService();
 		
-		CorbaLMS lms = new CorbaLMS("LMSServer", null);
+		CorbaLMS lms = new CorbaLMS(SensorConfig.getLocality() + "_LMSServer", null);
 		SimulatedWaterLevelMonitor monitor = new SimulatedWaterLevelMonitor();
 		
 		SensorController controller = new SensorController(lms, monitor);

@@ -5,6 +5,12 @@ import java.util.Hashtable;
 import java.util.Iterator;
 import java.util.List;
 
+import org.apache.commons.cli.CommandLine;
+import org.apache.commons.cli.CommandLineParser;
+import org.apache.commons.cli.GnuParser;
+import org.apache.commons.cli.Options;
+import org.apache.commons.cli.ParseException;
+
 import u1171639.lms.main.java.model.CorbaRMC;
 import u1171639.lms.main.java.model.RMC;
 import u1171639.lms.main.java.model.Sensor;
@@ -12,6 +18,7 @@ import u1171639.lms.main.java.model.Zone;
 import u1171639.lms.main.java.service.LMS_RMCService;
 import u1171639.lms.main.java.service.LMS_SensorService;
 import u1171639.lms.main.java.utils.CorbaUtils;
+import u1171639.lms.main.java.utils.LMSConfig;
 import u1171639.lms.main.java.utils.Logger;
 import u1171639.lms.main.java.utils.Logger.LogLevel;
 
@@ -75,6 +82,32 @@ public class LMSController {
 	}
 	
 	public static void main(String[] args) {
+		Options options = new Options();
+		options.addOption("locality", true, "The name of the Locality this LMS resides in.");
+		options.addOption("ORBInitialPort", true, "Port number of the Name Service.");
+		CommandLineParser parser = new GnuParser();
+		
+		try {
+			CommandLine cmd = parser.parse(options, args);
+			
+			if(!cmd.hasOption("locality")) {
+				System.err.println("-locality option required for LMS.");
+				System.exit(1);
+			} else {
+				LMSConfig.setLocality(cmd.getOptionValue("locality"));
+				System.out.println(LMSConfig.getLocality());
+			}
+			
+			if(!cmd.hasOption("ORBInitialPort")) {
+				System.err.println("-ORBInitialPort option required.");
+				System.exit(1);
+			}
+			
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+				
 		CorbaUtils.initOrb(args);
 		CorbaUtils.initRootPOA();
 		CorbaUtils.initNameService();
@@ -83,8 +116,12 @@ public class LMSController {
 		LMSController controller = new LMSController(rmc);
 		
 		// Start service that listens to the sensors
+		String lmsSensorServiceName = LMSConfig.getLocality() + "_LMSServer";
+		
 		LMS_SensorService lmsSensorService = new LMS_SensorService(controller);
-		lmsSensorService.listen();
+		lmsSensorService.listen(lmsSensorServiceName);
+		
+		Logger.log(LogLevel.INFO, "LMS in " + LMSConfig.getLocality() + " listening...");
 	
 		// Start service that listens to the RMC
 		LMS_RMCService lmsRmcService = new LMS_RMCService(controller);

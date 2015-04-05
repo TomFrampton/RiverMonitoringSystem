@@ -19,14 +19,12 @@ public class LMS_SensorService extends LMS_SensorPOA {
 		this.controller = controller;
 	}
 	
-	public void listen() {
+	public void listen(String serviceName) {
 		try {
 			// Get the reference of the servant
 			org.omg.CORBA.Object servantRef; servantRef = CorbaUtils.getRootPOA().servant_to_reference(this);
 			LMS_Sensor ref = LMS_SensorHelper.narrow(servantRef);
-			CorbaUtils.registerWithNameService("LMSServer", ref);
-			
-			Logger.log(LogLevel.INFO, "LMS listening...");
+			CorbaUtils.registerWithNameService(serviceName, ref);
 			
 			CorbaUtils.runOrb();
 		} catch (ServantNotActive | WrongPolicy e) {
