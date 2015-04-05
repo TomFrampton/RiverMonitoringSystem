@@ -20,17 +20,26 @@ public class LMS_SensorService extends LMS_SensorPOA {
 	}
 	
 	public void listen(String serviceName) {
-		try {
-			// Get the reference of the servant
-			org.omg.CORBA.Object servantRef; servantRef = CorbaUtils.getRootPOA().servant_to_reference(this);
-			LMS_Sensor ref = LMS_SensorHelper.narrow(servantRef);
-			CorbaUtils.registerWithNameService(serviceName, ref);
-			
-			CorbaUtils.runOrb();
-		} catch (ServantNotActive | WrongPolicy e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		// Start service on separate thread
+		Thread serviceThread = new Thread(new Runnable() {
+
+			@Override
+			public void run() {
+				try {
+					// Get the reference of the servant
+					org.omg.CORBA.Object servantRef; servantRef = CorbaUtils.getRootPOA().servant_to_reference(LMS_SensorService.this);
+					LMS_Sensor ref = LMS_SensorHelper.narrow(servantRef);
+					CorbaUtils.registerWithNameService(serviceName, ref);
+					
+					CorbaUtils.runOrb();
+				} catch (ServantNotActive | WrongPolicy e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+		});
+		
+		serviceThread.start();
 	}
 	
 	@Override

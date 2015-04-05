@@ -95,7 +95,6 @@ public class LMSController {
 				System.exit(1);
 			} else {
 				LMSConfig.setLocality(cmd.getOptionValue("locality"));
-				System.out.println(LMSConfig.getLocality());
 			}
 			
 			if(!cmd.hasOption("ORBInitialPort")) {

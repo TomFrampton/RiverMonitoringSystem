@@ -2,7 +2,7 @@ package u1171639.lms.main.java.model;
 
 import u1171639.lms.main.java.utils.LMSConfig;
 import u1171639.rmc.main.java.corba.RMCHelper;
-import u1171639.sensor.main.java.utils.CorbaUtils;
+import u1171639.lms.main.java.utils.CorbaUtils;
 
 public class CorbaRMC implements RMC {
 	private u1171639.rmc.main.java.corba.RMC rmc = null;
@@ -34,8 +34,7 @@ public class CorbaRMC implements RMC {
 	
 	@Override
 	public void raiseAlarm() {
-		// TODO Auto-generated method stub
-		
+		this.rmc.raiseAlarm();
 	}
 	
 	public void setServiceIOR(String serviceIOR) {

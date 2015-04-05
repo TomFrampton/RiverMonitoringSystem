@@ -20,7 +20,7 @@ public class RMCController {
 	}
 	
 	public void raiseAlarm() {
-		
+		Logger.log(LogLevel.INFO, "ALARM RAISED AT RMC");
 	}
 	
 	public void registerLMS(String locality, LMS lms) {
