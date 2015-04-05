@@ -33,7 +33,7 @@ public class LMSController {
 		
 		zone.getSensors().add(sensor);	
 		
-		Logger.log(LogLevel.INFO, "Sensor registered in " + zone);
+		Logger.log(LogLevel.INFO, "Sensor registered in " + zoneName);
 	}
 	
 	public List<Sensor> getSensorsByZone(String zoneName) {
@@ -58,23 +58,20 @@ public class LMSController {
 	}
 	
 	public void alarmRaised(String zoneName) {
-		// Check alarm status on all sensors in the zone
-		List<Sensor> zoneSensors = this.getSensorsByZone(zoneName);
-		Iterator<Sensor> it = zoneSensors.iterator();
-		
-		Logger.log(LogLevel.WARNING, "Alarm raised in " + zoneName);
-		
-		while(it.hasNext()) {
-			Sensor sensor = it.next();
-			if(sensor.isActive() && !sensor.isAlarmRaised()) {
+		Zone zone = this.getZoneByName(zoneName);
+		if(zone != null) {
+			Logger.log(LogLevel.WARNING, "Alarm raised in " + zoneName);
+			
+			if(zone.confirmAlarm()) {
+				// Alarm condition confirmed by all sensors in zone
+				Logger.log(LogLevel.WARNING, "ALARM CONDITION CONFIRMED IN " + zoneName.toUpperCase() + ". INFORMING RMC");
+				rmc.raiseAlarm();
+			} else {
 				// Write log about unconfirmed alarm condition
 				Logger.log(LogLevel.INFO, "Alarm in " + zoneName + " unconfirmed. Standing down.");
-				return;
 			}
 		}
-		// Alarm condition confirmed by all sensors in zone
-		Logger.log(LogLevel.WARNING, "ALARM CONDITION CONFIRMED IN " + zoneName.toUpperCase() + ". INFORMING RMC");
-		rmc.raiseAlarm();
+		
 	}
 	
 	public static void main(String[] args) {
