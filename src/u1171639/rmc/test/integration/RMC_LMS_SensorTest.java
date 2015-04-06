@@ -30,6 +30,7 @@ public class RMC_LMS_SensorTest {
 	// RMC objects
 	private RMCController rmcController;
 	private CorbaRMC rmc;
+	private boolean rmcAlarmRaised = false;
 	
 	// LMS objects
 	private LMSController lmsController;
@@ -51,7 +52,12 @@ public class RMC_LMS_SensorTest {
 		u1171639.rmc.main.java.utils.CorbaUtils.initRootPOA();
 		u1171639.rmc.main.java.utils.CorbaUtils.initNameService();
 		
-		this.rmcController = new RMCController();
+		this.rmcController = new RMCController() {
+			@Override
+			public void raiseAlarm() {
+				rmcAlarmRaised = true;
+			}
+		};
 		RMCService service = new RMCService(this.rmcController);
 		new Thread(new Runnable() {
 			@Override
@@ -99,6 +105,7 @@ public class RMC_LMS_SensorTest {
 		Thread.sleep(100);
 		
 		this.rmc.setServiceIOR(lmsRmcServiceIor[0]);
+		this.rmc.connect();
 				
 		// Mock up two sensors
 		u1171639.sensor.main.java.utils.CorbaUtils.initOrb(args);
@@ -127,7 +134,34 @@ public class RMC_LMS_SensorTest {
 	}
 	
 	@Test
-	public void t() {
+	public void testRaiseAlarm() throws InterruptedException {
+		SimulatedWaterLevelMonitor monitor1 = (SimulatedWaterLevelMonitor) this.sensor1.getMonitor();
+		SimulatedWaterLevelMonitor monitor2 = (SimulatedWaterLevelMonitor) this.sensor2.getMonitor();
+		
+		monitor1.setWaterLevel(70);
+		synchronized(lock1) { lock1.wait(); }
+		assertFalse(this.rmcAlarmRaised);
+		
+		monitor1.setWaterLevel(69);
+		monitor2.setWaterLevel(70);
+		synchronized(lock2) { lock2.wait(); }
+		assertFalse(this.rmcAlarmRaised);
+		
+		monitor1.setWaterLevel(70);
+		synchronized(lock1) { lock1.wait(); }
+		synchronized(lock2) { lock2.wait(); }
+		assertTrue(this.rmcAlarmRaised);
+		
+		// Reset alarm
+		this.rmcAlarmRaised = false;
+		monitor2.setWaterLevel(69);
+		synchronized(lock1) { lock1.wait(); }
+		assertFalse(this.rmcAlarmRaised);
+		
+		this.lmsController.getSensorsByZone("Zone1").get(1).deactivate();
+		synchronized(lock1) { lock1.wait(); }
+		assertTrue(this.rmcAlarmRaised);
+		
 		
 	}
 	

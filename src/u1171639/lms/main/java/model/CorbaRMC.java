@@ -24,7 +24,7 @@ public class CorbaRMC implements RMC {
 		}
 		
 		this.rmc = RMCHelper.narrow(this.rmcIOR);
-		rmc.register(this.serviceIOR, LMSConfig.getLocality());
+		this.rmc.register(this.serviceIOR, LMSConfig.getLocality());
 	}
 	
 	@Override

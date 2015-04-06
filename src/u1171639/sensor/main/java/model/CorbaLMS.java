@@ -24,7 +24,7 @@ public class CorbaLMS implements LMS {
 		}
 		
 		this.lms = LMS_SensorHelper.narrow(this.lmsIOR);
-		lms.register(this.serviceIOR, SensorConfig.getZone());
+		this.lms.register(this.serviceIOR, SensorConfig.getZone());
 	}
 	
 	@Override
