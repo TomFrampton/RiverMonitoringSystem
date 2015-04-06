@@ -20,7 +20,7 @@ import u1171639.sensor.main.java.monitor.SimulatedWaterLevelMonitor;
 import u1171639.sensor.main.java.service.SensorService;
 import u1171639.sensor.main.java.utils.SensorConfig;
 
-public class SensorLMSTest {
+public class LMS_SensorTest {
 	// RMC stub
 	private MockRMC rmc;
 	

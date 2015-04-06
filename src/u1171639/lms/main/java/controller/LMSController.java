@@ -40,7 +40,7 @@ public class LMSController {
 		
 		zone.getSensors().add(sensor);	
 		
-		Logger.log(LogLevel.INFO, "Sensor registered in " + zoneName);
+		Logger.log(LogLevel.INFO, "Sensor registered in " + LMSConfig.getLocality() + " - " + zoneName);
 	}
 	
 	public List<Sensor> getSensorsByZone(String zoneName) {
