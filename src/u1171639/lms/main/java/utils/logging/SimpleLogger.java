@@ -1,6 +1,6 @@
-package u1171639.lms.main.java.utils;
+package u1171639.lms.main.java.utils.logging;
 
-public class Logger {
+public class SimpleLogger {
 	
 	public enum LogLevel {
 		DEBUG,
@@ -14,6 +14,6 @@ public class Logger {
 	}
 	
 	public static void log(LogLevel level, String message) {
-		Logger.log(level.toString() + ": " + message);
+		SimpleLogger.log(level.toString() + ": " + message);
 	}
 }

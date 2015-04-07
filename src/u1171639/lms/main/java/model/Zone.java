@@ -4,8 +4,8 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-import u1171639.lms.main.java.utils.Logger;
-import u1171639.lms.main.java.utils.Logger.LogLevel;
+import u1171639.lms.main.java.utils.logging.SimpleLogger;
+import u1171639.lms.main.java.utils.logging.SimpleLogger.LogLevel;
 
 public class Zone {
 	private String name;

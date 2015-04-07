@@ -1,5 +1,7 @@
 package u1171639.rmc.main.java.model;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.Callable;
 
 import u1171639.lms.main.java.corba.LMS_RMCHelper;
@@ -25,7 +27,7 @@ public class CorbaLMS implements LMS {
 	}
 	
 	@Override
-	public u1171639.rmc.main.java.model.Locality getLocalityInfo() {
+	public List<u1171639.rmc.main.java.model.Zone> getLocalityInfo() {
 		u1171639.lms.main.java.corba.Locality corbaLocality = this.communicate(new Callable<u1171639.lms.main.java.corba.Locality>() {
 			@Override
 			public u1171639.lms.main.java.corba.Locality call() throws Exception {
@@ -33,19 +35,16 @@ public class CorbaLMS implements LMS {
 			}
 		});
 		
-		// Convert corbaLocality to Locality model
-		u1171639.rmc.main.java.model.Locality locality = new u1171639.rmc.main.java.model.Locality();
+		List<Zone> zones = new ArrayList<Zone>();
 		
 		for(int i = 0; i < corbaLocality.zones.length; ++i) {
 			u1171639.rmc.main.java.model.Zone zone = new u1171639.rmc.main.java.model.Zone();
 			zone.setName(corbaLocality.zones[i].name);
 			zone.setAlarmRaised(corbaLocality.zones[i].alarmRaised);
-			locality.getZones().add(zone);
+			zones.add(zone);
 		}
 		
-		locality.setName(corbaLocality.name);
-		
-		return locality;
+		return zones;
 	}
 	
 	@Override

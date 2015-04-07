@@ -30,17 +30,17 @@ public class RMCControllerTest {
 	public void testRegisterSensor() {
 		LMS lms1 = new MockLMS();
 		this.controller.registerLMS("Locality1", lms1);
-		assertTrue(this.controller.getLMSByLocality("Locality1") == lms1);
-		assertTrue(this.controller.getLMSByLocality("Locality2") == null);
+		assertTrue(this.controller.getLocalityByName("Locality1").getLms() == lms1);
+		assertTrue(this.controller.getLocalityByName("Locality2") == null);
 		
 		LMS lms2 = new MockLMS();
 		this.controller.registerLMS("Locality2", lms2);
-		assertTrue(this.controller.getLMSByLocality("Locality1") == lms1);
-		assertTrue(this.controller.getLMSByLocality("Locality2") == lms2);
+		assertTrue(this.controller.getLocalityByName("Locality1").getLms() == lms1);
+		assertTrue(this.controller.getLocalityByName("Locality2").getLms() == lms2);
 		
 		LMS lms3 = new MockLMS();
 		this.controller.registerLMS("Locality2", lms3);
-		assertTrue(this.controller.getLMSByLocality("Locality1") == lms1);
-		assertTrue(this.controller.getLMSByLocality("Locality2") == lms3);
+		assertTrue(this.controller.getLocalityByName("Locality1").getLms() == lms1);
+		assertTrue(this.controller.getLocalityByName("Locality2").getLms() == lms3);
 	}
 }

@@ -1,7 +1,10 @@
 package u1171639.rmc.test.mocks;
 
+import java.util.List;
+
 import u1171639.rmc.main.java.model.LMS;
 import u1171639.rmc.main.java.model.Locality;
+import u1171639.rmc.main.java.model.Zone;
 
 public class MockLMS implements LMS {
 
@@ -18,15 +21,15 @@ public class MockLMS implements LMS {
 	}
 
 	@Override
-	public Locality getLocalityInfo() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
 	public void handleRaisedAlarm(String zone) {
 		// TODO Auto-generated method stub
 		
+	}
+
+	@Override
+	public List<Zone> getLocalityInfo() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

@@ -169,12 +169,12 @@ public class RMC_LMS_SensorTest {
 	
 	@Test
 	public void testGetLocalityInfo() throws InterruptedException {
-		LMS lms = this.rmcController.getLMSByLocality("Locality1");
+		Locality locality = this.rmcController.getLocalityByName("Locality1");
+		LMS lms = locality.getLms();
+		
 		assertTrue(lms != null);
 		
-		Locality locality = lms.getLocalityInfo();
-		assertTrue(locality.getName().equals("Locality1"));
-		
+		locality.updateLocalityInfo();
 		List<Zone> zones = locality.getZones();
 		assertTrue(zones.size() == 1);
 		assertFalse(zones.get(0).isAlarmRaised());
@@ -186,7 +186,7 @@ public class RMC_LMS_SensorTest {
 		monitor2.setWaterLevel(70);
 		synchronized(lock2) { lock2.wait(); }
 		
-		locality = lms.getLocalityInfo();
+		locality.updateLocalityInfo();
 		zones = locality.getZones();
 		assertTrue(zones.get(0).isAlarmRaised());
 	}

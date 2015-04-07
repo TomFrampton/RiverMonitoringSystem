@@ -10,8 +10,8 @@ import u1171639.lms.main.java.corba.LMS_SensorPOA;
 import u1171639.lms.main.java.model.CorbaSensor;
 import u1171639.lms.main.java.utils.CorbaUtils;
 import u1171639.lms.main.java.utils.LMSConfig;
-import u1171639.lms.main.java.utils.Logger;
-import u1171639.lms.main.java.utils.Logger.LogLevel;
+import u1171639.lms.main.java.utils.logging.SimpleLogger;
+import u1171639.lms.main.java.utils.logging.SimpleLogger.LogLevel;
 
 public class LMS_SensorService extends LMS_SensorPOA {
 	private LMSController controller;
@@ -32,7 +32,7 @@ public class LMS_SensorService extends LMS_SensorPOA {
 					LMS_Sensor ref = LMS_SensorHelper.narrow(servantRef);
 					CorbaUtils.registerWithNameService(serviceName, ref);
 					
-					Logger.log(LogLevel.INFO, "LMS listening in " + LMSConfig.getLocality() + "...");
+					SimpleLogger.log(LogLevel.INFO, "LMS listening in " + LMSConfig.getLocality() + "...");
 					
 					CorbaUtils.runOrb();
 				} catch (ServantNotActive | WrongPolicy e) {

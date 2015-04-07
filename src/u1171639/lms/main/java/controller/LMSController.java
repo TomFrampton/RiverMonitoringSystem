@@ -19,8 +19,8 @@ import u1171639.lms.main.java.service.LMS_RMCService;
 import u1171639.lms.main.java.service.LMS_SensorService;
 import u1171639.lms.main.java.utils.CorbaUtils;
 import u1171639.lms.main.java.utils.LMSConfig;
-import u1171639.lms.main.java.utils.Logger;
-import u1171639.lms.main.java.utils.Logger.LogLevel;
+import u1171639.lms.main.java.utils.logging.SimpleLogger;
+import u1171639.lms.main.java.utils.logging.SimpleLogger.LogLevel;
 
 public class LMSController {
 	private List<Zone> zones = new ArrayList<Zone>();
@@ -40,7 +40,7 @@ public class LMSController {
 		
 		zone.getSensors().add(sensor);	
 		
-		Logger.log(LogLevel.INFO, "Sensor registered in " + LMSConfig.getLocality() + " - " + zoneName);
+		SimpleLogger.log(LogLevel.INFO, "Sensor registered in " + LMSConfig.getLocality() + " - " + zoneName);
 	}
 	
 	public List<Sensor> getSensorsByZone(String zoneName) {
@@ -71,15 +71,15 @@ public class LMSController {
 	public void alarmRaised(String zoneName) {
 		Zone zone = this.getZoneByName(zoneName);
 		if(zone != null) {
-			Logger.log(LogLevel.WARNING, "Alarm raised in " + zoneName);
+			SimpleLogger.log(LogLevel.WARNING, "Alarm raised in " + zoneName);
 			
 			if(zone.confirmAlarm()) {
 				// Alarm condition confirmed by all sensors in zone
-				Logger.log(LogLevel.WARNING, "ALARM CONDITION CONFIRMED IN " + zoneName.toUpperCase() + ". INFORMING RMC");
+				SimpleLogger.log(LogLevel.WARNING, "ALARM CONDITION CONFIRMED IN " + zoneName.toUpperCase() + ". INFORMING RMC");
 				rmc.raiseAlarm(zoneName);
 			} else {
 				// Write log about unconfirmed alarm condition
-				Logger.log(LogLevel.INFO, "Alarm in " + zoneName + " unconfirmed. Standing down.");
+				SimpleLogger.log(LogLevel.INFO, "Alarm in " + zoneName + " unconfirmed. Standing down.");
 			}
 		}
 		
@@ -124,7 +124,7 @@ public class LMSController {
 		LMS_SensorService lmsSensorService = new LMS_SensorService(controller);
 		lmsSensorService.listen(lmsSensorServiceName);
 		
-		Logger.log(LogLevel.INFO, "LMS in " + LMSConfig.getLocality() + " listening...");
+		SimpleLogger.log(LogLevel.INFO, "LMS in " + LMSConfig.getLocality() + " listening...");
 	
 		// Start service that listens to the RMC
 		LMS_RMCService lmsRmcService = new LMS_RMCService(controller);
