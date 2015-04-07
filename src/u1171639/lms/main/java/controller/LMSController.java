@@ -64,6 +64,10 @@ public class LMSController {
 		return null;
 	}
 	
+	public List<Zone> getAllZones() {
+		return this.zones;
+	}
+	
 	public void alarmRaised(String zoneName) {
 		Zone zone = this.getZoneByName(zoneName);
 		if(zone != null) {
@@ -72,7 +76,7 @@ public class LMSController {
 			if(zone.confirmAlarm()) {
 				// Alarm condition confirmed by all sensors in zone
 				Logger.log(LogLevel.WARNING, "ALARM CONDITION CONFIRMED IN " + zoneName.toUpperCase() + ". INFORMING RMC");
-				rmc.raiseAlarm();
+				rmc.raiseAlarm(zoneName);
 			} else {
 				// Write log about unconfirmed alarm condition
 				Logger.log(LogLevel.INFO, "Alarm in " + zoneName + " unconfirmed. Standing down.");

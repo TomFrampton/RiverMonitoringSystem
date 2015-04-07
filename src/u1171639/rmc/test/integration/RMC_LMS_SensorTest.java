@@ -16,6 +16,9 @@ import u1171639.lms.main.java.service.LMS_RMCService;
 import u1171639.lms.main.java.service.LMS_SensorService;
 import u1171639.lms.main.java.utils.LMSConfig;
 import u1171639.rmc.main.java.controller.RMCController;
+import u1171639.rmc.main.java.model.LMS;
+import u1171639.rmc.main.java.model.Locality;
+import u1171639.rmc.main.java.model.Zone;
 import u1171639.rmc.main.java.service.RMCService;
 import u1171639.rmc.main.java.utils.Logger;
 import u1171639.rmc.main.java.utils.Logger.LogLevel;
@@ -54,7 +57,8 @@ public class RMC_LMS_SensorTest {
 		
 		this.rmcController = new RMCController() {
 			@Override
-			public void raiseAlarm() {
+			public void raiseAlarm(String locality, String zone) {
+				super.raiseAlarm(locality, zone);
 				rmcAlarmRaised = true;
 			}
 		};
@@ -160,9 +164,31 @@ public class RMC_LMS_SensorTest {
 		
 		this.lmsController.getSensorsByZone("Zone1").get(1).deactivate();
 		synchronized(lock1) { lock1.wait(); }
-		assertTrue(this.rmcAlarmRaised);
+		assertTrue(this.rmcAlarmRaised);	
+	}
+	
+	@Test
+	public void testGetLocalityInfo() throws InterruptedException {
+		LMS lms = this.rmcController.getLMSByLocality("Locality1");
+		assertTrue(lms != null);
 		
+		Locality locality = lms.getLocalityInfo();
+		assertTrue(locality.getName().equals("Locality1"));
 		
+		List<Zone> zones = locality.getZones();
+		assertTrue(zones.size() == 1);
+		assertFalse(zones.get(0).isAlarmRaised());
+		
+		SimulatedWaterLevelMonitor monitor1 = (SimulatedWaterLevelMonitor) this.sensor1.getMonitor();
+		SimulatedWaterLevelMonitor monitor2 = (SimulatedWaterLevelMonitor) this.sensor2.getMonitor();
+		
+		monitor1.setWaterLevel(70);
+		monitor2.setWaterLevel(70);
+		synchronized(lock2) { lock2.wait(); }
+		
+		locality = lms.getLocalityInfo();
+		zones = locality.getZones();
+		assertTrue(zones.get(0).isAlarmRaised());
 	}
 	
 	private SensorController mockSensor(final Object lock) {

@@ -33,8 +33,8 @@ public class CorbaRMC implements RMC {
 	}
 	
 	@Override
-	public void raiseAlarm() {
-		this.rmc.raiseAlarm();
+	public void raiseAlarm(String zone) {
+		this.rmc.raiseAlarm(LMSConfig.getLocality(), zone);
 	}
 	
 	public void setServiceIOR(String serviceIOR) {

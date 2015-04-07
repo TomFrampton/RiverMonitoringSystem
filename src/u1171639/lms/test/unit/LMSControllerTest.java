@@ -18,7 +18,7 @@ public class LMSControllerTest {
 	public void setUp() throws Exception {
 		this.controller = new LMSController(new RMC() {
 			@Override
-			public void raiseAlarm() {
+			public void raiseAlarm(String zone) {
 				alarmRaised = true;
 			}
 

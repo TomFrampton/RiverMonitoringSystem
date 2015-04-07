@@ -6,7 +6,7 @@ public class MockRMC implements RMC {
 	private boolean alarmRaised;
 	
 	@Override
-	public void raiseAlarm() {
+	public void raiseAlarm(String zone) {
 		this.alarmRaised = true;
 	}
 	

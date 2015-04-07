@@ -37,8 +37,8 @@ public class RMCService extends RMCPOA {
 	}
 	
 	@Override
-	public void raiseAlarm() {
-		this.controller.raiseAlarm();
+	public void raiseAlarm(String locality, String zone) {
+		this.controller.raiseAlarm(locality, zone);
 	}
 
 	@Override
