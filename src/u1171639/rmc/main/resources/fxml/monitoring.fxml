@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.BorderPane ?>
+<?import javafx.scene.text.Text ?>
+<?import javafx.scene.control.TreeView ?>
+<?import javafx.scene.control.Button ?>
+
+<BorderPane xmlns:fx="http://javafx.com/fxml" fx:controller="u1171639.rmc.main.java.view.fxml.MonitoringViewController">
+	<center>
+		<TreeView fx:id="monitoringTree" />
+	</center>
+	
+	<bottom>
+		 <Button text="Update" onAction="#handleUpdateButtonAction" />
+	</bottom>
+</BorderPane>

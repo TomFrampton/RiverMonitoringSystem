@@ -60,8 +60,10 @@ public class SensorController {
 		options.addOption("ORBInitialPort", true, "Port number of the Name Service.");
 		CommandLineParser parser = new GnuParser();
 		
+		CommandLine cmd = null;
+		
 		try {
-			CommandLine cmd = parser.parse(options, args);
+			cmd = parser.parse(options, args);
 			
 			if(!cmd.hasOption("locality")) {
 				System.err.println("-locality option required for Sensor.");
@@ -91,7 +93,7 @@ public class SensorController {
 		// Read value every second and raise alarm if waterLevel >= 70
 		SensorConfig.setMonitoringInterval(5000);
 		SensorConfig.setWarningWaterLevel(70);
-		SensorConfig.setZone("Zone1");
+		SensorConfig.setZone(cmd.getOptionValue("zone"));
 		
 		CorbaUtils.initOrb(args);
 		CorbaUtils.initRootPOA();

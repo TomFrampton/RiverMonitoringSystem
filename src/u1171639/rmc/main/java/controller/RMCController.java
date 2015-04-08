@@ -14,6 +14,8 @@ import u1171639.rmc.main.java.model.LMS;
 import u1171639.rmc.main.java.model.Locality;
 import u1171639.rmc.main.java.service.RMCService;
 import u1171639.rmc.main.java.utils.CorbaUtils;
+import u1171639.rmc.main.java.view.JavaFXRMCView;
+import u1171639.rmc.main.java.view.RMCView;
 
 public class RMCController {
 	private List<Locality> localities = new ArrayList<Locality>();
@@ -23,9 +25,7 @@ public class RMCController {
 	}
 	
 	public void raiseAlarm(String locality, String zone) {
-		SimpleLogger.log(LogLevel.INFO, "ALARM RAISED AT RMC IN " + locality.toUpperCase() + " - " + zone.toUpperCase());
-
-		
+		SimpleLogger.log(LogLevel.INFO, "ALARM RAISED AT RMC IN " + locality.toUpperCase() + " - " + zone.toUpperCase());	
 	}
 	
 	public void registerLMS(String localityName, LMS lms) {
@@ -38,7 +38,7 @@ public class RMCController {
 		locality.setName(localityName);
 		locality.setLms(lms);
 		
-		SimpleLogger.log(LogLevel.INFO, "LMS registered for " + locality);
+		SimpleLogger.log(LogLevel.INFO, "LMS registered for " + locality.getName());
 	}
 	
 	public Locality getLocalityByName(String localityName) {
@@ -53,6 +53,15 @@ public class RMCController {
 		return null;
 	}
 	
+	public List<Locality> getLocalities() {
+		Iterator<Locality> it = this.localities.iterator();
+		while(it.hasNext()) {
+			it.next().updateLocalityInfo();
+		}
+		
+		return this.localities;
+	}
+	
 	public static void main(String[] args) {
 		CorbaUtils.initOrb(args);
 		CorbaUtils.initRootPOA();
@@ -60,6 +69,20 @@ public class RMCController {
 		
 		RMCController controller = new RMCController();
 		RMCService service = new RMCService(controller);
-		service.listen();
+		
+		Thread serviceThread = new Thread(new Runnable() {
+			@Override
+			public void run() {
+				service.listen();
+			}
+		});
+		
+		serviceThread.start();
+		
+		RMCView view = new JavaFXRMCView();
+		view.start(controller);
+		
+		// Terminate all threads when view is closed
+		System.exit(0);
 	}
 }
