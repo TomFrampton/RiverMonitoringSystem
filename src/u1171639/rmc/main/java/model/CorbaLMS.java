@@ -4,11 +4,13 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.Callable;
 
-import u1171639.lms.main.java.corba.LMS_RMCHelper;
+import u1171639.shared.main.java.corba.lms_rmc.CorbaLocality;
+import u1171639.shared.main.java.corba.lms_rmc.LMS_RMC;
+import u1171639.shared.main.java.corba.lms_rmc.LMS_RMCHelper;
 
 public class CorbaLMS implements LMS {
 	private org.omg.CORBA.Object ior;
-	private u1171639.lms.main.java.corba.LMS_RMC lms;
+	private LMS_RMC lms;
 	
 	public CorbaLMS(org.omg.CORBA.Object ior) {
 		this.ior = ior;
@@ -27,10 +29,10 @@ public class CorbaLMS implements LMS {
 	}
 	
 	@Override
-	public List<u1171639.rmc.main.java.model.Zone> getLocalityInfo() {
-		u1171639.lms.main.java.corba.Locality corbaLocality = this.communicate(new Callable<u1171639.lms.main.java.corba.Locality>() {
+	public List<Zone> getLocalityInfo() {
+		CorbaLocality corbaLocality = this.communicate(new Callable<CorbaLocality>() {
 			@Override
-			public u1171639.lms.main.java.corba.Locality call() throws Exception {
+			public CorbaLocality call() throws Exception {
 				return lms.getLocalityInfo();
 			}
 		});
@@ -38,7 +40,7 @@ public class CorbaLMS implements LMS {
 		List<Zone> zones = new ArrayList<Zone>();
 		
 		for(int i = 0; i < corbaLocality.zones.length; ++i) {
-			u1171639.rmc.main.java.model.Zone zone = new u1171639.rmc.main.java.model.Zone();
+			Zone zone = new Zone();
 			zone.setName(corbaLocality.zones[i].name);
 			zone.setAlarmRaised(corbaLocality.zones[i].alarmRaised);
 			zones.add(zone);

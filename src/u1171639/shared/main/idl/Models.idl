@@ -1,0 +1,20 @@
+module models {
+	struct Zone {
+		string name;
+		boolean alarmRaised;
+	};
+	
+	struct Locality {
+		string name;
+		sequence<Zone> zones;
+	};
+	
+	struct LogItem {
+		string event;
+		string message;
+	};
+	
+	struct LMSLog {
+		sequence<LogItem> logItems;
+	};
+};

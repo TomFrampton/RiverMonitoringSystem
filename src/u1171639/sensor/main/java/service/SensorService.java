@@ -5,9 +5,9 @@ import org.omg.PortableServer.POAPackage.WrongPolicy;
 
 import u1171639.sensor.main.java.utils.CorbaUtils;
 import u1171639.sensor.main.java.controller.SensorController;
-import u1171639.sensor.main.java.corba.Sensor;
-import u1171639.sensor.main.java.corba.SensorHelper;
-import u1171639.sensor.main.java.corba.SensorPOA;
+import u1171639.shared.main.java.corba.sensor.Sensor;
+import u1171639.shared.main.java.corba.sensor.SensorHelper;
+import u1171639.shared.main.java.corba.sensor.SensorPOA;
 
 public class SensorService extends SensorPOA {
 	private SensorController controller;

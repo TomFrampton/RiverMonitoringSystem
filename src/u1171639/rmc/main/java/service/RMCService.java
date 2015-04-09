@@ -5,13 +5,12 @@ import org.omg.PortableServer.POAPackage.WrongPolicy;
 
 import u1171639.lms.main.java.model.CorbaSensor;
 import u1171639.rmc.main.java.controller.RMCController;
-import u1171639.rmc.main.java.corba.RMC;
-import u1171639.rmc.main.java.corba.RMCHelper;
-import u1171639.rmc.main.java.corba.RMCPOA;
 import u1171639.rmc.main.java.model.CorbaLMS;
 import u1171639.rmc.main.java.utils.CorbaUtils;
-import u1171639.rmc.main.java.utils.Logger;
-import u1171639.rmc.main.java.utils.Logger.LogLevel;
+import u1171639.shared.main.java.corba.rmc.RMC;
+import u1171639.shared.main.java.corba.rmc.RMCHelper;
+import u1171639.shared.main.java.corba.rmc.RMCPOA;
+import u1171639.shared.main.java.logging.Logger;
 
 public class RMCService extends RMCPOA {
 	private RMCController controller;
@@ -27,7 +26,7 @@ public class RMCService extends RMCPOA {
 			RMC ref = RMCHelper.narrow(servantRef);
 			CorbaUtils.registerWithNameService("RMCServer", ref);
 			
-			Logger.log(LogLevel.INFO, "RMC listening...");
+			//Logger.log(LogLevel.INFO, "RMC listening...");
 			
 			CorbaUtils.runOrb();
 		} catch (ServantNotActive | WrongPolicy e) {

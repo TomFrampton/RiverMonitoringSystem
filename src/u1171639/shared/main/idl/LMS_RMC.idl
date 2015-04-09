@@ -1,0 +1,25 @@
+module lms_rmc {
+	struct CorbaZone {
+		string name;
+		boolean alarmRaised;
+	};
+	
+	struct CorbaLocality {
+		string name;
+		sequence<CorbaZone> zones;
+	};
+	
+	struct CorbaLogItem {
+		string event;
+		string message;
+	};
+	
+	struct CorbaLMSLog {
+		sequence<CorbaLogItem> logItems;
+	};
+	
+	interface LMS_RMC {
+		CorbaLocality getLocalityInfo();
+		CorbaLMSLog getLogs();
+	};
+};

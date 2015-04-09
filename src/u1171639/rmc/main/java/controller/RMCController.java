@@ -7,8 +7,6 @@ import java.util.List;
 
 import u1171639.lms.main.java.model.Sensor;
 import u1171639.lms.main.java.model.Zone;
-import u1171639.lms.main.java.utils.logging.SimpleLogger;
-import u1171639.lms.main.java.utils.logging.SimpleLogger.LogLevel;
 import u1171639.rmc.main.java.model.CorbaLMS;
 import u1171639.rmc.main.java.model.LMS;
 import u1171639.rmc.main.java.model.Locality;
@@ -25,7 +23,7 @@ public class RMCController {
 	}
 	
 	public void raiseAlarm(String locality, String zone) {
-		SimpleLogger.log(LogLevel.INFO, "ALARM RAISED AT RMC IN " + locality.toUpperCase() + " - " + zone.toUpperCase());	
+		//SimpleLogger.log(LogLevel.INFO, "ALARM RAISED AT RMC IN " + locality.toUpperCase() + " - " + zone.toUpperCase());	
 	}
 	
 	public void registerLMS(String localityName, LMS lms) {
@@ -38,7 +36,7 @@ public class RMCController {
 		locality.setName(localityName);
 		locality.setLms(lms);
 		
-		SimpleLogger.log(LogLevel.INFO, "LMS registered for " + locality.getName());
+		//SimpleLogger.log(LogLevel.INFO, "LMS registered for " + locality.getName());
 	}
 	
 	public Locality getLocalityByName(String localityName) {

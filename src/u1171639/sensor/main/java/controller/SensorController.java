@@ -16,15 +16,19 @@ import u1171639.sensor.main.java.utils.CorbaUtils;
 import u1171639.sensor.main.java.utils.SensorConfig;
 import u1171639.sensor.main.java.view.JavaFXSimulationView;
 import u1171639.sensor.main.java.view.SimulationView;
+import u1171639.shared.main.java.logging.Logger;
+import u1171639.shared.main.java.logging.TransientLogger;
 
 public class SensorController {
 	private LMS lms;
 	private WaterLevelMonitor monitor;
 	private boolean isActive = true;
+	private Logger logger;
 	
-	public SensorController(LMS lms, WaterLevelMonitor monitor) {
+	public SensorController(LMS lms, WaterLevelMonitor monitor, Logger logger) {
 		this.lms = lms;
 		this.monitor = monitor;
+		this.logger = logger;
 	}
 	
 	public void raiseAlarm() {
@@ -102,7 +106,9 @@ public class SensorController {
 		CorbaLMS lms = new CorbaLMS(SensorConfig.getLocality() + "_LMSServer", null);
 		SimulatedWaterLevelMonitor monitor = new SimulatedWaterLevelMonitor();
 		
-		SensorController controller = new SensorController(lms, monitor);
+		Logger logger = new TransientLogger();
+		
+		SensorController controller = new SensorController(lms, monitor, logger);
 		SensorService service = new SensorService(controller);
 		
 		String ior = service.listen();

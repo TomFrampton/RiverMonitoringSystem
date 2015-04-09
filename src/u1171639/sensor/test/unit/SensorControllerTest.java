@@ -8,13 +8,14 @@ import org.junit.Test;
 
 import u1171639.sensor.main.java.controller.SensorController;
 import u1171639.sensor.main.java.monitor.SimulatedWaterLevelMonitor;
+import u1171639.sensor.test.mocks.MockLogger;
 
 public class SensorControllerTest {
 	private SensorController controller;
 	
 	@Before
 	public void setUp() throws Exception {
-		this.controller = new SensorController(null, new  SimulatedWaterLevelMonitor());
+		this.controller = new SensorController(null, new SimulatedWaterLevelMonitor(), new MockLogger());
 	}
 
 	@After

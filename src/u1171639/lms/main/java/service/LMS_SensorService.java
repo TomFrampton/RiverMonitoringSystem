@@ -4,14 +4,12 @@ import org.omg.PortableServer.POAPackage.ServantNotActive;
 import org.omg.PortableServer.POAPackage.WrongPolicy;
 
 import u1171639.lms.main.java.controller.LMSController;
-import u1171639.lms.main.java.corba.LMS_Sensor;
-import u1171639.lms.main.java.corba.LMS_SensorHelper;
-import u1171639.lms.main.java.corba.LMS_SensorPOA;
 import u1171639.lms.main.java.model.CorbaSensor;
 import u1171639.lms.main.java.utils.CorbaUtils;
 import u1171639.lms.main.java.utils.LMSConfig;
-import u1171639.lms.main.java.utils.logging.SimpleLogger;
-import u1171639.lms.main.java.utils.logging.SimpleLogger.LogLevel;
+import u1171639.shared.main.java.corba.lms_sensor.LMS_Sensor;
+import u1171639.shared.main.java.corba.lms_sensor.LMS_SensorHelper;
+import u1171639.shared.main.java.corba.lms_sensor.LMS_SensorPOA;
 
 public class LMS_SensorService extends LMS_SensorPOA {
 	private LMSController controller;
@@ -32,7 +30,7 @@ public class LMS_SensorService extends LMS_SensorPOA {
 					LMS_Sensor ref = LMS_SensorHelper.narrow(servantRef);
 					CorbaUtils.registerWithNameService(serviceName, ref);
 					
-					SimpleLogger.log(LogLevel.INFO, "LMS listening in " + LMSConfig.getLocality() + "...");
+					//SimpleLogger.log(LogLevel.INFO, "LMS listening in " + LMSConfig.getLocality() + "...");
 					
 					CorbaUtils.runOrb();
 				} catch (ServantNotActive | WrongPolicy e) {

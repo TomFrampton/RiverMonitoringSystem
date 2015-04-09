@@ -6,8 +6,6 @@ import java.util.Timer;
 import u1171639.sensor.main.java.controller.SensorController;
 import u1171639.sensor.main.java.model.LMS;
 import u1171639.sensor.main.java.utils.SensorConfig;
-import u1171639.sensor.main.java.utils.Logger;
-import u1171639.sensor.main.java.utils.Logger.LogLevel;
 
 public class SimulatedWaterLevelMonitor implements WaterLevelMonitor, Runnable {
 	private float waterLevel;
@@ -57,12 +55,12 @@ public class SimulatedWaterLevelMonitor implements WaterLevelMonitor, Runnable {
 			for(;;Thread.sleep(SensorConfig.getMonitoringInterval())) {
 				if(!paused) {
 					if(this.waterLevel >= SensorConfig.getWarningWaterLevel()) {
-						Logger.log(LogLevel.WARNING, "Water Level Reading Exceeded Warning Level - " + this.waterLevel);
-						Logger.log(LogLevel.WARNING, "Raising Alarm At LMS");
+						//Logger.log(LogLevel.WARNING, "Water Level Reading Exceeded Warning Level - " + this.waterLevel);
+						//Logger.log(LogLevel.WARNING, "Raising Alarm At LMS");
 						
 						controller.raiseAlarm();
 					} else {
-						Logger.log(LogLevel.INFO, "Water Level Reading - " + this.waterLevel);
+						//Logger.log(LogLevel.INFO, "Water Level Reading - " + this.waterLevel);
 					}
 				} else {
 					synchronized(lock) {

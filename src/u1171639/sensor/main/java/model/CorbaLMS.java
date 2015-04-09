@@ -1,11 +1,12 @@
 package u1171639.sensor.main.java.model;
 
-import u1171639.lms.main.java.corba.LMS_SensorHelper;
 import u1171639.sensor.main.java.utils.CorbaUtils;
 import u1171639.sensor.main.java.utils.SensorConfig;
+import u1171639.shared.main.java.corba.lms_sensor.LMS_Sensor;
+import u1171639.shared.main.java.corba.lms_sensor.LMS_SensorHelper;
 
 public class CorbaLMS implements LMS {
-	private u1171639.lms.main.java.corba.LMS_Sensor lms = null;
+	private LMS_Sensor lms = null;
 	private org.omg.CORBA.Object lmsIOR = null;
 	
 	private String serviceIOR;

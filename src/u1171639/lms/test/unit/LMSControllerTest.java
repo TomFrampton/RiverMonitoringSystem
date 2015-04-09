@@ -9,6 +9,7 @@ import org.junit.Test;
 import u1171639.lms.main.java.controller.LMSController;
 import u1171639.lms.test.mocks.MockSensor;
 import u1171639.lms.main.java.model.RMC;
+import u1171639.sensor.test.mocks.MockLogger;
 
 public class LMSControllerTest {
 	private LMSController controller;
@@ -33,7 +34,7 @@ public class LMSControllerTest {
 				// TODO Auto-generated method stub
 				
 			}	
-		});
+		}, new MockLogger());
 	}
 
 	@After
