@@ -2,6 +2,7 @@ package u1171639.lms.main.java.client;
 
 import java.util.concurrent.Callable;
 
+import u1171639.lms.main.java.utils.CorbaUtils;
 import u1171639.shared.main.java.corba.sensor.SensorHelper;
 
 public class CorbaSensor implements Sensor {
@@ -64,6 +65,11 @@ public class CorbaSensor implements Sensor {
 				return sensor.isActive();
 			}
 		});
+	}
+	
+	@Override
+	public String getId() {
+		return CorbaUtils.getOrb().object_to_string(this.ior);
 	}
 	
 	private <T> T communicate(Callable<T> action) {

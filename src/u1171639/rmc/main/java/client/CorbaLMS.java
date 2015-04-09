@@ -4,8 +4,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.Callable;
 
+import u1171639.rmc.main.java.model.Sensor;
 import u1171639.rmc.main.java.model.Zone;
 import u1171639.shared.main.java.corba.lms_rmc.CorbaLocality;
+import u1171639.shared.main.java.corba.lms_rmc.CorbaSensor;
 import u1171639.shared.main.java.corba.lms_rmc.LMS_RMC;
 import u1171639.shared.main.java.corba.lms_rmc.LMS_RMCHelper;
 
@@ -45,6 +47,16 @@ public class CorbaLMS implements LMS {
 			zone.setName(corbaLocality.zones[i].name);
 			zone.setAlarmRaised(corbaLocality.zones[i].alarmRaised);
 			zones.add(zone);
+			
+			List<Sensor> sensors = new ArrayList<Sensor>();
+			
+			for(int ii = 0; ii < corbaLocality.zones[i].sensors.length; ++ii) {
+				CorbaSensor corbaSensor = corbaLocality.zones[i].sensors[ii];
+				Sensor sensor = new Sensor(corbaSensor.id, "");
+				sensors.add(sensor);
+			}
+			
+			zone.setSensors(sensors);
 		}
 		
 		return zones;

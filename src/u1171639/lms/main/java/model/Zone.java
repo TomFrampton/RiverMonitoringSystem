@@ -49,4 +49,14 @@ public class Zone {
 	public void resetAlarms() {
 		this.alarmRaised = false;
 	}
+	
+	public Sensor getSensorById(String id) {
+		for(Sensor sensor : this.sensors) {
+			if(sensor.getId().equals(id)) {
+				return sensor;
+			}
+		}
+		
+		return null;
+	}
 }

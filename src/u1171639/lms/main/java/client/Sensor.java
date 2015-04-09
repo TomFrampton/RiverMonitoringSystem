@@ -7,4 +7,5 @@ public interface Sensor {
 	public void activate();
 	public void deactivate();
 	public boolean isActive();
+	public String getId();
 }

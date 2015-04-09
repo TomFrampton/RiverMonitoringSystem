@@ -1,7 +1,12 @@
 module lms_rmc {
+	struct CorbaSensor {
+		string id;
+	};
+
 	struct CorbaZone {
 		string name;
 		boolean alarmRaised;
+		sequence<CorbaSensor> sensors;
 	};
 	
 	struct CorbaLocality {

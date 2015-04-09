@@ -9,6 +9,7 @@ import u1171639.rmc.main.java.view.JavaFXRMCView;
 import u1171639.rmc.main.java.view.ViewManager;
 import u1171639.rmc.main.java.controller.RMCController;
 import u1171639.rmc.main.java.model.Locality;
+import u1171639.rmc.main.java.model.Sensor;
 import u1171639.rmc.main.java.model.Zone;
 import u1171639.rmc.main.java.utils.FXMLViewLoader;
 
@@ -44,6 +45,13 @@ public class MonitoringViewController extends ViewController {
 			for(Zone zone : zones) {
 				TreeItem<String> zoneItem = new TreeItem<String>(zone.getName());
 				localityItem.getChildren().add(zoneItem);
+				zoneItem.setExpanded(true);
+				
+				List<Sensor> sensors = zone.getSensors();
+				for(Sensor sensor : sensors) {
+					TreeItem<String> sensorItem = new TreeItem<String>(sensor.getId());
+					zoneItem.getChildren().add(sensorItem);
+				}
 			}
 		}
 	}

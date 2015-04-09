@@ -6,12 +6,14 @@ import java.util.List;
 import org.omg.PortableServer.POAPackage.ServantNotActive;
 import org.omg.PortableServer.POAPackage.WrongPolicy;
 
+import u1171639.lms.main.java.client.Sensor;
 import u1171639.lms.main.java.controller.LMSController;
 import u1171639.lms.main.java.utils.CorbaUtils;
 import u1171639.lms.main.java.utils.LMSConfig;
 import u1171639.shared.main.java.corba.lms_rmc.CorbaLMSLog;
 import u1171639.shared.main.java.corba.lms_rmc.CorbaLocality;
 import u1171639.shared.main.java.corba.lms_rmc.CorbaLogItem;
+import u1171639.shared.main.java.corba.lms_rmc.CorbaSensor;
 import u1171639.shared.main.java.corba.lms_rmc.CorbaZone;
 import u1171639.shared.main.java.corba.lms_rmc.LMS_RMC;
 import u1171639.shared.main.java.corba.lms_rmc.LMS_RMCHelper;
@@ -50,6 +52,16 @@ public class LMS_RMCService extends LMS_RMCPOA {
 			corbaZone.name = zones.get(i).getName();
 			corbaZone.alarmRaised = zones.get(i).isAlarmRaised();
 			corbaZones[i] = corbaZone;
+			
+			List<Sensor> sensors = zones.get(i).getSensors();
+			CorbaSensor[] corbaSensors = new CorbaSensor[sensors.size()];
+			for(int ii = 0; ii < sensors.size(); ++ii) {
+				CorbaSensor corbaSensor = new CorbaSensor();
+				corbaSensor.id = sensors.get(ii).getId();
+				corbaSensors[ii] = corbaSensor;
+			}
+			
+			corbaZones[i].sensors = corbaSensors;
 		}
 		
 		CorbaLocality corbaLocality = new CorbaLocality();
