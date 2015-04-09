@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
+import u1171639.lms.main.java.client.Sensor;
+
 public class Zone {
 	private String name;
 	private List<Sensor> sensors = new ArrayList<Sensor>();

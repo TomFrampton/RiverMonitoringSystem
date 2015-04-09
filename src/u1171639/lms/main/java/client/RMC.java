@@ -1,4 +1,4 @@
-package u1171639.lms.main.java.model;
+package u1171639.lms.main.java.client;
 
 public interface RMC {
 	public void connect();

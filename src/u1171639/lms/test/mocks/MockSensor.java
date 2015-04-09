@@ -1,6 +1,6 @@
 package u1171639.lms.test.mocks;
 
-import u1171639.lms.main.java.model.Sensor;
+import u1171639.lms.main.java.client.Sensor;
 
 public class MockSensor implements Sensor {
 	private boolean alarmRaised;

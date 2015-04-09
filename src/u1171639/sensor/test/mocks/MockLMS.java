@@ -1,4 +1,6 @@
-package u1171639.sensor.main.java.model;
+package u1171639.sensor.test.mocks;
+
+import u1171639.sensor.main.java.client.LMS;
 
 public class MockLMS implements LMS {
 

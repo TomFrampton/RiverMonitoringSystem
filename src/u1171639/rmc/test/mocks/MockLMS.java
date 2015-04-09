@@ -2,7 +2,7 @@ package u1171639.rmc.test.mocks;
 
 import java.util.List;
 
-import u1171639.rmc.main.java.model.LMS;
+import u1171639.rmc.main.java.client.LMS;
 import u1171639.rmc.main.java.model.Locality;
 import u1171639.rmc.main.java.model.Zone;
 

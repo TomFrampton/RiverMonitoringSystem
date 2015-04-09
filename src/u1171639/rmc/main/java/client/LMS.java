@@ -1,6 +1,8 @@
-package u1171639.rmc.main.java.model;
+package u1171639.rmc.main.java.client;
 
 import java.util.List;
+
+import u1171639.rmc.main.java.model.Zone;
 
 public interface LMS {
 	public void connect();

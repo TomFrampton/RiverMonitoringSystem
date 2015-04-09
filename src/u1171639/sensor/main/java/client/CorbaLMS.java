@@ -1,4 +1,4 @@
-package u1171639.sensor.main.java.model;
+package u1171639.sensor.main.java.client;
 
 import u1171639.sensor.main.java.utils.CorbaUtils;
 import u1171639.sensor.main.java.utils.SensorConfig;

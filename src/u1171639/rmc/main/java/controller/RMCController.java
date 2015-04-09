@@ -5,10 +5,10 @@ import java.util.Hashtable;
 import java.util.Iterator;
 import java.util.List;
 
-import u1171639.lms.main.java.model.Sensor;
+import u1171639.lms.main.java.client.Sensor;
 import u1171639.lms.main.java.model.Zone;
-import u1171639.rmc.main.java.model.CorbaLMS;
-import u1171639.rmc.main.java.model.LMS;
+import u1171639.rmc.main.java.client.CorbaLMS;
+import u1171639.rmc.main.java.client.LMS;
 import u1171639.rmc.main.java.model.Locality;
 import u1171639.rmc.main.java.service.RMCService;
 import u1171639.rmc.main.java.utils.CorbaUtils;

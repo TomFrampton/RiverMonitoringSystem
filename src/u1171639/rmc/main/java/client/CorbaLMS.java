@@ -1,9 +1,10 @@
-package u1171639.rmc.main.java.model;
+package u1171639.rmc.main.java.client;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.Callable;
 
+import u1171639.rmc.main.java.model.Zone;
 import u1171639.shared.main.java.corba.lms_rmc.CorbaLocality;
 import u1171639.shared.main.java.corba.lms_rmc.LMS_RMC;
 import u1171639.shared.main.java.corba.lms_rmc.LMS_RMCHelper;

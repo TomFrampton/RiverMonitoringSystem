@@ -3,8 +3,8 @@ package u1171639.sensor.main.java.monitor;
 import java.util.Random;
 import java.util.Timer;
 
+import u1171639.sensor.main.java.client.LMS;
 import u1171639.sensor.main.java.controller.SensorController;
-import u1171639.sensor.main.java.model.LMS;
 import u1171639.sensor.main.java.utils.SensorConfig;
 
 public class SimulatedWaterLevelMonitor implements WaterLevelMonitor, Runnable {

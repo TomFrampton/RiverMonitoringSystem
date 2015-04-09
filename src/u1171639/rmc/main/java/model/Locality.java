@@ -3,6 +3,8 @@ package u1171639.rmc.main.java.model;
 import java.util.ArrayList;
 import java.util.List;
 
+import u1171639.rmc.main.java.client.LMS;
+
 public class Locality {
 	private List<Zone> zones = new ArrayList<Zone>();
 	private String name;

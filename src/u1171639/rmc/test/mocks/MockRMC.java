@@ -1,6 +1,6 @@
 package u1171639.rmc.test.mocks;
 
-import u1171639.lms.main.java.model.RMC;
+import u1171639.lms.main.java.client.RMC;
 
 public class MockRMC implements RMC {
 	private boolean alarmRaised;

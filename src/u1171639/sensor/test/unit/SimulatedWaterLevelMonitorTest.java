@@ -6,11 +6,11 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import u1171639.sensor.main.java.model.LMS;
-import u1171639.sensor.main.java.model.MockLMS;
 import u1171639.sensor.main.java.monitor.SimulatedWaterLevelMonitor;
 import u1171639.sensor.main.java.utils.SensorConfig;
+import u1171639.sensor.main.java.client.LMS;
 import u1171639.sensor.main.java.controller.SensorController;
+import u1171639.sensor.test.mocks.MockLMS;
 import u1171639.sensor.test.mocks.MockLogger;
 
 public class SimulatedWaterLevelMonitorTest {

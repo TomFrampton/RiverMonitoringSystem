@@ -12,9 +12,9 @@ import org.apache.commons.cli.GnuParser;
 import org.apache.commons.cli.Options;
 import org.apache.commons.cli.ParseException;
 
-import u1171639.lms.main.java.model.CorbaRMC;
-import u1171639.lms.main.java.model.RMC;
-import u1171639.lms.main.java.model.Sensor;
+import u1171639.lms.main.java.client.CorbaRMC;
+import u1171639.lms.main.java.client.RMC;
+import u1171639.lms.main.java.client.Sensor;
 import u1171639.lms.main.java.model.Zone;
 import u1171639.lms.main.java.service.LMS_RMCService;
 import u1171639.lms.main.java.service.LMS_SensorService;

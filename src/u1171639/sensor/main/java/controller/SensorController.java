@@ -7,8 +7,8 @@ import org.apache.commons.cli.Options;
 import org.apache.commons.cli.ParseException;
 
 import u1171639.lms.main.java.utils.LMSConfig;
-import u1171639.sensor.main.java.model.CorbaLMS;
-import u1171639.sensor.main.java.model.LMS;
+import u1171639.sensor.main.java.client.CorbaLMS;
+import u1171639.sensor.main.java.client.LMS;
 import u1171639.sensor.main.java.monitor.SimulatedWaterLevelMonitor;
 import u1171639.sensor.main.java.monitor.WaterLevelMonitor;
 import u1171639.sensor.main.java.service.SensorService;

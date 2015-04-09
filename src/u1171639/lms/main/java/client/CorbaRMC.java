@@ -1,4 +1,4 @@
-package u1171639.lms.main.java.model;
+package u1171639.lms.main.java.client;
 
 import u1171639.lms.main.java.utils.LMSConfig;
 import u1171639.lms.main.java.utils.CorbaUtils;

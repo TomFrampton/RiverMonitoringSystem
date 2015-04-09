@@ -8,14 +8,14 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
+import u1171639.lms.main.java.client.CorbaRMC;
+import u1171639.lms.main.java.client.RMC;
+import u1171639.lms.main.java.client.Sensor;
 import u1171639.lms.main.java.controller.LMSController;
-import u1171639.lms.main.java.model.CorbaRMC;
-import u1171639.lms.main.java.model.RMC;
-import u1171639.lms.main.java.model.Sensor;
 import u1171639.lms.main.java.service.LMS_SensorService;
 import u1171639.rmc.test.mocks.MockRMC;
+import u1171639.sensor.main.java.client.CorbaLMS;
 import u1171639.sensor.main.java.controller.SensorController;
-import u1171639.sensor.main.java.model.CorbaLMS;
 import u1171639.sensor.main.java.monitor.SimulatedWaterLevelMonitor;
 import u1171639.sensor.main.java.service.SensorService;
 import u1171639.sensor.main.java.utils.SensorConfig;

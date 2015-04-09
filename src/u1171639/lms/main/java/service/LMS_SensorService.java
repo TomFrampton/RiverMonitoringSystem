@@ -3,8 +3,8 @@ package u1171639.lms.main.java.service;
 import org.omg.PortableServer.POAPackage.ServantNotActive;
 import org.omg.PortableServer.POAPackage.WrongPolicy;
 
+import u1171639.lms.main.java.client.CorbaSensor;
 import u1171639.lms.main.java.controller.LMSController;
-import u1171639.lms.main.java.model.CorbaSensor;
 import u1171639.lms.main.java.utils.CorbaUtils;
 import u1171639.lms.main.java.utils.LMSConfig;
 import u1171639.shared.main.java.corba.lms_sensor.LMS_Sensor;

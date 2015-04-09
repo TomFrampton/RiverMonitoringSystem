@@ -3,9 +3,9 @@ package u1171639.rmc.main.java.service;
 import org.omg.PortableServer.POAPackage.ServantNotActive;
 import org.omg.PortableServer.POAPackage.WrongPolicy;
 
-import u1171639.lms.main.java.model.CorbaSensor;
+import u1171639.lms.main.java.client.CorbaSensor;
+import u1171639.rmc.main.java.client.CorbaLMS;
 import u1171639.rmc.main.java.controller.RMCController;
-import u1171639.rmc.main.java.model.CorbaLMS;
 import u1171639.rmc.main.java.utils.CorbaUtils;
 import u1171639.shared.main.java.corba.rmc.RMC;
 import u1171639.shared.main.java.corba.rmc.RMCHelper;

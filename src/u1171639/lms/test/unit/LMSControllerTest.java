@@ -6,9 +6,9 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
+import u1171639.lms.main.java.client.RMC;
 import u1171639.lms.main.java.controller.LMSController;
 import u1171639.lms.test.mocks.MockSensor;
-import u1171639.lms.main.java.model.RMC;
 import u1171639.sensor.test.mocks.MockLogger;
 
 public class LMSControllerTest {
