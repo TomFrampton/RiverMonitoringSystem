@@ -8,6 +8,9 @@ public class LogItem {
 	private String message;
 	private Event event;
 	
+	public LogItem() {
+	}
+	
 	public LogItem(String message, Event event) {
 		this(new Date(), message, event);
 	}

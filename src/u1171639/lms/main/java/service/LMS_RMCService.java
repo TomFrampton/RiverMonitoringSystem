@@ -8,10 +8,9 @@ import org.omg.PortableServer.POAPackage.WrongPolicy;
 
 import u1171639.lms.main.java.client.Sensor;
 import u1171639.lms.main.java.controller.LMSController;
-import u1171639.lms.main.java.utils.CorbaUtils;
 import u1171639.lms.main.java.utils.LMSConfig;
-import u1171639.shared.main.java.corba.lms_rmc.CorbaLMSLog;
 import u1171639.shared.main.java.corba.lms_rmc.CorbaLocality;
+import u1171639.shared.main.java.corba.lms_rmc.CorbaLog;
 import u1171639.shared.main.java.corba.lms_rmc.CorbaLogItem;
 import u1171639.shared.main.java.corba.lms_rmc.CorbaSensor;
 import u1171639.shared.main.java.corba.lms_rmc.CorbaZone;
@@ -19,6 +18,7 @@ import u1171639.shared.main.java.corba.lms_rmc.LMS_RMC;
 import u1171639.shared.main.java.corba.lms_rmc.LMS_RMCHelper;
 import u1171639.shared.main.java.corba.lms_rmc.LMS_RMCPOA;
 import u1171639.shared.main.java.logging.LogItem;
+import u1171639.shared.main.java.utils.CorbaUtils;
 
 public class LMS_RMCService extends LMS_RMCPOA {
 	private LMSController controller;
@@ -42,7 +42,7 @@ public class LMS_RMCService extends LMS_RMCPOA {
 	}
 
 	@Override
-	public CorbaLocality getLocalityInfo() {
+	public CorbaLocality getZoneUpdates() {
 		List<u1171639.lms.main.java.model.Zone> zones = this.controller.getAllZones();
 		
 		// Copy data from Zone models to CORBA Zone objects
@@ -72,7 +72,7 @@ public class LMS_RMCService extends LMS_RMCPOA {
 	}
 
 	@Override
-	public CorbaLMSLog getLogs() {
+	public CorbaLog getLog() {
 		List<LogItem> logs = this.controller.getAllLogs();
 		
 		// Convert from generic to CORBA LogItem model
@@ -86,7 +86,7 @@ public class LMS_RMCService extends LMS_RMCPOA {
 			corbaLogItems[i] = corbaItem;
 		}
 		
-		CorbaLMSLog corbaLog = new CorbaLMSLog();
+		CorbaLog corbaLog = new CorbaLog();
 		corbaLog.logItems = corbaLogItems;
 		
 		return corbaLog;

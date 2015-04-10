@@ -4,5 +4,6 @@ module sensor {
 		void activate();
 		void deactivate();
 		boolean isActive();
+		
 	};
 };

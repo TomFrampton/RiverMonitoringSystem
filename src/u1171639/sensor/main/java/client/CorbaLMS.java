@@ -1,9 +1,9 @@
 package u1171639.sensor.main.java.client;
 
-import u1171639.sensor.main.java.utils.CorbaUtils;
 import u1171639.sensor.main.java.utils.SensorConfig;
 import u1171639.shared.main.java.corba.lms_sensor.LMS_Sensor;
 import u1171639.shared.main.java.corba.lms_sensor.LMS_SensorHelper;
+import u1171639.shared.main.java.utils.CorbaUtils;
 
 public class CorbaLMS implements LMS {
 	private LMS_Sensor lms = null;

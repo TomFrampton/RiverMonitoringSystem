@@ -35,13 +35,12 @@ public class MonitoringViewController extends ViewController {
 		root.setExpanded(true);
 		 
 		for(Locality locality : localities) {
-			locality.updateLocalityInfo();
+			List<Zone> zones = locality.getUpdatedZones();
 			
 			TreeItem<String> localityItem = new TreeItem<String>(locality.getName());
 			root.getChildren().add(localityItem);
 			localityItem.setExpanded(true);
 			
-			List<Zone> zones = locality.getZones();
 			for(Zone zone : zones) {
 				TreeItem<String> zoneItem = new TreeItem<String>(zone.getName());
 				localityItem.getChildren().add(zoneItem);

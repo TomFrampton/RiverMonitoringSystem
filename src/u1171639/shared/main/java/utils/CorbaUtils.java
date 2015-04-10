@@ -1,4 +1,4 @@
-package u1171639.sensor.main.java.utils;
+package u1171639.shared.main.java.utils;
 
 import org.omg.CORBA.ORB;
 import org.omg.CORBA.ORBPackage.InvalidName;
@@ -82,6 +82,10 @@ public class CorbaUtils {
 			e.printStackTrace();
 			return null;
 		}
+	}
+	
+	public static void runOrb() {
+		orb.run();
 	}
 	
 	public NamingContextExt getNameService() {

@@ -27,6 +27,7 @@ import u1171639.sensor.main.java.monitor.SimulatedWaterLevelMonitor;
 import u1171639.sensor.main.java.service.SensorService;
 import u1171639.sensor.main.java.utils.SensorConfig;
 import u1171639.sensor.test.mocks.MockLogger;
+import u1171639.shared.main.java.utils.CorbaUtils;
 
 public class RMC_LMS_SensorTest {
 	// RMC objects
@@ -50,9 +51,9 @@ public class RMC_LMS_SensorTest {
 		String[] args = { "-ORBInitialPort", "1050" };
 		
 		// Start up the RMC
-		u1171639.rmc.main.java.utils.CorbaUtils.initOrb(args);
-		u1171639.rmc.main.java.utils.CorbaUtils.initRootPOA();
-		u1171639.rmc.main.java.utils.CorbaUtils.initNameService();
+		CorbaUtils.initOrb(args);
+		CorbaUtils.initRootPOA();
+		CorbaUtils.initNameService();
 		
 		this.rmcController = new RMCController() {
 			@Override
@@ -72,11 +73,7 @@ public class RMC_LMS_SensorTest {
 		Thread.sleep(100);
 		
 		
-		// Start up LMS and connect to RMC
-		u1171639.lms.main.java.utils.CorbaUtils.initOrb(args);
-		u1171639.lms.main.java.utils.CorbaUtils.initRootPOA();
-		u1171639.lms.main.java.utils.CorbaUtils.initNameService();
-		
+		// Start up LMS and connect to RMC	
 		LMSConfig.setLocality("Locality1");
 		
 		this.rmc = new CorbaRMC("RMCServer", null);
@@ -111,10 +108,6 @@ public class RMC_LMS_SensorTest {
 		this.rmc.connect();
 				
 		// Mock up two sensors
-		u1171639.sensor.main.java.utils.CorbaUtils.initOrb(args);
-		u1171639.sensor.main.java.utils.CorbaUtils.initRootPOA();
-		u1171639.sensor.main.java.utils.CorbaUtils.initNameService();
-		
 		SensorConfig.setMonitoringInterval(50);
 		SensorConfig.setWarningWaterLevel(70);
 		SensorConfig.setLocality("Locality1");
@@ -173,7 +166,7 @@ public class RMC_LMS_SensorTest {
 		
 		assertTrue(lms != null);
 		
-		locality.updateLocalityInfo();
+		locality.getUpdatedZones();
 		List<Zone> zones = locality.getZones();
 		assertTrue(zones.size() == 1);
 		assertFalse(zones.get(0).isAlarmRaised());
@@ -185,7 +178,7 @@ public class RMC_LMS_SensorTest {
 		monitor2.setWaterLevel(70);
 		synchronized(lock2) { lock2.wait(); }
 		
-		locality.updateLocalityInfo();
+		locality.getUpdatedZones();
 		zones = locality.getZones();
 		assertTrue(zones.get(0).isAlarmRaised());
 	}

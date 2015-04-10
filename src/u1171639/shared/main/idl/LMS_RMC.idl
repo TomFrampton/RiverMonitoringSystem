@@ -1,4 +1,9 @@
 module lms_rmc {
+	struct CorbaLogItem {
+		string event;
+		string message;
+	};
+	
 	struct CorbaSensor {
 		string id;
 	};
@@ -14,17 +19,12 @@ module lms_rmc {
 		sequence<CorbaZone> zones;
 	};
 	
-	struct CorbaLogItem {
-		string event;
-		string message;
-	};
-	
-	struct CorbaLMSLog {
+	struct CorbaLog {
 		sequence<CorbaLogItem> logItems;
 	};
 	
 	interface LMS_RMC {
-		CorbaLocality getLocalityInfo();
-		CorbaLMSLog getLogs();
+		CorbaLocality getZoneUpdates();
+		CorbaLog getLog();
 	};
 };

@@ -1,8 +1,8 @@
 package u1171639.lms.main.java.client;
 
 import u1171639.lms.main.java.utils.LMSConfig;
-import u1171639.lms.main.java.utils.CorbaUtils;
 import u1171639.shared.main.java.corba.rmc.RMCHelper;
+import u1171639.shared.main.java.utils.CorbaUtils;
 
 public class CorbaRMC implements RMC {
 	private u1171639.shared.main.java.corba.rmc.RMC rmc = null;

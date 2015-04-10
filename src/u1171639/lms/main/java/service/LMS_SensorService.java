@@ -5,11 +5,11 @@ import org.omg.PortableServer.POAPackage.WrongPolicy;
 
 import u1171639.lms.main.java.client.CorbaSensor;
 import u1171639.lms.main.java.controller.LMSController;
-import u1171639.lms.main.java.utils.CorbaUtils;
 import u1171639.lms.main.java.utils.LMSConfig;
 import u1171639.shared.main.java.corba.lms_sensor.LMS_Sensor;
 import u1171639.shared.main.java.corba.lms_sensor.LMS_SensorHelper;
 import u1171639.shared.main.java.corba.lms_sensor.LMS_SensorPOA;
+import u1171639.shared.main.java.utils.CorbaUtils;
 
 public class LMS_SensorService extends LMS_SensorPOA {
 	private LMSController controller;

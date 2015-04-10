@@ -11,9 +11,9 @@ import u1171639.rmc.main.java.client.CorbaLMS;
 import u1171639.rmc.main.java.client.LMS;
 import u1171639.rmc.main.java.model.Locality;
 import u1171639.rmc.main.java.service.RMCService;
-import u1171639.rmc.main.java.utils.CorbaUtils;
 import u1171639.rmc.main.java.view.JavaFXRMCView;
 import u1171639.rmc.main.java.view.RMCView;
+import u1171639.shared.main.java.utils.CorbaUtils;
 
 public class RMCController {
 	private List<Locality> localities = new ArrayList<Locality>();
@@ -54,7 +54,7 @@ public class RMCController {
 	public List<Locality> getLocalities() {
 		Iterator<Locality> it = this.localities.iterator();
 		while(it.hasNext()) {
-			it.next().updateLocalityInfo();
+			it.next().getUpdatedZones();
 		}
 		
 		return this.localities;

@@ -20,6 +20,7 @@ import u1171639.sensor.main.java.monitor.SimulatedWaterLevelMonitor;
 import u1171639.sensor.main.java.service.SensorService;
 import u1171639.sensor.main.java.utils.SensorConfig;
 import u1171639.sensor.test.mocks.MockLogger;
+import u1171639.shared.main.java.utils.CorbaUtils;
 
 public class LMS_SensorTest {
 	// RMC stub
@@ -41,9 +42,9 @@ public class LMS_SensorTest {
 		String[] args = { "-ORBInitialPort", "1050" };
 		
 		// Start up LMS with RMC stubbed
-		u1171639.lms.main.java.utils.CorbaUtils.initOrb(args);
-		u1171639.lms.main.java.utils.CorbaUtils.initRootPOA();
-		u1171639.lms.main.java.utils.CorbaUtils.initNameService();
+		CorbaUtils.initOrb(args);
+		CorbaUtils.initRootPOA();
+		CorbaUtils.initNameService();
 		
 		this.rmc = new MockRMC();
 		this.lmsController = new LMSController(this.rmc, new MockLogger());
@@ -58,10 +59,6 @@ public class LMS_SensorTest {
 		Thread.sleep(100);
 				
 		// Mock up two sensors
-		u1171639.sensor.main.java.utils.CorbaUtils.initOrb(args);
-		u1171639.sensor.main.java.utils.CorbaUtils.initRootPOA();
-		u1171639.sensor.main.java.utils.CorbaUtils.initNameService();
-		
 		SensorConfig.setMonitoringInterval(50);
 		SensorConfig.setWarningWaterLevel(70);
 		SensorConfig.setLocality("Locality1");

@@ -6,11 +6,11 @@ import org.omg.PortableServer.POAPackage.WrongPolicy;
 import u1171639.lms.main.java.client.CorbaSensor;
 import u1171639.rmc.main.java.client.CorbaLMS;
 import u1171639.rmc.main.java.controller.RMCController;
-import u1171639.rmc.main.java.utils.CorbaUtils;
 import u1171639.shared.main.java.corba.rmc.RMC;
 import u1171639.shared.main.java.corba.rmc.RMCHelper;
 import u1171639.shared.main.java.corba.rmc.RMCPOA;
 import u1171639.shared.main.java.logging.Logger;
+import u1171639.shared.main.java.utils.CorbaUtils;
 
 public class RMCService extends RMCPOA {
 	private RMCController controller;

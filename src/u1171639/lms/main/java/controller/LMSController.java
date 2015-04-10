@@ -18,11 +18,11 @@ import u1171639.lms.main.java.client.Sensor;
 import u1171639.lms.main.java.model.Zone;
 import u1171639.lms.main.java.service.LMS_RMCService;
 import u1171639.lms.main.java.service.LMS_SensorService;
-import u1171639.lms.main.java.utils.CorbaUtils;
 import u1171639.lms.main.java.utils.LMSConfig;
 import u1171639.shared.main.java.logging.LogItem;
 import u1171639.shared.main.java.logging.Logger;
 import u1171639.shared.main.java.logging.TransientLogger;
+import u1171639.shared.main.java.utils.CorbaUtils;
 
 public class LMSController {
 	private List<Zone> zones = new ArrayList<Zone>();

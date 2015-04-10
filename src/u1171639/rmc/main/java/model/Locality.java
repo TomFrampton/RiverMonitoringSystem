@@ -4,9 +4,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 import u1171639.rmc.main.java.client.LMS;
+import u1171639.shared.main.java.logging.LogItem;
 
 public class Locality {
 	private List<Zone> zones = new ArrayList<Zone>();
+	private List<LogItem> logs = new ArrayList<LogItem>();
 	private String name;
 	private LMS lms;
 	
@@ -19,12 +21,22 @@ public class Locality {
 		this.lms = lms;
 	}
 	
-	public void updateLocalityInfo() {
-		this.zones = this.lms.getLocalityInfo();
+	public List<Zone> getUpdatedZones() {
+		this.zones = this.lms.getZoneUpdates();
+		return this.getZones();
+	}
+	
+	public List<LogItem> getUpdatedLogs() {
+		this.logs = this.lms.getLog();
+		return this.getLogs();
 	}
 	
 	public List<Zone> getZones() {
-		return zones;
+		return this.zones;
+	}
+	
+	public List<LogItem> getLogs() {
+		return this.logs;
 	}
 	
 	public String getName() {

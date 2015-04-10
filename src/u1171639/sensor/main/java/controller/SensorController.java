@@ -12,12 +12,12 @@ import u1171639.sensor.main.java.client.LMS;
 import u1171639.sensor.main.java.monitor.SimulatedWaterLevelMonitor;
 import u1171639.sensor.main.java.monitor.WaterLevelMonitor;
 import u1171639.sensor.main.java.service.SensorService;
-import u1171639.sensor.main.java.utils.CorbaUtils;
 import u1171639.sensor.main.java.utils.SensorConfig;
 import u1171639.sensor.main.java.view.JavaFXSimulationView;
 import u1171639.sensor.main.java.view.SimulationView;
 import u1171639.shared.main.java.logging.Logger;
 import u1171639.shared.main.java.logging.TransientLogger;
+import u1171639.shared.main.java.utils.CorbaUtils;
 
 public class SensorController {
 	private LMS lms;

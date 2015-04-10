@@ -2,8 +2,8 @@ package u1171639.lms.main.java.client;
 
 import java.util.concurrent.Callable;
 
-import u1171639.lms.main.java.utils.CorbaUtils;
 import u1171639.shared.main.java.corba.sensor.SensorHelper;
+import u1171639.shared.main.java.utils.CorbaUtils;
 
 public class CorbaSensor implements Sensor {
 	private org.omg.CORBA.Object ior;
