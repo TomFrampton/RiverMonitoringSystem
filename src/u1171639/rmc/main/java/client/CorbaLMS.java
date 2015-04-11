@@ -6,12 +6,12 @@ import java.util.concurrent.Callable;
 
 import u1171639.rmc.main.java.model.Sensor;
 import u1171639.rmc.main.java.model.Zone;
-import u1171639.shared.main.java.corba.lms_rmc.CorbaLocality;
-import u1171639.shared.main.java.corba.lms_rmc.CorbaLog;
-import u1171639.shared.main.java.corba.lms_rmc.CorbaLogItem;
-import u1171639.shared.main.java.corba.lms_rmc.CorbaSensor;
 import u1171639.shared.main.java.corba.lms_rmc.LMS_RMC;
 import u1171639.shared.main.java.corba.lms_rmc.LMS_RMCHelper;
+import u1171639.shared.main.java.corba.models.CorbaModel_Locality;
+import u1171639.shared.main.java.corba.models.CorbaModel_Log;
+import u1171639.shared.main.java.corba.models.CorbaModel_LogItem;
+import u1171639.shared.main.java.corba.models.CorbaModel_Sensor;
 import u1171639.shared.main.java.logging.LogItem;
 import u1171639.shared.main.java.utils.EnumParser;
 
@@ -37,9 +37,9 @@ public class CorbaLMS implements LMS {
 	
 	@Override
 	public List<Zone> getZoneUpdates() {
-		CorbaLocality corbaLocality = this.communicate(new Callable<CorbaLocality>() {
+		CorbaModel_Locality corbaLocality = this.communicate(new Callable<CorbaModel_Locality>() {
 			@Override
-			public CorbaLocality call() throws Exception {
+			public CorbaModel_Locality call() throws Exception {
 				return lms.getZoneUpdates();
 			}
 		});
@@ -55,7 +55,7 @@ public class CorbaLMS implements LMS {
 			List<Sensor> sensors = new ArrayList<Sensor>();
 			
 			for(int ii = 0; ii < corbaLocality.zones[i].sensors.length; ++ii) {
-				CorbaSensor corbaSensor = corbaLocality.zones[i].sensors[ii];
+				CorbaModel_Sensor corbaSensor = corbaLocality.zones[i].sensors[ii];
 				Sensor sensor = new Sensor(corbaSensor.id, "");
 				sensors.add(sensor);
 			}
@@ -74,16 +74,16 @@ public class CorbaLMS implements LMS {
 	
 	@Override
 	public List<LogItem> getLog() {
-		CorbaLog corbaLog = this.communicate(new Callable<CorbaLog>() {
+		CorbaModel_Log corbaLog = this.communicate(new Callable<CorbaModel_Log>() {
 			@Override
-			public CorbaLog call() throws Exception {
+			public CorbaModel_Log call() throws Exception {
 				return lms.getLog();
 			}
 		});
 		
 		List<LogItem> log = new ArrayList<LogItem>();
 		
-		for(CorbaLogItem corbaLogItem : corbaLog.logItems) {
+		for(CorbaModel_LogItem corbaLogItem : corbaLog.logItems) {
 			LogItem item = new LogItem(corbaLogItem.message, EnumParser.stringToEnum(LogItem.Event.class, corbaLogItem.event));
 			log.add(item);
 		}

@@ -9,14 +9,14 @@ import org.omg.PortableServer.POAPackage.WrongPolicy;
 import u1171639.lms.main.java.client.Sensor;
 import u1171639.lms.main.java.controller.LMSController;
 import u1171639.lms.main.java.utils.LMSConfig;
-import u1171639.shared.main.java.corba.lms_rmc.CorbaLocality;
-import u1171639.shared.main.java.corba.lms_rmc.CorbaLog;
-import u1171639.shared.main.java.corba.lms_rmc.CorbaLogItem;
-import u1171639.shared.main.java.corba.lms_rmc.CorbaSensor;
-import u1171639.shared.main.java.corba.lms_rmc.CorbaZone;
 import u1171639.shared.main.java.corba.lms_rmc.LMS_RMC;
 import u1171639.shared.main.java.corba.lms_rmc.LMS_RMCHelper;
 import u1171639.shared.main.java.corba.lms_rmc.LMS_RMCPOA;
+import u1171639.shared.main.java.corba.models.CorbaModel_Locality;
+import u1171639.shared.main.java.corba.models.CorbaModel_Log;
+import u1171639.shared.main.java.corba.models.CorbaModel_LogItem;
+import u1171639.shared.main.java.corba.models.CorbaModel_Sensor;
+import u1171639.shared.main.java.corba.models.CorbaModel_Zone;
 import u1171639.shared.main.java.logging.LogItem;
 import u1171639.shared.main.java.utils.CorbaUtils;
 
@@ -42,21 +42,21 @@ public class LMS_RMCService extends LMS_RMCPOA {
 	}
 
 	@Override
-	public CorbaLocality getZoneUpdates() {
+	public CorbaModel_Locality getZoneUpdates() {
 		List<u1171639.lms.main.java.model.Zone> zones = this.controller.getAllZones();
 		
 		// Copy data from Zone models to CORBA Zone objects
-		CorbaZone[] corbaZones = new CorbaZone[zones.size()];
+		CorbaModel_Zone[] corbaZones = new CorbaModel_Zone[zones.size()];
 		for(int i = 0; i < zones.size(); ++i) {
-			CorbaZone corbaZone = new CorbaZone();
+			CorbaModel_Zone corbaZone = new CorbaModel_Zone();
 			corbaZone.name = zones.get(i).getName();
 			corbaZone.alarmRaised = zones.get(i).isAlarmRaised();
 			corbaZones[i] = corbaZone;
 			
 			List<Sensor> sensors = zones.get(i).getSensors();
-			CorbaSensor[] corbaSensors = new CorbaSensor[sensors.size()];
+			CorbaModel_Sensor[] corbaSensors = new CorbaModel_Sensor[sensors.size()];
 			for(int ii = 0; ii < sensors.size(); ++ii) {
-				CorbaSensor corbaSensor = new CorbaSensor();
+				CorbaModel_Sensor corbaSensor = new CorbaModel_Sensor();
 				corbaSensor.id = sensors.get(ii).getId();
 				corbaSensors[ii] = corbaSensor;
 			}
@@ -64,7 +64,7 @@ public class LMS_RMCService extends LMS_RMCPOA {
 			corbaZones[i].sensors = corbaSensors;
 		}
 		
-		CorbaLocality corbaLocality = new CorbaLocality();
+		CorbaModel_Locality corbaLocality = new CorbaModel_Locality();
 		corbaLocality.name = LMSConfig.getLocality();
 		corbaLocality.zones = corbaZones;
 		
@@ -72,21 +72,21 @@ public class LMS_RMCService extends LMS_RMCPOA {
 	}
 
 	@Override
-	public CorbaLog getLog() {
+	public CorbaModel_Log getLog() {
 		List<LogItem> logs = this.controller.getAllLogs();
 		
 		// Convert from generic to CORBA LogItem model
-		CorbaLogItem[] corbaLogItems = new CorbaLogItem[logs.size()];
+		CorbaModel_LogItem[] corbaLogItems = new CorbaModel_LogItem[logs.size()];
 		
 		for(int i = 0; i < logs.size(); ++i) {
 			LogItem item = logs.get(i);
-			CorbaLogItem corbaItem = new CorbaLogItem();
+			CorbaModel_LogItem corbaItem = new CorbaModel_LogItem();
 			corbaItem.message = item.getMessage();
 			corbaItem.event = item.getEvent().toString();
 			corbaLogItems[i] = corbaItem;
 		}
 		
-		CorbaLog corbaLog = new CorbaLog();
+		CorbaModel_Log corbaLog = new CorbaModel_Log();
 		corbaLog.logItems = corbaLogItems;
 		
 		return corbaLog;

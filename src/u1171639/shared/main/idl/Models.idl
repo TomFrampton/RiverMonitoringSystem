@@ -1,0 +1,27 @@
+module models {
+	
+	struct CorbaModel_LogItem {
+		string event;
+		string message;
+	};
+	
+	struct CorbaModel_Sensor {
+		string id;
+	};
+
+	struct CorbaModel_Zone {
+		string name;
+		boolean alarmRaised;
+		sequence<CorbaModel_Sensor> sensors;
+	};
+	
+	struct CorbaModel_Locality {
+		string name;
+		sequence<CorbaModel_Zone> zones;
+	};
+	
+	struct CorbaModel_Log {
+		sequence<CorbaModel_LogItem> logItems;
+	};
+	
+};

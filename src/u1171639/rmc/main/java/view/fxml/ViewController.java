@@ -21,8 +21,20 @@ public abstract class ViewController {
 		this.view = view;
 	}
 	
-	public void show() {
-		viewManager.showScreen(this);
+	public void showInLeftPanel() {
+		viewManager.showInLeftPanel(this);
+	}
+	
+	public void showInRightPanel() {
+		viewManager.showInRightPanel(this);
+	}
+	
+	public void clearLeftPanel() {
+		viewManager.clearLeftPanel();
+	}
+	
+	public void clearRightPanel() {
+		viewManager.clearRightPanel();
 	}
 	
 	public RMCController getRMCController() {

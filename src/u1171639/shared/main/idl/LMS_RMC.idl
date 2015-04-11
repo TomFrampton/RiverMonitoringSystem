@@ -1,30 +1,10 @@
-module lms_rmc {
-	struct CorbaLogItem {
-		string event;
-		string message;
-	};
-	
-	struct CorbaSensor {
-		string id;
-	};
+#include <Models.idl>
 
-	struct CorbaZone {
-		string name;
-		boolean alarmRaised;
-		sequence<CorbaSensor> sensors;
-	};
-	
-	struct CorbaLocality {
-		string name;
-		sequence<CorbaZone> zones;
-	};
-	
-	struct CorbaLog {
-		sequence<CorbaLogItem> logItems;
-	};
-	
+module lms_rmc {
+
 	interface LMS_RMC {
-		CorbaLocality getZoneUpdates();
-		CorbaLog getLog();
+		models::CorbaModel_Locality getZoneUpdates();
+		models::CorbaModel_Log getLog();
 	};
+	
 };
