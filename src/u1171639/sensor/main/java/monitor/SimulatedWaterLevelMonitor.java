@@ -33,7 +33,7 @@ public class SimulatedWaterLevelMonitor implements WaterLevelMonitor, Runnable {
 	
 	@Override
 	public boolean isAlarmRaised() {
-		return this.waterLevel >= SensorConfig.getWarningWaterLevel();
+		return this.waterLevel >= SensorConfig.getWarningThreshold();
 	}
 	
 	@Override
@@ -54,7 +54,7 @@ public class SimulatedWaterLevelMonitor implements WaterLevelMonitor, Runnable {
 		try {
 			for(;;Thread.sleep(SensorConfig.getMonitoringInterval())) {
 				if(!paused) {
-					if(this.waterLevel >= SensorConfig.getWarningWaterLevel()) {
+					if(this.waterLevel >= SensorConfig.getWarningThreshold()) {
 						//Logger.log(LogLevel.WARNING, "Water Level Reading Exceeded Warning Level - " + this.waterLevel);
 						//Logger.log(LogLevel.WARNING, "Raising Alarm At LMS");
 						

@@ -60,7 +60,7 @@ public class LMS_SensorTest {
 				
 		// Mock up two sensors
 		SensorConfig.setMonitoringInterval(50);
-		SensorConfig.setWarningWaterLevel(70);
+		SensorConfig.setWarningThreshold(70);
 		SensorConfig.setLocality("Locality1");
 		SensorConfig.setZone("Zone1");
 		

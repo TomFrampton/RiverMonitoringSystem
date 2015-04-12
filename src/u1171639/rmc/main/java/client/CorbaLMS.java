@@ -4,8 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.Callable;
 
-import u1171639.rmc.main.java.model.Sensor;
-import u1171639.rmc.main.java.model.Zone;
+import u1171639.rmc.main.java.model.RMCSensor;
+import u1171639.rmc.main.java.model.RMCZone;
 import u1171639.shared.main.java.corba.lms_rmc.LMS_RMC;
 import u1171639.shared.main.java.corba.lms_rmc.LMS_RMCHelper;
 import u1171639.shared.main.java.corba.models.CorbaModel_Locality;
@@ -14,6 +14,7 @@ import u1171639.shared.main.java.corba.models.CorbaModel_LogItem;
 import u1171639.shared.main.java.corba.models.CorbaModel_Sensor;
 import u1171639.shared.main.java.logging.LogItem;
 import u1171639.shared.main.java.utils.EnumParser;
+import u1171639.shared.main.java.utils.ModelConverter;
 
 public class CorbaLMS implements LMS {
 	private org.omg.CORBA.Object ior;
@@ -36,7 +37,7 @@ public class CorbaLMS implements LMS {
 	}
 	
 	@Override
-	public List<Zone> getZoneUpdates() {
+	public List<RMCZone> getZoneUpdates() {
 		CorbaModel_Locality corbaLocality = this.communicate(new Callable<CorbaModel_Locality>() {
 			@Override
 			public CorbaModel_Locality call() throws Exception {
@@ -44,26 +45,7 @@ public class CorbaLMS implements LMS {
 			}
 		});
 		
-		List<Zone> zones = new ArrayList<Zone>();
-		
-		for(int i = 0; i < corbaLocality.zones.length; ++i) {
-			Zone zone = new Zone();
-			zone.setName(corbaLocality.zones[i].name);
-			zone.setAlarmRaised(corbaLocality.zones[i].alarmRaised);
-			zones.add(zone);
-			
-			List<Sensor> sensors = new ArrayList<Sensor>();
-			
-			for(int ii = 0; ii < corbaLocality.zones[i].sensors.length; ++ii) {
-				CorbaModel_Sensor corbaSensor = corbaLocality.zones[i].sensors[ii];
-				Sensor sensor = new Sensor(corbaSensor.id, "");
-				sensors.add(sensor);
-			}
-			
-			zone.setSensors(sensors);
-		}
-		
-		return zones;
+		return ModelConverter.convertLocality(corbaLocality).getZones();
 	}
 	
 	@Override
@@ -81,14 +63,7 @@ public class CorbaLMS implements LMS {
 			}
 		});
 		
-		List<LogItem> log = new ArrayList<LogItem>();
-		
-		for(CorbaModel_LogItem corbaLogItem : corbaLog.logItems) {
-			LogItem item = new LogItem(corbaLogItem.message, EnumParser.stringToEnum(LogItem.Event.class, corbaLogItem.event));
-			log.add(item);
-		}
-		
-		return log;
+		return ModelConverter.convertLog(corbaLog);
 	}
 	
 	private <T> T communicate(Callable<T> action) {

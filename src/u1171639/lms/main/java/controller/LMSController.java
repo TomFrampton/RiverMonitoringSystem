@@ -15,7 +15,7 @@ import org.apache.commons.cli.ParseException;
 import u1171639.lms.main.java.client.CorbaRMC;
 import u1171639.lms.main.java.client.RMC;
 import u1171639.lms.main.java.client.Sensor;
-import u1171639.lms.main.java.model.Zone;
+import u1171639.lms.main.java.model.LMSZone;
 import u1171639.lms.main.java.service.LMS_RMCService;
 import u1171639.lms.main.java.service.LMS_SensorService;
 import u1171639.lms.main.java.utils.LMSConfig;
@@ -25,7 +25,7 @@ import u1171639.shared.main.java.logging.TransientLogger;
 import u1171639.shared.main.java.utils.CorbaUtils;
 
 public class LMSController {
-	private List<Zone> zones = new ArrayList<Zone>();
+	private List<LMSZone> zones = new ArrayList<LMSZone>();
 	private RMC rmc;
 	private Logger logger;
 	
@@ -35,9 +35,9 @@ public class LMSController {
 	}
 	
 	public void registerSensor(String zoneName, Sensor sensor) {
-		Zone zone = this.getZoneByName(zoneName);
+		LMSZone zone = this.getZoneByName(zoneName);
 		if(zone == null) {
-			zone = new Zone();
+			zone = new LMSZone();
 			zone.setName(zoneName);
 			this.zones.add(zone);
 		}
@@ -49,7 +49,7 @@ public class LMSController {
 	}
 	
 	public List<Sensor> getSensorsByZone(String zoneName) {
-		Zone zone = this.getZoneByName(zoneName);
+		LMSZone zone = this.getZoneByName(zoneName);
 		if(zone != null) {
 			return zone.getSensors();
 		} else {
@@ -57,10 +57,10 @@ public class LMSController {
 		}
 	}
 	
-	public Zone getZoneByName(String zoneName) {
-		Iterator<Zone> it = this.zones.iterator();
+	public LMSZone getZoneByName(String zoneName) {
+		Iterator<LMSZone> it = this.zones.iterator();
 		while(it.hasNext()) {
-			Zone next = it.next();
+			LMSZone next = it.next();
 			if(next.getName().equals(zoneName)) {
 				return next;
 			}
@@ -69,12 +69,12 @@ public class LMSController {
 		return null;
 	}
 	
-	public List<Zone> getAllZones() {
+	public List<LMSZone> getAllZones() {
 		return this.zones;
 	}
 	
 	public void alarmRaised(String zoneName) {
-		Zone zone = this.getZoneByName(zoneName);
+		LMSZone zone = this.getZoneByName(zoneName);
 		if(zone != null) {
 			//SimpleLogger.log(LogLevel.WARNING, "Alarm raised in " + zoneName);
 			logger.logEvent(new LogItem("Alarm raised in " + zoneName, LogItem.Event.ALARM_RAISED));

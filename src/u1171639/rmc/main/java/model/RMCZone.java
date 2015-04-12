@@ -2,10 +2,10 @@ package u1171639.rmc.main.java.model;
 
 import java.util.List;
 
-public class Zone {
+public class RMCZone {
 	private String name;
 	private boolean alarmRaised;
-	private List<Sensor> sensors;
+	private List<RMCSensor> sensors;
 	
 	public String getName() {
 		return name;
@@ -23,11 +23,11 @@ public class Zone {
 		this.alarmRaised = alarmRaised;
 	}
 
-	public List<Sensor> getSensors() {
+	public List<RMCSensor> getSensors() {
 		return sensors;
 	}
 
-	public void setSensors(List<Sensor> sensors) {
+	public void setSensors(List<RMCSensor> sensors) {
 		this.sensors = sensors;
 	}
 }

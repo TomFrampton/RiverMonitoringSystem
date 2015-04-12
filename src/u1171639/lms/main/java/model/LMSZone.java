@@ -6,7 +6,7 @@ import java.util.List;
 
 import u1171639.lms.main.java.client.Sensor;
 
-public class Zone {
+public class LMSZone {
 	private String name;
 	private List<Sensor> sensors = new ArrayList<Sensor>();
 	private boolean alarmRaised;
@@ -52,7 +52,7 @@ public class Zone {
 	
 	public Sensor getSensorById(String id) {
 		for(Sensor sensor : this.sensors) {
-			if(sensor.getId().equals(id)) {
+			if(sensor.getName().equals(id)) {
 				return sensor;
 			}
 		}

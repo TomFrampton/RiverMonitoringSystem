@@ -6,7 +6,7 @@ import java.util.Iterator;
 import java.util.List;
 
 import u1171639.lms.main.java.client.Sensor;
-import u1171639.lms.main.java.model.Zone;
+import u1171639.lms.main.java.model.LMSZone;
 import u1171639.rmc.main.java.client.CorbaLMS;
 import u1171639.rmc.main.java.client.LMS;
 import u1171639.rmc.main.java.model.Locality;

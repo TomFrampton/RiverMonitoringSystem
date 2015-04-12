@@ -4,6 +4,6 @@ module sensor {
 		void activate();
 		void deactivate();
 		boolean isActive();
-		
+		double getThreshold();
 	};
 };

@@ -4,7 +4,7 @@ import java.util.List;
 
 import u1171639.rmc.main.java.client.LMS;
 import u1171639.rmc.main.java.model.Locality;
-import u1171639.rmc.main.java.model.Zone;
+import u1171639.rmc.main.java.model.RMCZone;
 import u1171639.shared.main.java.logging.LogItem;
 
 public class MockLMS implements LMS {
@@ -28,7 +28,7 @@ public class MockLMS implements LMS {
 	}
 
 	@Override
-	public List<Zone> getZoneUpdates() {
+	public List<RMCZone> getZoneUpdates() {
 		// TODO Auto-generated method stub
 		return null;
 	}

@@ -7,7 +7,7 @@ import u1171639.rmc.main.java.client.LMS;
 import u1171639.shared.main.java.logging.LogItem;
 
 public class Locality {
-	private List<Zone> zones = new ArrayList<Zone>();
+	private List<RMCZone> zones = new ArrayList<RMCZone>();
 	private List<LogItem> logs = new ArrayList<LogItem>();
 	private String name;
 	private LMS lms;
@@ -21,7 +21,7 @@ public class Locality {
 		this.lms = lms;
 	}
 	
-	public List<Zone> getUpdatedZones() {
+	public List<RMCZone> getUpdatedZones() {
 		this.zones = this.lms.getZoneUpdates();
 		return this.getZones();
 	}
@@ -31,7 +31,7 @@ public class Locality {
 		return this.getLogs();
 	}
 	
-	public List<Zone> getZones() {
+	public List<RMCZone> getZones() {
 		return this.zones;
 	}
 	

@@ -33,7 +33,7 @@ public class SimulatedWaterLevelMonitorTest {
 		});
 		
 		SensorConfig.setMonitoringInterval(50);
-		SensorConfig.setWarningWaterLevel(70);
+		SensorConfig.setWarningThreshold(70);
 	}
 
 	@After

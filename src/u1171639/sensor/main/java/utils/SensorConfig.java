@@ -1,17 +1,17 @@
 package u1171639.sensor.main.java.utils;
 
 public class SensorConfig {
-	private static float warningWaterLevel;
+	private static float warningThreshold;
 	private static long monitoringInterval;
 	private static String locality;
 	private static String zone;
 	
-	public static float getWarningWaterLevel() {
-		return warningWaterLevel;
+	public static float getWarningThreshold() {
+		return warningThreshold;
 	}
 	
-	public static void setWarningWaterLevel(float warningWaterLevel) {
-		SensorConfig.warningWaterLevel = warningWaterLevel;
+	public static void setWarningThreshold(float warningThreshold) {
+		SensorConfig.warningThreshold = warningThreshold;
 	}
 	
 	public static long getMonitoringInterval() {

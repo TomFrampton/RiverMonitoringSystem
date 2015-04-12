@@ -68,8 +68,18 @@ public class CorbaSensor implements Sensor {
 	}
 	
 	@Override
-	public String getId() {
+	public String getName() {
 		return CorbaUtils.getOrb().object_to_string(this.ior);
+	}
+	
+	@Override
+	public double getThreshold() {
+		return this.communicate(new Callable<Double>() {
+			@Override
+			public Double call() throws Exception {
+				return sensor.getThreshold();
+			}
+		});
 	}
 	
 	private <T> T communicate(Callable<T> action) {

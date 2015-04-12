@@ -6,7 +6,9 @@ module models {
 	};
 	
 	struct CorbaModel_Sensor {
-		string id;
+		string name;
+		double threshold;
+		boolean active;
 	};
 
 	struct CorbaModel_Zone {

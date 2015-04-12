@@ -18,7 +18,7 @@ import u1171639.lms.main.java.utils.LMSConfig;
 import u1171639.rmc.main.java.client.LMS;
 import u1171639.rmc.main.java.controller.RMCController;
 import u1171639.rmc.main.java.model.Locality;
-import u1171639.rmc.main.java.model.Zone;
+import u1171639.rmc.main.java.model.RMCZone;
 import u1171639.rmc.main.java.service.RMCService;
 import u1171639.rmc.test.mocks.MockRMC;
 import u1171639.sensor.main.java.client.CorbaLMS;
@@ -109,7 +109,7 @@ public class RMC_LMS_SensorTest {
 				
 		// Mock up two sensors
 		SensorConfig.setMonitoringInterval(50);
-		SensorConfig.setWarningWaterLevel(70);
+		SensorConfig.setWarningThreshold(70);
 		SensorConfig.setLocality("Locality1");
 		SensorConfig.setZone("Zone1");
 		
@@ -160,14 +160,14 @@ public class RMC_LMS_SensorTest {
 	}
 	
 	@Test
-	public void testGetLocalityInfo() throws InterruptedException {
+	public void testGetUpdatedZones() throws InterruptedException {
 		Locality locality = this.rmcController.getLocalityByName("Locality1");
 		LMS lms = locality.getLms();
 		
 		assertTrue(lms != null);
 		
 		locality.getUpdatedZones();
-		List<Zone> zones = locality.getZones();
+		List<RMCZone> zones = locality.getZones();
 		assertTrue(zones.size() == 1);
 		assertFalse(zones.get(0).isAlarmRaised());
 		

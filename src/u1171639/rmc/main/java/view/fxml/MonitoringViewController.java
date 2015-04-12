@@ -13,8 +13,8 @@ import u1171639.rmc.main.java.view.JavaFXRMCView;
 import u1171639.rmc.main.java.view.ViewManager;
 import u1171639.rmc.main.java.controller.RMCController;
 import u1171639.rmc.main.java.model.Locality;
-import u1171639.rmc.main.java.model.Sensor;
-import u1171639.rmc.main.java.model.Zone;
+import u1171639.rmc.main.java.model.RMCSensor;
+import u1171639.rmc.main.java.model.RMCZone;
 import u1171639.rmc.main.java.utils.FXMLViewLoader;
 
 public class MonitoringViewController extends ViewController {
@@ -59,20 +59,20 @@ public class MonitoringViewController extends ViewController {
 		root.setExpanded(true);
 		 
 		for(Locality locality : localities) {
-			List<Zone> zones = locality.getUpdatedZones();
+			List<RMCZone> zones = locality.getUpdatedZones();
 			
 			TreeItem<String> localityItem = new TreeItem<String>(locality.getName());
 			root.getChildren().add(localityItem);
 			localityItem.setExpanded(true);
 			
-			for(Zone zone : zones) {
+			for(RMCZone zone : zones) {
 				TreeItem<String> zoneItem = new TreeItem<String>(zone.getName());
 				localityItem.getChildren().add(zoneItem);
 				zoneItem.setExpanded(true);
 				
-				List<Sensor> sensors = zone.getSensors();
-				for(Sensor sensor : sensors) {
-					TreeItem<String> sensorItem = new TreeItem<String>(sensor.getId());
+				List<RMCSensor> sensors = zone.getSensors();
+				for(RMCSensor sensor : sensors) {
+					TreeItem<String> sensorItem = new TreeItem<String>(sensor.getName());
 					zoneItem.getChildren().add(sensorItem);
 				}
 			}

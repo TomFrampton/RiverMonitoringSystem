@@ -4,7 +4,9 @@ import u1171639.lms.main.java.client.Sensor;
 
 public class MockSensor implements Sensor {
 	private boolean alarmRaised;
-	private boolean isActive = true;
+	private boolean active = true;
+	private String id;
+	private double threshold;
 	
 	@Override
 	public void connect() {
@@ -29,23 +31,39 @@ public class MockSensor implements Sensor {
 
 	@Override
 	public void activate() {
-		this.isActive = true;
+		this.active = true;
 	}
 
 	@Override
 	public void deactivate() {
-		this.isActive = false;
+		this.active = false;
 	}
 
 	@Override
 	public boolean isActive() {
-		return this.isActive;
+		return this.active;
+	}
+	
+	public void setActive(boolean active) {
+		this.active = active;
 	}
 
 	@Override
-	public String getId() {
-		// TODO Auto-generated method stub
-		return null;
+	public String getName() {
+		return this.id;
+	}
+	
+	public void setName(String id) {
+		this.id = id;
+	}
+
+	@Override
+	public double getThreshold() {
+		return this.threshold;
+	}
+	
+	public void setThreshold(double threshold) {
+		this.threshold = threshold;
 	}
 
 }
