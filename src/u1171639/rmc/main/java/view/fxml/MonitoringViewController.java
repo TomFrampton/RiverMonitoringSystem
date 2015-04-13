@@ -22,12 +22,14 @@ public class MonitoringViewController extends ViewController {
 	@FXML private TreeItem<String> root;
 	
 	private LogsViewController logsViewController;
+	private SensorViewController sensorViewController;
 	
 	public MonitoringViewController(ViewManager viewManager) {
 		super(viewManager);
 		FXMLViewLoader.loadView(this, "monitoring.fxml");
 		
 		this.logsViewController = new LogsViewController(viewManager);
+		this.sensorViewController = new SensorViewController(viewManager);
 		
 		init();
 	}
@@ -40,8 +42,24 @@ public class MonitoringViewController extends ViewController {
             {
             	// A Locality Node
                 if(observable.getValue().getParent() == root) {
+                	
                 	logsViewController.showLogs(getRMCController().getLocalityByName(newValue.getValue()));
                 	logsViewController.showInRightPanel();
+                	
+                } else if(observable.getValue().getParent().getParent().getParent() == root) {
+                	
+                	String localityName = observable.getValue().getParent().getParent().getValue();
+                	String zoneName = observable.getValue().getParent().getValue();
+                	
+                	Locality locality = getRMCController().getLocalityByName(localityName);
+                	RMCZone zone = locality.getZoneByName(zoneName);
+                	RMCSensor sensor = zone.getSensorByName(newValue.getValue());
+                	
+                	sensor.setZoneName(zoneName);
+                	sensor.setLocalityName(localityName);
+                	
+                	sensorViewController.setSensor(sensor);
+                	sensorViewController.showInRightPanel();
                 } else {
                 	clearRightPanel();
                 }

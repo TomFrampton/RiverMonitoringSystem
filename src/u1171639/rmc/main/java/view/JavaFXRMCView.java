@@ -24,7 +24,7 @@ public class JavaFXRMCView extends Application implements RMCView {
 	@Override
 	public void start(Stage stage) throws Exception {
 		ViewManager viewManager = new ViewManager();
-		viewManager.initStage(stage, 1200, 400);
+		viewManager.initStage(stage, 1200, 450);
 		viewManager.setRmcController(controller);
 		
 		MonitoringViewController monitoringView = new MonitoringViewController(viewManager);

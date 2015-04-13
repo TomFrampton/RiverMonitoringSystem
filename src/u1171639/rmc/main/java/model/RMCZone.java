@@ -1,5 +1,6 @@
 package u1171639.rmc.main.java.model;
 
+import java.util.Iterator;
 import java.util.List;
 
 public class RMCZone {
@@ -29,5 +30,17 @@ public class RMCZone {
 
 	public void setSensors(List<RMCSensor> sensors) {
 		this.sensors = sensors;
+	}
+	
+	public RMCSensor getSensorByName(String sensorName) {
+		Iterator<RMCSensor> it = this.sensors.iterator();
+		while(it.hasNext()) {
+			RMCSensor next = it.next();
+			if(next.getName().equals(sensorName)) {
+				return next;
+			}
+		}
+		
+		return null;
 	}
 }
