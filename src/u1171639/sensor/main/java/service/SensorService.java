@@ -37,13 +37,15 @@ public class SensorService extends SensorPOA {
 	}
 
 	@Override
-	public void activate() {
+	public boolean activate() {
 		this.controller.activate();
+		return true;
 	}
 
 	@Override
-	public void deactivate() {
+	public boolean deactivate() {
 		this.controller.deactivate();
+		return true;
 	}
 
 	@Override
@@ -54,5 +56,12 @@ public class SensorService extends SensorPOA {
 	@Override
 	public double getThreshold() {
 		return SensorConfig.getWarningThreshold();
+	}
+
+	@Override
+	public boolean setThreshold(double threshold) {
+		SensorConfig.setWarningThreshold(threshold);
+		return true;
+		
 	}
 }

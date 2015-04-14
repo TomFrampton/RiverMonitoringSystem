@@ -34,7 +34,7 @@ public class LMSController {
 		this.logger = logger;
 	}
 	
-	public void registerSensor(String zoneName, Sensor sensor) {
+	public String registerSensor(String zoneName, Sensor sensor) {
 		LMSZone zone = this.getZoneByName(zoneName);
 		if(zone == null) {
 			zone = new LMSZone();
@@ -42,10 +42,14 @@ public class LMSController {
 			this.zones.add(zone);
 		}
 		
-		zone.getSensors().add(sensor);	
+		String sensorName = zoneName.toUpperCase() + "_SENSOR" + (zone.getSensors().size() + 1);
+		sensor.setName(sensorName);
+		zone.getSensors().add(sensor);
 		
 		//SimpleLogger.log(LogLevel.INFO, "Sensor registered in " + LMSConfig.getLocality() + " - " + zoneName);
 		logger.logEvent(new LogItem("Sensor registered in " + LMSConfig.getLocality() + " - " + zoneName, LogItem.Event.CONNECTION));
+		
+		return sensorName;
 	}
 	
 	public List<Sensor> getSensorsByZone(String zoneName) {
@@ -94,6 +98,24 @@ public class LMSController {
 	
 	public List<LogItem> getAllLogs() {
 		return this.logger.getAllLogs();
+	}
+	
+	public boolean activateSensor(String zoneName, String sensorName) {
+		LMSZone zone = this.getZoneByName(zoneName);
+		Sensor sensor = zone.getSensorByName(sensorName);
+		return sensor.activate();
+	}
+	
+	public boolean deactivateSensor(String zoneName, String sensorName) {
+		LMSZone zone = this.getZoneByName(zoneName);
+		Sensor sensor = zone.getSensorByName(sensorName);
+		return sensor.deactivate();
+	}
+	
+	public boolean setWarningThreshold(String zoneName, String sensorName, double threshold) {
+		LMSZone zone = this.getZoneByName(zoneName);
+		Sensor sensor = zone.getSensorByName(sensorName);
+		return sensor.setThreshold(threshold);
 	}
 	
 	public static void main(String[] args) {

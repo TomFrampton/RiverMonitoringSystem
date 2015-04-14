@@ -39,4 +39,23 @@ public class MockLMS implements LMS {
 		return null;
 	}
 
+	@Override
+	public boolean activateSensor(String zoneName, String sensorName) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean deactivateSensor(String zoneName, String sensorName) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean setWarningThreshold(String zoneName, String sensorName,
+			double threshold) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
 }

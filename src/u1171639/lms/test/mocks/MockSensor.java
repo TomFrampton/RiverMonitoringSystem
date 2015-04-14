@@ -5,7 +5,7 @@ import u1171639.lms.main.java.client.Sensor;
 public class MockSensor implements Sensor {
 	private boolean alarmRaised;
 	private boolean active = true;
-	private String id;
+	private String name;
 	private double threshold;
 	
 	@Override
@@ -30,13 +30,15 @@ public class MockSensor implements Sensor {
 	}
 
 	@Override
-	public void activate() {
+	public boolean activate() {
 		this.active = true;
+		return true;
 	}
 
 	@Override
-	public void deactivate() {
+	public boolean deactivate() {
 		this.active = false;
+		return true;
 	}
 
 	@Override
@@ -50,11 +52,12 @@ public class MockSensor implements Sensor {
 
 	@Override
 	public String getName() {
-		return this.id;
+		return this.name;
 	}
 	
+	@Override
 	public void setName(String id) {
-		this.id = id;
+		this.name = id;
 	}
 
 	@Override
@@ -62,8 +65,9 @@ public class MockSensor implements Sensor {
 		return this.threshold;
 	}
 	
-	public void setThreshold(double threshold) {
+	@Override
+	public boolean setThreshold(double threshold) {
 		this.threshold = threshold;
+		return true;
 	}
-
 }

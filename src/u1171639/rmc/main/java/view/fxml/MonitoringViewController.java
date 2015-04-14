@@ -46,7 +46,9 @@ public class MonitoringViewController extends ViewController {
                 	logsViewController.showLogs(getRMCController().getLocalityByName(newValue.getValue()));
                 	logsViewController.showInRightPanel();
                 	
-                } else if(observable.getValue().getParent().getParent().getParent() == root) {
+                } else if(observable.getValue().getParent() != null && 
+                		  observable.getValue().getParent().getParent() != null &&
+                		  observable.getValue().getParent().getParent().getParent() == root) {
                 	
                 	String localityName = observable.getValue().getParent().getParent().getValue();
                 	String zoneName = observable.getValue().getParent().getValue();

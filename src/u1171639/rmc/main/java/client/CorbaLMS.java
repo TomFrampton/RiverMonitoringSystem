@@ -66,6 +66,36 @@ public class CorbaLMS implements LMS {
 		return ModelConverter.convertLog(corbaLog);
 	}
 	
+	@Override
+	public boolean activateSensor(String zoneName, String sensorName) {
+		return this.communicate(new Callable<Boolean>() {
+			@Override
+			public Boolean call() throws Exception {
+				return lms.activateSensor(zoneName, sensorName);
+			}
+		});
+	}
+	
+	@Override
+	public boolean deactivateSensor(String zoneName, String sensorName) {
+		return this.communicate(new Callable<Boolean>() {
+			@Override
+			public Boolean call() throws Exception {
+				return lms.deactivateSensor(zoneName, sensorName);
+			}
+		});
+	}
+	
+	@Override
+	public boolean setWarningThreshold(String zoneName, String sensorName, double threshold) {
+		return this.communicate(new Callable<Boolean>() {
+			@Override
+			public Boolean call() throws Exception {
+				return lms.setWarningThreshold(zoneName, sensorName, threshold);
+			}
+		});
+	}
+	
 	private <T> T communicate(Callable<T> action) {
 		try {
 			connect();

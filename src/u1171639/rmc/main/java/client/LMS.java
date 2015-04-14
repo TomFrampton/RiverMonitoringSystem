@@ -11,4 +11,7 @@ public interface LMS {
 	public List<RMCZone> getZoneUpdates();
 	public void handleRaisedAlarm(String zone);
 	public List<LogItem> getLog();
+	public boolean activateSensor(String zoneName, String sensorName);
+	public boolean deactivateSensor(String zoneName, String sensorName);
+	public boolean setWarningThreshold(String zoneName, String sensorName, double threshold);
 }

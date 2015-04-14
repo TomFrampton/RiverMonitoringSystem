@@ -51,4 +51,21 @@ public class LMS_RMCService extends LMS_RMCPOA {
 	public CorbaModel_Log getLog() {
 		return ModelConverter.convertLog(this.controller.getAllLogs());
 	}
+
+	@Override
+	public boolean activateSensor(String zoneName, String sensorName) {
+		return this.controller.activateSensor(zoneName, sensorName);
+	}
+
+	@Override
+	public boolean deactivateSensor(String zoneName, String sensorName) {
+		return this.controller.deactivateSensor(zoneName, sensorName);
+	}
+
+	@Override
+	public boolean setWarningThreshold(String zoneName, String sensorName, double threshold) {
+		return this.controller.setWarningThreshold(zoneName, sensorName, threshold);
+	}
+	
+	
 }

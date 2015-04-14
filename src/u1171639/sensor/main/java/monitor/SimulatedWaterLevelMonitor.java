@@ -6,6 +6,7 @@ import java.util.Timer;
 import u1171639.sensor.main.java.client.LMS;
 import u1171639.sensor.main.java.controller.SensorController;
 import u1171639.sensor.main.java.utils.SensorConfig;
+import u1171639.sensor.main.java.view.fxml.SimulationViewController;
 
 public class SimulatedWaterLevelMonitor implements WaterLevelMonitor, Runnable {
 	private float waterLevel;
@@ -13,6 +14,8 @@ public class SimulatedWaterLevelMonitor implements WaterLevelMonitor, Runnable {
 	// Used for pausing the monitoring thread
 	private Object lock = new Object();
 	private boolean paused;
+	
+	private SimulationViewController viewController;
 
 	@Override
 	public void monitorWaterLevel() {
@@ -42,11 +45,19 @@ public class SimulatedWaterLevelMonitor implements WaterLevelMonitor, Runnable {
 		synchronized(lock) {
 			lock.notifyAll();
 		}
+		
+		if(this.viewController != null) {
+			this.viewController.sensorActivated();
+		}
 	}
 
 	@Override
 	public void pauseMonitoring() {
 		this.paused = true;
+		
+		if(this.viewController != null) {
+			this.viewController.sensorDeactivated();
+		}
 	}
 
 	@Override
@@ -76,5 +87,9 @@ public class SimulatedWaterLevelMonitor implements WaterLevelMonitor, Runnable {
 	
 	public void setController(SensorController controller) {
 		this.controller = controller;
+	}
+	
+	public void setViewController(SimulationViewController viewController) {
+		this.viewController = viewController;
 	}
 }

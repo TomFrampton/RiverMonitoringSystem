@@ -9,6 +9,8 @@ public class CorbaSensor implements Sensor {
 	private org.omg.CORBA.Object ior;
 	private u1171639.shared.main.java.corba.sensor.Sensor sensor;
 	
+	private String name;
+	
 	public CorbaSensor(org.omg.CORBA.Object ior) {
 		this.ior = ior;
 	}
@@ -36,23 +38,21 @@ public class CorbaSensor implements Sensor {
 	}
 
 	@Override
-	public void activate() {
-		this.communicate(new Callable<Void>() {
+	public boolean activate() {
+		return this.communicate(new Callable<Boolean>() {
 			@Override
-			public Void call() throws Exception {
-				sensor.activate();
-				return null;
+			public Boolean call() throws Exception {
+				return sensor.activate();
 			}
 		});
 	}
 
 	@Override
-	public void deactivate() {
-		this.communicate(new Callable<Void>() {
+	public boolean deactivate() {
+		return this.communicate(new Callable<Boolean>() {
 			@Override
-			public Void call() throws Exception {
-				sensor.deactivate();
-				return null;
+			public Boolean call() throws Exception {
+				return sensor.deactivate();
 			}
 		});
 	}
@@ -68,8 +68,13 @@ public class CorbaSensor implements Sensor {
 	}
 	
 	@Override
+	public void setName(String name) {
+		this.name = name;
+	}
+	
+	@Override
 	public String getName() {
-		return CorbaUtils.getOrb().object_to_string(this.ior);
+		return this.name;
 	}
 	
 	@Override
@@ -78,6 +83,16 @@ public class CorbaSensor implements Sensor {
 			@Override
 			public Double call() throws Exception {
 				return sensor.getThreshold();
+			}
+		});
+	}
+	
+	@Override
+	public boolean setThreshold(double threshold) {
+		return this.communicate(new Callable<Boolean>() {
+			@Override
+			public Boolean call() throws Exception {
+				return sensor.setThreshold(threshold);
 			}
 		});
 	}

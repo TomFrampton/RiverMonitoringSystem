@@ -50,9 +50,9 @@ public class LMSZone {
 		this.alarmRaised = false;
 	}
 	
-	public Sensor getSensorById(String id) {
+	public Sensor getSensorByName(String name) {
 		for(Sensor sensor : this.sensors) {
-			if(sensor.getName().equals(id)) {
+			if(sensor.getName().equals(name)) {
 				return sensor;
 			}
 		}

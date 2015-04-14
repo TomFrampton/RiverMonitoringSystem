@@ -67,4 +67,16 @@ public class Locality {
 	public void setLms(LMS lms) {
 		this.lms = lms;
 	}
+	
+	public boolean activateSensor(String zoneName, String sensorName) {
+		return this.lms.activateSensor(zoneName, sensorName);
+	}
+	
+	public boolean deactivateSensor(String zoneName, String sensorName) {
+		return this.lms.deactivateSensor(zoneName, sensorName);
+	}
+	
+	public boolean setWarningThreshold(String zoneName, String sensorName, double threshold) {
+		return this.lms.setWarningThreshold(zoneName, sensorName, threshold);
+	}
 }

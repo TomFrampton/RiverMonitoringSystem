@@ -97,7 +97,6 @@ public class SensorController {
 		// Read value every second and raise alarm if waterLevel >= 70
 		SensorConfig.setMonitoringInterval(5000);
 		SensorConfig.setWarningThreshold(70);
-		SensorConfig.setZone(cmd.getOptionValue("zone"));
 		
 		CorbaUtils.initOrb(args);
 		CorbaUtils.initRootPOA();

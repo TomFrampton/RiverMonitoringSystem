@@ -5,6 +5,9 @@ module lms_rmc {
 	interface LMS_RMC {
 		models::CorbaModel_Locality getZoneUpdates();
 		models::CorbaModel_Log getLog();
+		boolean activateSensor(in string zoneName, in string sensorName);
+		boolean deactivateSensor(in string zoneName, in string sensorName);
+		boolean setWarningThreshold(in string zoneName, in string sensorName, in double threshold);
 	};
 	
 };

@@ -49,8 +49,8 @@ public class LMS_SensorService extends LMS_SensorPOA {
 	}
 
 	@Override
-	public void register(String ior, String zone) {
+	public String register(String ior, String zone) {
 		CorbaSensor sensor = new CorbaSensor(CorbaUtils.getOrb().string_to_object(ior));
-		controller.registerSensor(zone, sensor);
+		return controller.registerSensor(zone, sensor);
 	}
 }

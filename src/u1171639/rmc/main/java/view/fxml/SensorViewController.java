@@ -9,6 +9,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.Slider;
 import javafx.scene.input.MouseEvent;
+import u1171639.rmc.main.java.model.Locality;
 import u1171639.rmc.main.java.model.RMCSensor;
 import u1171639.rmc.main.java.utils.FXMLViewLoader;
 import u1171639.rmc.main.java.view.ViewManager;
@@ -43,11 +44,29 @@ public class SensorViewController extends ViewController {
 	}
 	
 	@FXML protected void handleUpdateSensorThresholdClicked(MouseEvent event) {
-		System.out.println("Update threshold clicked");
+		Locality locality = this.getRMCController().getLocalityByName(this.sensor.getLocalityName());
+		
+		if(locality.setWarningThreshold(this.sensor.getZoneName(), this.sensor.getName(), Math.round(this.thresholdSlider.getValue()))) {
+			this.sensorThresholdUpdateButton.setDisable(true);
+		}
 	}
 	
 	@FXML protected void handleActivationButtonClicked(MouseEvent event) {
-		System.out.println("Activate clicked");
+		Locality locality = this.getRMCController().getLocalityByName(this.sensor.getLocalityName());
+		
+		if(this.sensor.isActive()) {
+			if(locality.deactivateSensor(this.sensor.getZoneName(), this.sensor.getName())) {
+				this.sensorDeactivated();
+			} else {
+				
+			}
+		} else {
+			if(locality.activateSensor(this.sensor.getZoneName(), this.sensor.getName())) {
+				this.sensorActivated();
+			} else {
+				
+			}
+		}
 	}
 	
 	public void setSensor(RMCSensor sensor) {
@@ -60,14 +79,24 @@ public class SensorViewController extends ViewController {
 		this.sensorThresholdUpdateButton.setDisable(true);
 		
 		if(sensor.isActive()) {
-			this.currentStateLabel.setText("Active");
-			this.currentStateLabel.setStyle("-fx-text-fill: #22b90f");
-			this.activationButton.setText("Deactivate");
+			this.sensorActivated();
 		} else {
-			this.currentStateLabel.setText("Deactivated");
-			this.currentStateLabel.setStyle("-fx-text-fill: #ff0000e8");
-			this.activationButton.setText("Activate");
+			this.sensorDeactivated();
 		}
+	}
+	
+	private void sensorActivated() {
+		this.currentStateLabel.setText("Active");
+		this.currentStateLabel.setStyle("-fx-text-fill: #22b90f");
+		this.activationButton.setText("Deactivate");
+		this.sensor.setActive(true);
+	}
+
+	private void sensorDeactivated() {
+		this.currentStateLabel.setText("Deactivated");
+		this.currentStateLabel.setStyle("-fx-text-fill: #ff0000e8");
+		this.activationButton.setText("Activate");
+		this.sensor.setActive(false);
 	}
 
 }

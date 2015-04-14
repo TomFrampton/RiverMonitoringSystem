@@ -183,6 +183,32 @@ public class RMC_LMS_SensorTest {
 		assertTrue(zones.get(0).isAlarmRaised());
 	}
 	
+	@Test
+	public void testActivateSensor() {
+		Locality locality = this.rmcController.getLocalityByName("Locality1");
+		assertTrue(locality.deactivateSensor("Zone1", "ZONE1_SENSOR1"));
+		assertFalse(this.sensor1.isActive());
+		assertTrue(this.sensor2.isActive());
+		
+		assertTrue(locality.activateSensor("Zone1", "ZONE1_SENSOR1"));
+		assertTrue(this.sensor1.isActive());
+		assertTrue(this.sensor2.isActive());
+		
+		assertTrue(locality.deactivateSensor("Zone1", "ZONE1_SENSOR2"));
+		assertTrue(this.sensor1.isActive());
+		assertFalse(this.sensor2.isActive());
+	}
+	
+	@Test
+	public void testSetWarningThreshold() {
+		Locality locality = this.rmcController.getLocalityByName("Locality1");
+		assertTrue(locality.setWarningThreshold("Zone1", "ZONE1_SENSOR1", 60.5));
+		assertTrue(SensorConfig.getWarningThreshold() == 60.5);
+		
+		assertTrue(locality.setWarningThreshold("Zone1", "ZONE1_SENSOR2", 80.96));
+		assertTrue(SensorConfig.getWarningThreshold() == 80.96);
+	}
+	
 	private SensorController mockSensor(final Object lock) {
 		CorbaLMS lms = new CorbaLMS(SensorConfig.getLocality() + "_LMSServer", null);
 		SimulatedWaterLevelMonitor monitor = new SimulatedWaterLevelMonitor();

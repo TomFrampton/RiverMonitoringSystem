@@ -1,9 +1,10 @@
 module sensor {
 	interface Sensor {
 		boolean isAlarmRaised();
-		void activate();
-		void deactivate();
+		boolean activate();
+		boolean deactivate();
 		boolean isActive();
 		double getThreshold();
+		boolean setThreshold(in double threshold);
 	};
 };
