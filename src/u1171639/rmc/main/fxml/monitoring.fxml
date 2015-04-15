@@ -1,16 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.layout.BorderPane ?>
-<?import javafx.scene.text.Text ?>
-<?import javafx.scene.control.TreeView ?>
-<?import javafx.scene.control.Button ?>
+<?import javafx.scene.shape.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
 
-<BorderPane xmlns:fx="http://javafx.com/fxml" fx:controller="u1171639.rmc.main.java.view.fxml.MonitoringViewController">
-	<center>
-		<TreeView fx:id="monitoringTree" />
-	</center>
+<VBox xmlns:fx="http://javafx.com/fxml" fx:controller="u1171639.rmc.main.java.view.fxml.MonitoringViewController" alignment="TOP_CENTER">
+
+	<padding>
+        <Insets bottom="20.0" right="20.0" top="20.0" left="20.0" />
+     </padding>
+     
+	<TreeView fx:id="monitoringTree">
 	
-	<bottom>
-		 <Button text="Update" onAction="#handleUpdateButtonAction" />
-	</bottom>
-</BorderPane>
+	</TreeView>
+	
+	<Button text="Update" onAction="#handleUpdateButtonAction">
+		<VBox.margin>
+          <Insets bottom="10.0" top="10.0" />
+       </VBox.margin>
+	</Button>
+</VBox>

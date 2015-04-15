@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.shape.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+
+<HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="u1171639.rmc.main.java.view.fxml.SensorConfigViewController">
+   <children>
+      <VBox alignment="TOP_CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="467.0" prefWidth="277.0">
+         <children>
+            <Label fx:id="sensorLabel" alignment="CENTER" prefHeight="39.0" prefWidth="193.0">
+               <font>
+                  <Font size="21.0" />
+               </font>
+            </Label>
+             <Label fx:id="localityLabel" alignment="CENTER" prefHeight="25.0" prefWidth="193.0">
+               <font>
+                  <Font size="17.0" />
+               </font>
+            </Label>
+            <Label fx:id="zoneLabel" alignment="CENTER" prefHeight="25.0" prefWidth="193.0">
+               <font>
+                  <Font size="17.0" />
+               </font>
+            </Label>
+            <Separator prefWidth="200.0">
+               <padding>
+                  <Insets bottom="20.0" top="20.0" />
+               </padding>
+            </Separator>
+            <Label alignment="CENTER" prefHeight="25.0" prefWidth="193.0" text="Current State">
+               <font>
+                  <Font size="21.0" />
+               </font>
+            </Label>
+            <Label fx:id="currentStateLabel" alignment="CENTER" prefHeight="25.0" prefWidth="193.0" text="Active" textFill="#ff0000e8">
+               <font>
+                  <Font name="System Bold Italic" size="21.0" />
+               </font>
+            </Label>
+            <Button fx:id="activationButton" mnemonicParsing="false" onMouseClicked="#handleActivationButtonClicked">
+               <VBox.margin>
+                  <Insets bottom="10.0" top="10.0" />
+               </VBox.margin>
+            </Button>
+         </children>
+         <padding>
+            <Insets bottom="20.0" left="20.0" right="-20.0" top="20.0" />
+         </padding>
+      </VBox>
+      <VBox alignment="TOP_CENTER" prefHeight="400.0" prefWidth="201.0">
+         <padding>
+            <Insets bottom="20.0" right="20.0" top="20.0" />
+         </padding>
+         <children>
+            <Label alignment="CENTER" prefHeight="39.0" prefWidth="193.0" text="Threshold">
+               <font>
+                  <Font size="21.0" />
+               </font>
+            </Label>
+            <Slider fx:id="thresholdSlider" orientation="VERTICAL" prefHeight="230.0" prefWidth="60.0" showTickLabels="true" showTickMarks="true">
+               <VBox.margin>
+                  <Insets bottom="10.0" left="10.0" top="10.0" />
+               </VBox.margin>
+            </Slider>
+            <Button fx:id="sensorThresholdUpdateButton" mnemonicParsing="false" text="Update Sensor Threshold" onMouseClicked="#handleUpdateSensorThresholdClicked">
+               <VBox.margin>
+                  <Insets bottom="10.0" top="10.0" />
+               </VBox.margin>
+            </Button>
+         </children>
+      </VBox>
+   </children>
+</HBox>

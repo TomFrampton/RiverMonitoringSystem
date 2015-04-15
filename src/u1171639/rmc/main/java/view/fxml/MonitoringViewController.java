@@ -22,14 +22,16 @@ public class MonitoringViewController extends ViewController {
 	@FXML private TreeItem<String> root;
 	
 	private LogsViewController logsViewController;
-	private SensorViewController sensorViewController;
+	private SensorConfigViewController sensorConfigViewController;
+	private SensorRegisterViewController sensorRegisterViewController;
 	
 	public MonitoringViewController(ViewManager viewManager) {
 		super(viewManager);
 		FXMLViewLoader.loadView(this, "monitoring.fxml");
 		
 		this.logsViewController = new LogsViewController(viewManager);
-		this.sensorViewController = new SensorViewController(viewManager);
+		this.sensorConfigViewController = new SensorConfigViewController(viewManager);
+		this.sensorRegisterViewController = new SensorRegisterViewController(viewManager);
 		
 		init();
 	}
@@ -44,7 +46,8 @@ public class MonitoringViewController extends ViewController {
                 if(observable.getValue().getParent() == root) {
                 	
                 	logsViewController.showLogs(getRMCController().getLocalityByName(newValue.getValue()));
-                	logsViewController.showInRightPanel();
+                	logsViewController.showInCentrePanel();
+                	clearRightPanel();
                 	
                 } else if(observable.getValue().getParent() != null && 
                 		  observable.getValue().getParent().getParent() != null &&
@@ -60,9 +63,12 @@ public class MonitoringViewController extends ViewController {
                 	sensor.setZoneName(zoneName);
                 	sensor.setLocalityName(localityName);
                 	
-                	sensorViewController.setSensor(sensor);
-                	sensorViewController.showInRightPanel();
+                	sensorConfigViewController.setSensor(sensor);
+                	sensorConfigViewController.showInCentrePanel();
+                	
+                	sensorRegisterViewController.showInRightPanel();
                 } else {
+                	clearCentrePanel();
                 	clearRightPanel();
                 }
             }

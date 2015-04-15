@@ -25,12 +25,20 @@ public abstract class ViewController {
 		viewManager.showInLeftPanel(this);
 	}
 	
+	public void showInCentrePanel() {
+		viewManager.showInCentrePanel(this);
+	}
+	
 	public void showInRightPanel() {
 		viewManager.showInRightPanel(this);
 	}
 	
 	public void clearLeftPanel() {
 		viewManager.clearLeftPanel();
+	}
+	
+	public void clearCentrePanel() {
+		viewManager.clearCentrePanel();
 	}
 	
 	public void clearRightPanel() {

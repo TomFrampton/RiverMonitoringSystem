@@ -14,10 +14,11 @@ import u1171639.rmc.main.java.model.RMCSensor;
 import u1171639.rmc.main.java.utils.FXMLViewLoader;
 import u1171639.rmc.main.java.view.ViewManager;
 
-public class SensorViewController extends ViewController {
+public class SensorConfigViewController extends ViewController {
 
 	@FXML private Label localityLabel;
 	@FXML private Label zoneLabel;
+	@FXML private Label sensorLabel;
 	
 	@FXML private Button sensorThresholdUpdateButton;
 	@FXML private Button activationButton;
@@ -28,9 +29,9 @@ public class SensorViewController extends ViewController {
 	
 	private RMCSensor sensor;
 	
-	public SensorViewController(ViewManager viewManager) {
+	public SensorConfigViewController(ViewManager viewManager) {
 		super(viewManager);
-		FXMLViewLoader.loadView(this, "sensor.fxml");
+		FXMLViewLoader.loadView(this, "sensor_config.fxml");
 		init();
 	}
 	
@@ -74,6 +75,7 @@ public class SensorViewController extends ViewController {
 		
 		this.localityLabel.setText(sensor.getLocalityName());
 		this.zoneLabel.setText(sensor.getZoneName());
+		this.sensorLabel.setText(sensor.getName());
 		
 		this.thresholdSlider.valueProperty().set(sensor.getThreshold());
 		this.sensorThresholdUpdateButton.setDisable(true);
