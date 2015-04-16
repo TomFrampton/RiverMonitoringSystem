@@ -66,6 +66,7 @@ public class MonitoringViewController extends ViewController {
                 	sensorConfigViewController.setSensor(sensor);
                 	sensorConfigViewController.showInCentrePanel();
                 	
+                	sensorRegisterViewController.setSensor(sensor);
                 	sensorRegisterViewController.showInRightPanel();
                 } else {
                 	clearCentrePanel();

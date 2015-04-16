@@ -7,6 +7,7 @@ public class MockSensor implements Sensor {
 	private boolean active = true;
 	private String name;
 	private double threshold;
+	private double waterLevel;
 	
 	@Override
 	public void connect() {
@@ -69,5 +70,14 @@ public class MockSensor implements Sensor {
 	public boolean setThreshold(double threshold) {
 		this.threshold = threshold;
 		return true;
+	}
+
+	@Override
+	public double getReading() {
+		return this.waterLevel;
+	}
+	
+	public void setReading(double waterLevel) {
+		this.waterLevel = waterLevel;
 	}
 }

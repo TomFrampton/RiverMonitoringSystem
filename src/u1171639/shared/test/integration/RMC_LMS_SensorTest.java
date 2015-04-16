@@ -20,6 +20,7 @@ import u1171639.rmc.main.java.controller.RMCController;
 import u1171639.rmc.main.java.model.Locality;
 import u1171639.rmc.main.java.model.RMCZone;
 import u1171639.rmc.main.java.service.RMCService;
+import u1171639.rmc.test.mocks.MockHomeUserManager;
 import u1171639.rmc.test.mocks.MockRMC;
 import u1171639.sensor.main.java.client.CorbaLMS;
 import u1171639.sensor.main.java.controller.SensorController;
@@ -55,7 +56,7 @@ public class RMC_LMS_SensorTest {
 		CorbaUtils.initRootPOA();
 		CorbaUtils.initNameService();
 		
-		this.rmcController = new RMCController() {
+		this.rmcController = new RMCController(new MockHomeUserManager()) {
 			@Override
 			public void raiseAlarm(String locality, String zone) {
 				super.raiseAlarm(locality, zone);
@@ -160,6 +161,22 @@ public class RMC_LMS_SensorTest {
 	}
 	
 	@Test
+	public void testGetWaterLevel() {
+		SimulatedWaterLevelMonitor monitor1 = (SimulatedWaterLevelMonitor) this.sensor1.getMonitor();
+		SimulatedWaterLevelMonitor monitor2 = (SimulatedWaterLevelMonitor) this.sensor2.getMonitor();
+		
+		monitor1.setWaterLevel(75.6);
+		
+		Locality locality = this.rmcController.getLocalityByName("Locality1");
+		assertTrue(locality.getSensorReading("Zone1", "ZONE1_SENSOR1") == 75.6);
+		
+		monitor2.setWaterLevel(56.4);
+		
+		assertTrue(locality.getSensorReading("Zone1", "ZONE1_SENSOR1") == 75.6);
+		assertTrue(locality.getSensorReading("Zone1", "ZONE1_SENSOR2") == 56.4);
+	}
+	
+	@Test
 	public void testGetUpdatedZones() throws InterruptedException {
 		Locality locality = this.rmcController.getLocalityByName("Locality1");
 		LMS lms = locality.getLms();
@@ -186,6 +203,8 @@ public class RMC_LMS_SensorTest {
 	@Test
 	public void testActivateSensor() {
 		Locality locality = this.rmcController.getLocalityByName("Locality1");
+		locality.getUpdatedZones();
+		
 		assertTrue(locality.deactivateSensor("Zone1", "ZONE1_SENSOR1"));
 		assertFalse(this.sensor1.isActive());
 		assertTrue(this.sensor2.isActive());
@@ -202,6 +221,8 @@ public class RMC_LMS_SensorTest {
 	@Test
 	public void testSetWarningThreshold() {
 		Locality locality = this.rmcController.getLocalityByName("Locality1");
+		locality.getUpdatedZones();
+		
 		assertTrue(locality.setWarningThreshold("Zone1", "ZONE1_SENSOR1", 60.5));
 		assertTrue(SensorConfig.getWarningThreshold() == 60.5);
 		

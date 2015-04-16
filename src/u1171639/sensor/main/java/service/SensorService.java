@@ -64,4 +64,9 @@ public class SensorService extends SensorPOA {
 		return true;
 		
 	}
+
+	@Override
+	public double getReading() {
+		return this.controller.getWaterLevelReading();
+	}
 }

@@ -14,4 +14,5 @@ public interface LMS {
 	public boolean activateSensor(String zoneName, String sensorName);
 	public boolean deactivateSensor(String zoneName, String sensorName);
 	public boolean setWarningThreshold(String zoneName, String sensorName, double threshold);
+	public double getSensorReading(String zoneName, String sensorName);
 }

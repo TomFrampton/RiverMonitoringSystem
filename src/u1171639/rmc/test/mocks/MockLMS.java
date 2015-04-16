@@ -58,4 +58,10 @@ public class MockLMS implements LMS {
 		return false;
 	}
 
+	@Override
+	public double getSensorReading(String zoneName, String sensorName) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
 }

@@ -11,4 +11,5 @@ public interface Sensor {
 	public void setName(String name);
 	public double getThreshold();
 	public boolean setThreshold(double threshold);
+	public double getReading();
 }

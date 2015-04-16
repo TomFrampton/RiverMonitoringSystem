@@ -6,5 +6,6 @@ module sensor {
 		boolean isActive();
 		double getThreshold();
 		boolean setThreshold(in double threshold);
+		double getReading();
 	};
 };

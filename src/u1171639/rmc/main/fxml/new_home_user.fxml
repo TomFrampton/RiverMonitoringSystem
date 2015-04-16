@@ -6,7 +6,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<VBox alignment="TOP_CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="352.0" prefWidth="317.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="u1171639.rmc.main.java.view.fxml.HomeUserViewController">
+<VBox alignment="TOP_CENTER" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="u1171639.rmc.main.java.view.fxml.NewHomeUserViewController">
    <children>
       <Label alignment="CENTER" prefHeight="39.0" prefWidth="193.0" text="Add Home User">
          <font>
@@ -55,11 +55,11 @@
                   <Insets right="20.0" />
                </padding>
             </Label>
-            <PasswordField GridPane.columnIndex="1" GridPane.rowIndex="3" />
-            <PasswordField GridPane.columnIndex="1" GridPane.rowIndex="4" />
-            <TextField GridPane.columnIndex="1" GridPane.rowIndex="2" />
-            <TextField GridPane.columnIndex="1" GridPane.rowIndex="1" />
-            <TextField GridPane.columnIndex="1" />
+            <TextField fx:id="forenameField" GridPane.columnIndex="1" />
+            <TextField fx:id="surnameField" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+            <TextField fx:id="usernameField" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+            <PasswordField fx:id="passwordField" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+            <PasswordField fx:id="confirmPasswordField" GridPane.columnIndex="1" GridPane.rowIndex="4" />
          </children>
          <columnConstraints>
             <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -83,12 +83,12 @@
       </Separator>
       <HBox alignment="CENTER" prefHeight="54.0" prefWidth="277.0">
          <children>
-            <Button mnemonicParsing="false" text="Button">
+            <Button mnemonicParsing="false" text="Add Home User" onMouseClicked="#handleAddButtonClicked" >
                <HBox.margin>
-                  <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                  <Insets bottom="10.0" left="10.0" right="10.0" top="10.0"/>
                </HBox.margin>
             </Button>
-            <Button mnemonicParsing="false" text="Button">
+            <Button mnemonicParsing="false" text="Cancel" onMouseClicked="#handleCancelButtonClicked">
                <HBox.margin>
                   <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                </HBox.margin>

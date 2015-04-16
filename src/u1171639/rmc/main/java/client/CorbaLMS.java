@@ -96,6 +96,16 @@ public class CorbaLMS implements LMS {
 		});
 	}
 	
+	@Override
+	public double getSensorReading(String zoneName, String sensorName) {
+		return this.communicate(new Callable<Double>() {
+			@Override
+			public Double call() throws Exception {
+				return lms.getSensorReading(zoneName, sensorName);
+			}
+		});
+	}
+	
 	private <T> T communicate(Callable<T> action) {
 		try {
 			connect();

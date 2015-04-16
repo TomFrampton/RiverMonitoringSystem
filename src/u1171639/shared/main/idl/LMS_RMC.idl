@@ -8,6 +8,7 @@ module lms_rmc {
 		boolean activateSensor(in string zoneName, in string sensorName);
 		boolean deactivateSensor(in string zoneName, in string sensorName);
 		boolean setWarningThreshold(in string zoneName, in string sensorName, in double threshold);
+		double getSensorReading(in string zoneName, in string sensorName);
 	};
 	
 };

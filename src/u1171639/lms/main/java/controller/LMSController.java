@@ -118,6 +118,12 @@ public class LMSController {
 		return sensor.setThreshold(threshold);
 	}
 	
+	public double getSensorReading(String zoneName, String sensorName) {
+		LMSZone zone = this.getZoneByName(zoneName);
+		Sensor sensor = zone.getSensorByName(sensorName);
+		return sensor.getReading();
+	}
+	
 	public static void main(String[] args) {
 		Options options = new Options();
 		options.addOption("locality", true, "The name of the Locality this LMS resides in.");

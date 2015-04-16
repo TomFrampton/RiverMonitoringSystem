@@ -66,6 +66,9 @@ public class LMS_RMCService extends LMS_RMCPOA {
 	public boolean setWarningThreshold(String zoneName, String sensorName, double threshold) {
 		return this.controller.setWarningThreshold(zoneName, sensorName, threshold);
 	}
-	
-	
+
+	@Override
+	public double getSensorReading(String zoneName, String sensorName) {
+		return this.controller.getSensorReading(zoneName, sensorName);
+	}
 }

@@ -97,6 +97,16 @@ public class CorbaSensor implements Sensor {
 		});
 	}
 	
+	@Override
+	public double getReading() {
+		return this.communicate(new Callable<Double>() {
+			@Override
+			public Double call() throws Exception {
+				return sensor.getReading();
+			}
+		});
+	}
+	
 	private <T> T communicate(Callable<T> action) {
 		try {
 			connect();

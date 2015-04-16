@@ -9,7 +9,7 @@ import u1171639.sensor.main.java.utils.SensorConfig;
 import u1171639.sensor.main.java.view.fxml.SimulationViewController;
 
 public class SimulatedWaterLevelMonitor implements WaterLevelMonitor, Runnable {
-	private float waterLevel;
+	private double waterLevel;
 	private SensorController controller;
 	// Used for pausing the monitoring thread
 	private Object lock = new Object();
@@ -24,11 +24,11 @@ public class SimulatedWaterLevelMonitor implements WaterLevelMonitor, Runnable {
 	}
 
 	@Override
-	public float getWaterLevel() {
+	public double getWaterLevel() {
 		return this.waterLevel;
 	}
 	
-	public void setWaterLevel(float waterLevel) {
+	public void setWaterLevel(double waterLevel) {
 		if(waterLevel >= 0) {
 			this.waterLevel = waterLevel;
 		}

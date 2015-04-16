@@ -11,6 +11,8 @@ import u1171639.rmc.main.java.client.CorbaLMS;
 import u1171639.rmc.main.java.client.LMS;
 import u1171639.rmc.main.java.model.Locality;
 import u1171639.rmc.main.java.service.RMCService;
+import u1171639.rmc.main.java.users.HomeUserManager;
+import u1171639.rmc.main.java.users.TransientHomeUserManager;
 import u1171639.rmc.main.java.view.JavaFXRMCView;
 import u1171639.rmc.main.java.view.RMCView;
 import u1171639.shared.main.java.utils.CorbaUtils;
@@ -18,8 +20,10 @@ import u1171639.shared.main.java.utils.CorbaUtils;
 public class RMCController {
 	private List<Locality> localities = new ArrayList<Locality>();
 	
-	public RMCController() {
-
+	private HomeUserManager homeUserManager;
+	
+	public RMCController(HomeUserManager homeUserManager) {
+		this.homeUserManager = homeUserManager;
 	}
 	
 	public void raiseAlarm(String locality, String zone) {
@@ -60,12 +64,18 @@ public class RMCController {
 		return this.localities;
 	}
 	
+	public HomeUserManager getHomeUserManager() {
+		return this.homeUserManager;
+	}
+	
 	public static void main(String[] args) {
 		CorbaUtils.initOrb(args);
 		CorbaUtils.initRootPOA();
 		CorbaUtils.initNameService();
 		
-		RMCController controller = new RMCController();
+		HomeUserManager homeUserManager = new TransientHomeUserManager();
+		
+		RMCController controller = new RMCController(homeUserManager);
 		RMCService service = new RMCService(controller);
 		
 		Thread serviceThread = new Thread(new Runnable() {

@@ -11,6 +11,7 @@ import u1171639.lms.main.java.controller.LMSController;
 import u1171639.lms.test.mocks.MockSensor;
 import u1171639.rmc.main.java.client.LMS;
 import u1171639.rmc.main.java.controller.RMCController;
+import u1171639.rmc.test.mocks.MockHomeUserManager;
 import u1171639.rmc.test.mocks.MockLMS;
 
 public class RMCControllerTest {
@@ -18,7 +19,7 @@ public class RMCControllerTest {
 	
 	@Before
 	public void setUp() throws Exception {
-		this.controller = new RMCController();
+		this.controller = new RMCController(new MockHomeUserManager());
 	}
 
 	@After

@@ -8,7 +8,7 @@ public class RealWaterLevelMonitor implements WaterLevelMonitor {
 	}
 
 	@Override
-	public float getWaterLevel() {
+	public double getWaterLevel() {
 		// TODO Auto-generated method stub
 		return 0;
 	}

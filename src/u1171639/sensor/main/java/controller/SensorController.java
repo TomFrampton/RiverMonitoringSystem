@@ -57,6 +57,10 @@ public class SensorController {
 		return this.monitor;
 	}
 	
+	public double getWaterLevelReading() {
+		return this.monitor.getWaterLevel();
+	}
+	
 	public static void main(String[] args) {
 		Options options = new Options();
 		options.addOption("locality", true, "The name of the Locality this Sensor resides in.");

@@ -7,11 +7,26 @@
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
 
-<VBox>
+<VBox xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="u1171639.rmc.main.java.view.fxml.SensorRegisterViewController">
 	<padding>
         <Insets bottom="20.0" right="20.0" top="20.0" />
      </padding>
 
-	<TableView></TableView>
+	<TableView fx:id="registeredUsersTable"></TableView>
+
+	 <HBox alignment="CENTER" prefHeight="54.0" prefWidth="277.0">
+         <children>
+            <Button mnemonicParsing="false" text="Register Existing User" onMouseClicked="#handleRegisterExistingUserClicked">
+               <HBox.margin>
+                  <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+               </HBox.margin>
+            </Button>
+            <Button mnemonicParsing="false" text="Register New User" onMouseClicked="#handleRegisterNewUserClicked">
+               <HBox.margin>
+                  <Insets bottom="10.0" left="10.0" right="10.0" top="10.0"/>
+               </HBox.margin>
+            </Button>
+         </children>
+      </HBox>
 
 </VBox>

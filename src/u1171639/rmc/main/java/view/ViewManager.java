@@ -58,11 +58,11 @@ public class ViewManager {
 		this.rightPanel.setMinHeight(height);
 		
 		this.leftPanel = new AnchorPane();
-		this.leftPanel.setMinWidth(width * 0.2);
+		this.leftPanel.setMinWidth(width * 0.25);
 		this.leftPanel.setMinHeight(height);
 		
 		this.centrePanel = new AnchorPane();
-		this.centrePanel.setMinWidth(width * 0.4);
+		this.centrePanel.setMinWidth(width * 0.35);
 		this.centrePanel.setMinHeight(height);
 		
 		this.stage = stage;
