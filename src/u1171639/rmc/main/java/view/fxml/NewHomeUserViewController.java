@@ -60,7 +60,7 @@ public class NewHomeUserViewController extends ViewController {
 		HomeUser newUser = new HomeUser();
 		newUser.setForename(this.forenameField.getText());
 		newUser.setSurname(this.surnameField.getText());
-		newUser.setEmail(this.usernameField.getText());
+		newUser.setUsername(this.usernameField.getText());
 		newUser.setPassword(this.passwordField.getText());
 		
 		int id = getRMCController().getHomeUserManager().addHomeUser(newUser);

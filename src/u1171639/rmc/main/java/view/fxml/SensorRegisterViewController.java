@@ -108,7 +108,7 @@ public class SensorRegisterViewController extends ViewController {
 
 			@Override
 			public ObservableValue<String> call(CellDataFeatures<HomeUser, String> param) {
-				return new SimpleStringProperty(param.getValue().getEmail());
+				return new SimpleStringProperty(param.getValue().getUsername());
 				
 			}
 		});

@@ -15,10 +15,9 @@ public class TransientHomeUserManager implements HomeUserManager {
 	@Override
 	public int addHomeUser(HomeUser newUser) {
 		synchronized(lock) {
-			if(this.getUserByUsername(newUser.getEmail()) == null) {
-				newUser.setId(this.homeUsers.size());
+			if(this.getUserByUsername(newUser.getUsername()) == null) {
+				newUser.setId(this.homeUsers.size() + 1);
 				this.homeUsers.add(newUser);
-				
 				return newUser.getId();
 			} else {
 				return -1;
@@ -40,7 +39,7 @@ public class TransientHomeUserManager implements HomeUserManager {
 	@Override
 	public HomeUser getUserByUsername(String username) {
 		for(HomeUser user : this.homeUsers) {
-			if(user.getEmail().equals(username)) {
+			if(user.getUsername().equals(username)) {
 				return user;
 			}
 		}
