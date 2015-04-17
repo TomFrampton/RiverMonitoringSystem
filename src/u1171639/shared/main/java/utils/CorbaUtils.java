@@ -13,6 +13,8 @@ import org.omg.PortableServer.POAHelper;
 import org.omg.PortableServer.Servant;
 import org.omg.PortableServer.POAManagerPackage.AdapterInactive;
 
+import u1171639.shared.main.java.exception.ServerNotFoundException;
+
 public class CorbaUtils {
 	private static ORB orb;
 	private static POA rootPoa;
@@ -74,13 +76,11 @@ public class CorbaUtils {
 		}
 	}
 	
-	public static org.omg.CORBA.Object resolveService(String name) {
+	public static org.omg.CORBA.Object resolveService(String name) throws ServerNotFoundException {
 		try {
 			return nameService.resolve_str(name);
-		} catch (NotFound | CannotProceed | org.omg.CosNaming.NamingContextPackage.InvalidName e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-			return null;
+		} catch (CannotProceed | org.omg.CosNaming.NamingContextPackage.InvalidName | NotFound e) {
+			throw new ServerNotFoundException("Server with name: " + name + " not found.");
 		}
 	}
 	

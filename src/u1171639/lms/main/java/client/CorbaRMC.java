@@ -1,7 +1,11 @@
 package u1171639.lms.main.java.client;
 
+import org.omg.CosNaming.NamingContextPackage.NotFound;
+
 import u1171639.lms.main.java.utils.LMSConfig;
 import u1171639.shared.main.java.corba.rmc.RMCHelper;
+import u1171639.shared.main.java.exception.ConnectionException;
+import u1171639.shared.main.java.exception.ServerNotFoundException;
 import u1171639.shared.main.java.utils.CorbaUtils;
 
 public class CorbaRMC implements RMC {
@@ -18,13 +22,18 @@ public class CorbaRMC implements RMC {
 	}
 	
 	@Override
-	public void connect() {
-		if(rmcIOR == null) {
-			this.rmcIOR = CorbaUtils.resolveService(this.servantName);
-		}
+	public void connect() throws ServerNotFoundException, ConnectionException {
+		try {
+			if(rmcIOR == null) {
+				this.rmcIOR = CorbaUtils.resolveService(this.servantName);
+			}
+			
+			this.rmc = RMCHelper.narrow(this.rmcIOR);
+			this.rmc.register(this.serviceIOR, LMSConfig.getLocality());
 		
-		this.rmc = RMCHelper.narrow(this.rmcIOR);
-		this.rmc.register(this.serviceIOR, LMSConfig.getLocality());
+		} catch (org.omg.CORBA.COMM_FAILURE e) {
+			throw new ConnectionException("Could not connect to server with name: " + this.servantName + ".");
+		}
 	}
 	
 	@Override

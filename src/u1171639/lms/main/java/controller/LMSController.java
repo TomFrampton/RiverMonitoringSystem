@@ -19,6 +19,8 @@ import u1171639.lms.main.java.model.LMSZone;
 import u1171639.lms.main.java.service.LMS_RMCService;
 import u1171639.lms.main.java.service.LMS_SensorService;
 import u1171639.lms.main.java.utils.LMSConfig;
+import u1171639.shared.main.java.exception.ConnectionException;
+import u1171639.shared.main.java.exception.ServerNotFoundException;
 import u1171639.shared.main.java.logging.LogItem;
 import u1171639.shared.main.java.logging.Logger;
 import u1171639.shared.main.java.logging.TransientLogger;
@@ -171,6 +173,11 @@ public class LMSController {
 		String ior = lmsRmcService.listen();
 		
 		rmc.setServiceIOR(ior);
-		rmc.connect();
+		try {
+			rmc.connect();
+		} catch (ServerNotFoundException | ConnectionException e) {
+			System.err.println(e);
+			System.exit(1);
+		}
 	}
 }

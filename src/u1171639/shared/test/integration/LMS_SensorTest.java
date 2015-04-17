@@ -20,6 +20,8 @@ import u1171639.sensor.main.java.monitor.SimulatedWaterLevelMonitor;
 import u1171639.sensor.main.java.service.SensorService;
 import u1171639.sensor.main.java.utils.SensorConfig;
 import u1171639.sensor.test.mocks.MockLogger;
+import u1171639.shared.main.java.exception.ConnectionException;
+import u1171639.shared.main.java.exception.ServerNotFoundException;
 import u1171639.shared.main.java.utils.CorbaUtils;
 
 public class LMS_SensorTest {
@@ -145,7 +147,12 @@ public class LMS_SensorTest {
 		
 		String ior = sensorService.listen();
 		lms.setServiceIOR(ior);
-		lms.connect();
+		try {
+			lms.connect();
+		} catch (ServerNotFoundException | ConnectionException e) {
+			System.err.println(e);
+			System.exit(1);
+		}
 		
 		return sensorController;
 	}

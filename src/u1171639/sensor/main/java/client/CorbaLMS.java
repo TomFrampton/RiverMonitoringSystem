@@ -1,8 +1,12 @@
 package u1171639.sensor.main.java.client;
 
+import org.omg.CosNaming.NamingContextPackage.NotFound;
+
 import u1171639.sensor.main.java.utils.SensorConfig;
 import u1171639.shared.main.java.corba.lms_sensor.LMS_Sensor;
 import u1171639.shared.main.java.corba.lms_sensor.LMS_SensorHelper;
+import u1171639.shared.main.java.exception.ConnectionException;
+import u1171639.shared.main.java.exception.ServerNotFoundException;
 import u1171639.shared.main.java.utils.CorbaUtils;
 
 public class CorbaLMS implements LMS {
@@ -19,14 +23,19 @@ public class CorbaLMS implements LMS {
 	}
 	
 	@Override
-	public void connect() {
-		if(lmsIOR == null) {
-			this.lmsIOR = CorbaUtils.resolveService(this.servantName);
-		}
+	public void connect() throws ServerNotFoundException, ConnectionException {
+		try {	
+			if(lmsIOR == null) {
+				this.lmsIOR = CorbaUtils.resolveService(this.servantName);
+			}
 		
-		this.lms = LMS_SensorHelper.narrow(this.lmsIOR);
-		String sensorName = this.lms.register(this.serviceIOR, SensorConfig.getZone());
-		SensorConfig.setSensorName(sensorName);
+			this.lms = LMS_SensorHelper.narrow(this.lmsIOR);
+			String sensorName = this.lms.register(this.serviceIOR, SensorConfig.getZone());
+			SensorConfig.setSensorName(sensorName);
+			
+		} catch(org.omg.CORBA.COMM_FAILURE e) {
+			throw new ConnectionException("Could not connect to server with name: " + this.servantName + ".");
+		}
 	}
 	
 	@Override
