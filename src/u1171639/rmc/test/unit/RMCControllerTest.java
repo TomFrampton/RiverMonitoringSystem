@@ -13,13 +13,14 @@ import u1171639.rmc.main.java.client.LMS;
 import u1171639.rmc.main.java.controller.RMCController;
 import u1171639.rmc.test.mocks.MockHomeUserManager;
 import u1171639.rmc.test.mocks.MockLMS;
+import u1171639.rmc.test.mocks.MockRMCView;
 
 public class RMCControllerTest {
 	private RMCController controller;
 	
 	@Before
 	public void setUp() throws Exception {
-		this.controller = new RMCController(new MockHomeUserManager());
+		this.controller = new RMCController(new MockRMCView(), new MockHomeUserManager());
 	}
 
 	@After

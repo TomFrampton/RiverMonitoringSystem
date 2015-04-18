@@ -81,18 +81,16 @@ public class LMSController {
 	
 	public void alarmRaised(String zoneName) {
 		LMSZone zone = this.getZoneByName(zoneName);
-		if(zone != null) {
-			//SimpleLogger.log(LogLevel.WARNING, "Alarm raised in " + zoneName);
+		// Don't raise another alarm in this zone if the alarm is already raised
+		if(zone != null && !zone.isAlarmRaised()) {
 			logger.logEvent(new LogItem("Alarm raised in " + zoneName, LogItem.Event.ALARM_RAISED));
 			
 			if(zone.confirmAlarm()) {
 				// Alarm condition confirmed by all sensors in zone
-				//SimpleLogger.log(LogLevel.WARNING, "ALARM CONDITION CONFIRMED IN " + zoneName.toUpperCase() + ". INFORMING RMC");
 				logger.logEvent(new LogItem("ALARM CONDITION CONFIRMED IN " + zoneName.toUpperCase(), LogItem.Event.ALARM_RAISED));
 				rmc.raiseAlarm(zoneName);
 			} else {
 				// Write log about unconfirmed alarm condition
-				//SimpleLogger.log(LogLevel.INFO, "Alarm in " + zoneName + " unconfirmed. Standing down.");
 				logger.logEvent(new LogItem("Alarm in " + zoneName + " unconfirmed. Standing down.", LogItem.Event.ALARM_RAISED));
 			}
 		}

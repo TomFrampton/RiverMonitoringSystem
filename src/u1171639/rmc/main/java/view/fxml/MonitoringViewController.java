@@ -40,44 +40,46 @@ public class MonitoringViewController extends ViewController {
 		this.monitoringTree.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<TreeItem<String>>()
         {
             @Override
-            public void changed(ObservableValue<? extends TreeItem<String>> observable, TreeItem<String> oldValue, TreeItem<String> newValue)
-            {
-            	// A Locality Node
-                if(observable.getValue().getParent() == root) {
-                	
-                	logsViewController.showLogs(getRMCController().getLocalityByName(newValue.getValue()));
-                	logsViewController.showInCentrePanel();
-                	clearRightPanel();
-                	
-                } else if(observable.getValue().getParent() != null && 
-                		  observable.getValue().getParent().getParent() != null &&
-                		  observable.getValue().getParent().getParent().getParent() == root) {
-                	
-                	String localityName = observable.getValue().getParent().getParent().getValue();
-                	String zoneName = observable.getValue().getParent().getValue();
-                	
-                	Locality locality = getRMCController().getLocalityByName(localityName);
-                	RMCZone zone = locality.getZoneByName(zoneName);
-                	RMCSensor sensor = zone.getSensorByName(newValue.getValue());
-                	
-                	sensor.setZoneName(zoneName);
-                	sensor.setLocalityName(localityName);
-                	
-                	sensorConfigViewController.setSensor(sensor);
-                	sensorConfigViewController.showInCentrePanel();
-                	
-                	sensorRegisterViewController.setSensor(sensor);
-                	sensorRegisterViewController.showInRightPanel();
-                } else {
-                	clearCentrePanel();
-                	clearRightPanel();
-                }
+            public void changed(ObservableValue<? extends TreeItem<String>> observable, TreeItem<String> oldValue, TreeItem<String> newValue) {
+            	if(observable.getValue() != null) {
+            		// A Locality Node
+	                if(observable.getValue().getParent() == root) {
+	                	
+	                	logsViewController.showLogs(getRMCController().getLocalityByName(newValue.getValue()));
+	                	logsViewController.showInCentrePanel();
+	                	clearRightPanel();
+	                	
+	                // Sensor Node
+	                } else if(observable.getValue().getParent() != null && 
+	                		  observable.getValue().getParent().getParent() != null &&
+	                		  observable.getValue().getParent().getParent().getParent() == root) {
+	                	
+	                	String localityName = observable.getValue().getParent().getParent().getValue();
+	                	String zoneName = observable.getValue().getParent().getValue();
+	                	
+	                	Locality locality = getRMCController().getLocalityByName(localityName);
+	                	RMCZone zone = locality.getZoneByName(zoneName);
+	                	RMCSensor sensor = zone.getSensorByName(newValue.getValue());
+	                	
+	                	sensor.setZoneName(zoneName);
+	                	sensor.setLocalityName(localityName);
+	                	
+	                	sensorConfigViewController.setSensor(sensor);
+	                	sensorConfigViewController.showInCentrePanel();
+	                	
+	                	sensorRegisterViewController.setSensor(sensor);
+	                	sensorRegisterViewController.showInRightPanel();
+	                } else {
+	                	clearCentrePanel();
+	                	clearRightPanel();
+	                }
+            	}
             }
         });
 		updateTreeView();
 	}
 	
-	private void updateTreeView() {
+	public void updateTreeView() {
 		RMCController controller = this.getRMCController();
 		List<Locality> localities = controller.getLocalities();
 		

@@ -9,6 +9,7 @@ import u1171639.lms.main.java.client.Sensor;
 import u1171639.lms.main.java.model.LMSZone;
 import u1171639.rmc.main.java.client.CorbaLMS;
 import u1171639.rmc.main.java.client.LMS;
+import u1171639.rmc.main.java.model.Alarm;
 import u1171639.rmc.main.java.model.Locality;
 import u1171639.rmc.main.java.service.RMCService;
 import u1171639.rmc.main.java.users.HomeUserManager;
@@ -19,15 +20,19 @@ import u1171639.shared.main.java.utils.CorbaUtils;
 
 public class RMCController {
 	private List<Locality> localities = new ArrayList<Locality>();
-	
 	private HomeUserManager homeUserManager;
 	
-	public RMCController(HomeUserManager homeUserManager) {
+	private RMCView view;
+	
+	public RMCController(RMCView view, HomeUserManager homeUserManager) {
+		this.view = view;
 		this.homeUserManager = homeUserManager;
 	}
 	
-	public void raiseAlarm(String locality, String zone) {
-		//SimpleLogger.log(LogLevel.INFO, "ALARM RAISED AT RMC IN " + locality.toUpperCase() + " - " + zone.toUpperCase());	
+	public void alarmRaised(Alarm alarm) {
+		if(view != null) {
+			view.alarmRaised(alarm);
+		}
 	}
 	
 	public void registerLMS(String localityName, LMS lms) {
@@ -40,7 +45,7 @@ public class RMCController {
 		locality.setName(localityName);
 		locality.setLms(lms);
 		
-		//SimpleLogger.log(LogLevel.INFO, "LMS registered for " + locality.getName());
+		this.view.updateView();
 	}
 	
 	public Locality getLocalityByName(String localityName) {
@@ -74,8 +79,9 @@ public class RMCController {
 		CorbaUtils.initNameService();
 		
 		HomeUserManager homeUserManager = new TransientHomeUserManager();
+		RMCView view = new JavaFXRMCView();
 		
-		RMCController controller = new RMCController(homeUserManager);
+		RMCController controller = new RMCController(view, homeUserManager);
 		RMCService service = new RMCService(controller);
 		
 		Thread serviceThread = new Thread(new Runnable() {
@@ -86,8 +92,6 @@ public class RMCController {
 		});
 		
 		serviceThread.start();
-		
-		RMCView view = new JavaFXRMCView();
 		view.start(controller);
 		
 		// Terminate all threads when view is closed

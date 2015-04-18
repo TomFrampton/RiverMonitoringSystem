@@ -16,6 +16,7 @@ import u1171639.lms.main.java.utils.LMSConfig;
 import u1171639.rmc.main.java.controller.RMCController;
 import u1171639.rmc.main.java.service.RMCService;
 import u1171639.rmc.test.mocks.MockHomeUserManager;
+import u1171639.rmc.test.mocks.MockRMCView;
 import u1171639.sensor.main.java.monitor.SimulatedWaterLevelMonitor;
 import u1171639.sensor.main.java.utils.SensorConfig;
 import u1171639.sensor.test.mocks.MockLogger;
@@ -42,7 +43,7 @@ public class RMC_LMSTest {
 		CorbaUtils.initRootPOA();
 		CorbaUtils.initNameService();
 		
-		this.rmcController = new RMCController(new MockHomeUserManager());
+		this.rmcController = new RMCController(new MockRMCView(), new MockHomeUserManager());
 		RMCService service = new RMCService(this.rmcController);
 		new Thread(new Runnable() {
 			@Override

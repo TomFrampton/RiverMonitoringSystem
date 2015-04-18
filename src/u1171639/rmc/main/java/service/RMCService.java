@@ -6,6 +6,7 @@ import org.omg.PortableServer.POAPackage.WrongPolicy;
 import u1171639.lms.main.java.client.CorbaSensor;
 import u1171639.rmc.main.java.client.CorbaLMS;
 import u1171639.rmc.main.java.controller.RMCController;
+import u1171639.rmc.main.java.model.Alarm;
 import u1171639.shared.main.java.corba.rmc.RMC;
 import u1171639.shared.main.java.corba.rmc.RMCHelper;
 import u1171639.shared.main.java.corba.rmc.RMCPOA;
@@ -37,7 +38,10 @@ public class RMCService extends RMCPOA {
 	
 	@Override
 	public void raiseAlarm(String locality, String zone) {
-		this.controller.raiseAlarm(locality, zone);
+		Alarm alarm = new Alarm();
+		alarm.setLocality(locality);
+		alarm.setZone(zone);
+		this.controller.alarmRaised(alarm);
 	}
 
 	@Override

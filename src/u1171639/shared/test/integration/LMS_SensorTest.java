@@ -100,11 +100,13 @@ public class LMS_SensorTest {
 		synchronized(lock2) { lock2.wait(); }
 		assertTrue(this.rmc.isAlarmRaised());
 		
+		this.lmsController.getZoneByName("Zone1").resetAlarms();
 		this.rmc.resetAlarm();
 		monitor2.setWaterLevel(69);
 		synchronized(lock1) { lock1.wait(); }
 		assertFalse(this.rmc.isAlarmRaised());
 		
+		this.lmsController.getZoneByName("Zone1").resetAlarms();
 		this.lmsController.getSensorsByZone("Zone1").get(1).deactivate();
 		synchronized(lock1) { lock1.wait(); }
 		assertTrue(this.rmc.isAlarmRaised());

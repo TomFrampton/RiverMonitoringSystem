@@ -17,11 +17,13 @@ import u1171639.lms.main.java.service.LMS_SensorService;
 import u1171639.lms.main.java.utils.LMSConfig;
 import u1171639.rmc.main.java.client.LMS;
 import u1171639.rmc.main.java.controller.RMCController;
+import u1171639.rmc.main.java.model.Alarm;
 import u1171639.rmc.main.java.model.Locality;
 import u1171639.rmc.main.java.model.RMCZone;
 import u1171639.rmc.main.java.service.RMCService;
 import u1171639.rmc.test.mocks.MockHomeUserManager;
 import u1171639.rmc.test.mocks.MockRMC;
+import u1171639.rmc.test.mocks.MockRMCView;
 import u1171639.sensor.main.java.client.CorbaLMS;
 import u1171639.sensor.main.java.controller.SensorController;
 import u1171639.sensor.main.java.monitor.SimulatedWaterLevelMonitor;
@@ -58,10 +60,10 @@ public class RMC_LMS_SensorTest {
 		CorbaUtils.initRootPOA();
 		CorbaUtils.initNameService();
 		
-		this.rmcController = new RMCController(new MockHomeUserManager()) {
+		this.rmcController = new RMCController(new MockRMCView(), new MockHomeUserManager()) {
 			@Override
-			public void raiseAlarm(String locality, String zone) {
-				super.raiseAlarm(locality, zone);
+			public void alarmRaised(Alarm alarm) {
+				super.alarmRaised(alarm);
 				rmcAlarmRaised = true;
 			}
 		};
@@ -152,11 +154,13 @@ public class RMC_LMS_SensorTest {
 		assertTrue(this.rmcAlarmRaised);
 		
 		// Reset alarm
+		this.lmsController.getZoneByName("Zone1").resetAlarms();
 		this.rmcAlarmRaised = false;
 		monitor2.setWaterLevel(69);
 		synchronized(lock1) { lock1.wait(); }
 		assertFalse(this.rmcAlarmRaised);
 		
+		this.lmsController.getZoneByName("Zone1").resetAlarms();
 		this.lmsController.getSensorsByZone("Zone1").get(1).deactivate();
 		synchronized(lock1) { lock1.wait(); }
 		assertTrue(this.rmcAlarmRaised);	
