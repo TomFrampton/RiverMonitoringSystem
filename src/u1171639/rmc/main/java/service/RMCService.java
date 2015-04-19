@@ -50,4 +50,9 @@ public class RMCService extends RMCPOA {
 		controller.registerLMS(locality, lms);
 	}
 
+	@Override
+	public void sensorAdded() {
+		controller.sensorAdded();
+	}
+
 }

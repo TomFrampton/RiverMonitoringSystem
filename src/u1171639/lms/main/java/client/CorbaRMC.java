@@ -50,4 +50,9 @@ public class CorbaRMC implements RMC {
 		this.serviceIOR = serviceIOR;
 	}
 
+	@Override
+	public void sensorAdded() {
+		this.rmc.sensorAdded();
+	}
+
 }

@@ -33,6 +33,12 @@ public class LMSControllerTest {
 			public void disconnect() {
 				// TODO Auto-generated method stub
 				
+			}
+
+			@Override
+			public void sensorAdded() {
+				// TODO Auto-generated method stub
+				
 			}	
 		}, new MockLogger());
 	}

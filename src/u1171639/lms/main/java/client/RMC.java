@@ -7,4 +7,5 @@ public interface RMC {
 	public void connect() throws ServerNotFoundException, ConnectionException;
 	public void disconnect();
 	public void raiseAlarm(String zone);
+	public void sensorAdded();
 }

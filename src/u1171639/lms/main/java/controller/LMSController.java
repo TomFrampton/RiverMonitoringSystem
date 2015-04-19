@@ -48,7 +48,9 @@ public class LMSController {
 		sensor.setName(sensorName);
 		zone.getSensors().add(sensor);
 		
-		//SimpleLogger.log(LogLevel.INFO, "Sensor registered in " + LMSConfig.getLocality() + " - " + zoneName);
+		// Inform RMC that a sensor has been added
+		rmc.sensorAdded();
+		
 		logger.logEvent(new LogItem("Sensor registered in " + LMSConfig.getLocality() + " - " + zoneName, LogItem.Event.CONNECTION));
 		
 		return sensorName;

@@ -29,4 +29,10 @@ public class MockRMC implements RMC {
 		// TODO Auto-generated method stub
 		
 	}
+
+	@Override
+	public void sensorAdded() {
+		// TODO Auto-generated method stub
+		
+	}
 }

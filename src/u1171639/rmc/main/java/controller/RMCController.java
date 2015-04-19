@@ -35,6 +35,12 @@ public class RMCController {
 		}
 	}
 	
+	public void sensorAdded() {
+		if(view != null) {
+			view.updateView();
+		}
+	}
+	
 	public void registerLMS(String localityName, LMS lms) {
 		Locality locality = this.getLocalityByName(localityName);
 		if(locality == null) {
