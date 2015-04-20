@@ -98,4 +98,8 @@ public class Locality {
 	public double getSensorReading(String zoneName, String sensorName) {
 		return this.lms.getSensorReading(zoneName, sensorName);
 	}
+	
+	public boolean resetAlarm(String zoneName) {
+		return this.lms.resetAlarm(zoneName);
+	}
 }

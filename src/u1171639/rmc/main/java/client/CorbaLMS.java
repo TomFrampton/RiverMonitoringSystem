@@ -106,6 +106,16 @@ public class CorbaLMS implements LMS {
 		});
 	}
 	
+	@Override
+	public boolean resetAlarm(String zoneName) {
+		return this.communicate(new Callable<Boolean>() {
+			@Override
+			public Boolean call() throws Exception {
+				return lms.resetAlarm(zoneName);
+			}
+		});
+	}
+	
 	private <T> T communicate(Callable<T> action) {
 		try {
 			connect();

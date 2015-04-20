@@ -71,4 +71,9 @@ public class LMS_RMCService extends LMS_RMCPOA {
 	public double getSensorReading(String zoneName, String sensorName) {
 		return this.controller.getSensorReading(zoneName, sensorName);
 	}
+
+	@Override
+	public boolean resetAlarm(String zoneName) {
+		return this.controller.resetAlarm(zoneName);
+	}
 }

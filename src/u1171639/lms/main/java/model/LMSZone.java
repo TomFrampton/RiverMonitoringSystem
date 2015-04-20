@@ -46,8 +46,9 @@ public class LMSZone {
 		return this.alarmRaised;
 	}
 	
-	public void resetAlarms() {
+	public boolean resetAlarms() {
 		this.alarmRaised = false;
+		return true;
 	}
 	
 	public Sensor getSensorByName(String name) {

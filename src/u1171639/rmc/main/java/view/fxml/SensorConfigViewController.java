@@ -58,14 +58,10 @@ public class SensorConfigViewController extends ViewController {
 		if(this.sensor.isActive()) {
 			if(locality.deactivateSensor(this.sensor.getZoneName(), this.sensor.getName())) {
 				this.sensorDeactivated();
-			} else {
-				
 			}
 		} else {
 			if(locality.activateSensor(this.sensor.getZoneName(), this.sensor.getName())) {
 				this.sensorActivated();
-			} else {
-				
 			}
 		}
 	}

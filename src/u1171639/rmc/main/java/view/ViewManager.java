@@ -20,8 +20,6 @@ public class ViewManager {
 	private AnchorPane rightPanel;
 	private AnchorPane centrePanel;
 	
-	private Hashtable<String, ViewController> viewControllers = new Hashtable<String, ViewController>();
-
 	public void showInLeftPanel(ViewController screen) {
 		this.showInPanel(this.leftPanel, screen.getView());
 	}
@@ -44,14 +42,6 @@ public class ViewManager {
 	
 	public void clearRightPanel() {
 		this.rightPanel.getChildren().clear();
-	}
-	
-	public void addViewController(String name, ViewController controller) {
-		this.viewControllers.put(name, controller);
-	}
-	
-	public ViewController getViewController(String name) {
-		return this.viewControllers.get(name);
 	}
 	
 	private void showInPanel(AnchorPane panel, Parent toDisplay) {

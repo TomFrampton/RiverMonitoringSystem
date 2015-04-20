@@ -12,6 +12,7 @@ import u1171639.lms.main.java.client.CorbaRMC;
 import u1171639.lms.main.java.client.RMC;
 import u1171639.lms.main.java.client.Sensor;
 import u1171639.lms.main.java.controller.LMSController;
+import u1171639.lms.main.java.model.LMSZone;
 import u1171639.lms.main.java.service.LMS_RMCService;
 import u1171639.lms.main.java.service.LMS_SensorService;
 import u1171639.lms.main.java.utils.LMSConfig;
@@ -234,6 +235,30 @@ public class RMC_LMS_SensorTest {
 		
 		assertTrue(locality.setWarningThreshold("Zone1", "ZONE1_SENSOR2", 80.96));
 		assertTrue(SensorConfig.getWarningThreshold() == 80.96);
+	}
+	
+	@Test
+	public void testResetAlarm() throws InterruptedException {
+		Locality locality = this.rmcController.getLocalityByName("Locality1");
+		locality.getUpdatedZones();
+		
+		LMSZone zone = this.lmsController.getZoneByName("Zone1");
+		assertFalse(zone.isAlarmRaised());
+		
+		SimulatedWaterLevelMonitor monitor1 = (SimulatedWaterLevelMonitor) this.sensor1.getMonitor();
+		SimulatedWaterLevelMonitor monitor2 = (SimulatedWaterLevelMonitor) this.sensor2.getMonitor();
+		
+		monitor1.setWaterLevel(70);
+		monitor2.setWaterLevel(70);
+		synchronized(lock1) { lock1.wait(); }
+		synchronized(lock2) { lock2.wait(); }
+		
+		assertTrue(this.rmcAlarmRaised);
+		assertTrue(zone.isAlarmRaised());
+		
+		assertTrue(locality.resetAlarm("Zone1"));
+		assertFalse(zone.isAlarmRaised());
+		
 	}
 	
 	private SensorController mockSensor(final Object lock) {

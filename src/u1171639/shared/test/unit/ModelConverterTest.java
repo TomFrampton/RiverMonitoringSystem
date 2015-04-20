@@ -111,9 +111,10 @@ public class ModelConverterTest {
 		corbaZone.alarmRaised = true;
 		corbaZone.sensors = new CorbaModel_Sensor[0];
 		
-		RMCZone rmcZone = ModelConverter.convertRMCZone(corbaZone);
+		RMCZone rmcZone = ModelConverter.convertRMCZone("Locality1", corbaZone);
 		
 		assertEquals(rmcZone.getName(), "Zone1");
+		assertEquals(rmcZone.getLocalityName(), "Locality1");
 		assertTrue(rmcZone.isAlarmRaised());
 		assertTrue(rmcZone.getSensors().isEmpty());
 		
@@ -122,9 +123,10 @@ public class ModelConverterTest {
 		corbaSensor1.name = "ID0001";
 		corbaZone.sensors[0] = corbaSensor1;
 		
-		rmcZone = ModelConverter.convertRMCZone(corbaZone);
+		rmcZone = ModelConverter.convertRMCZone("Locality2", corbaZone);
 		
 		assertEquals(rmcZone.getName(), "Zone1");
+		assertEquals(rmcZone.getLocalityName(), "Locality2");
 		assertTrue(rmcZone.isAlarmRaised());
 		assertTrue(rmcZone.getSensors().size() == 1);
 		assertEquals(rmcZone.getSensors().get(0).getName(), "ID0001");		

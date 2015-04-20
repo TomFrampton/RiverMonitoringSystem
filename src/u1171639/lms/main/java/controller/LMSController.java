@@ -89,7 +89,7 @@ public class LMSController {
 			
 			if(zone.confirmAlarm()) {
 				// Alarm condition confirmed by all sensors in zone
-				logger.logEvent(new LogItem("ALARM CONDITION CONFIRMED IN " + zoneName.toUpperCase(), LogItem.Event.ALARM_RAISED));
+				logger.logEvent(new LogItem("ALARM CONDITION CONFIRMED IN " + zoneName.toUpperCase(), LogItem.Event.ALARM_CONFIRMED));
 				rmc.raiseAlarm(zoneName);
 			} else {
 				// Write log about unconfirmed alarm condition
@@ -124,6 +124,11 @@ public class LMSController {
 		LMSZone zone = this.getZoneByName(zoneName);
 		Sensor sensor = zone.getSensorByName(sensorName);
 		return sensor.getReading();
+	}
+	
+	public boolean resetAlarm(String zoneName) {
+		LMSZone zone = this.getZoneByName(zoneName);
+		return zone.resetAlarms();
 	}
 	
 	public static void main(String[] args) {

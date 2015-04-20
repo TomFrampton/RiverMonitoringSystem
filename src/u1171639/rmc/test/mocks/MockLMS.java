@@ -64,4 +64,10 @@ public class MockLMS implements LMS {
 		return 0;
 	}
 
+	@Override
+	public boolean resetAlarm(String zoneName) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
 }

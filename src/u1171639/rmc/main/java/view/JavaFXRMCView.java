@@ -18,7 +18,7 @@ import u1171639.sensor.main.java.view.fxml.SimulationViewController;
 public class JavaFXRMCView extends Application implements RMCView {
 
 	private static RMCController controller;
-	private static ViewManager viewManager;
+	private static MonitoringViewController homeController;
 	
 	@Override
 	public void start(RMCController controller) {
@@ -28,15 +28,13 @@ public class JavaFXRMCView extends Application implements RMCView {
 
 	@Override
 	public void start(Stage stage) throws Exception {
-		viewManager = new ViewManager();
-		viewManager.initStage(stage, 1200, 450);
+		ViewManager viewManager = new ViewManager();
+		viewManager.initStage(stage, 1350, 450);
 		viewManager.setRmcController(controller);
 		
-		MonitoringViewController monitoringView = new MonitoringViewController(viewManager);
+		homeController = new MonitoringViewController(viewManager);
 		
-		viewManager.addViewController("MONITORING", monitoringView);
-		
-		monitoringView.showInLeftPanel();
+		homeController.showInLeftPanel();
 		
 		// Load CSS
 		// Load all CSS files
@@ -68,8 +66,7 @@ public class JavaFXRMCView extends Application implements RMCView {
 		Platform.runLater(new Runnable() {
 			@Override
 			public void run() {
-				MonitoringViewController view = (MonitoringViewController) viewManager.getViewController("MONITORING");
-				view.updateTreeView();
+				homeController.updateTreeView();
 			}
 		});
 	}

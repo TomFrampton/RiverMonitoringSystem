@@ -22,7 +22,7 @@ public final class ModelConverter {
 		genericLocality.setName(corbaLocality.name);
 		
 		for(CorbaModel_Zone corbaZone : corbaLocality.zones) {
-			genericLocality.getZones().add(ModelConverter.convertRMCZone(corbaZone));
+			genericLocality.getZones().add(ModelConverter.convertRMCZone(corbaLocality.name, corbaZone));
 		}
 		
 		return genericLocality;
@@ -40,9 +40,10 @@ public final class ModelConverter {
 		return corbaLocality;
 	}
 	
-	public static RMCZone convertRMCZone(CorbaModel_Zone corbaZone) {
+	public static RMCZone convertRMCZone(String localityName, CorbaModel_Zone corbaZone) {
 		RMCZone zone = new RMCZone();
 		zone.setName(corbaZone.name);
+		zone.setLocalityName(localityName);
 		zone.setAlarmRaised(corbaZone.alarmRaised);
 		
 		List<RMCSensor> sensors = new ArrayList<RMCSensor>();

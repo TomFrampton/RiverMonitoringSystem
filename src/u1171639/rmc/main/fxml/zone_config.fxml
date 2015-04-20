@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.text.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+
+
+<VBox alignment="TOP_CENTER" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="u1171639.rmc.main.java.view.fxml.ZoneConfigViewController">
+   <children>
+      <Label fx:id="zoneNameLabel" alignment="CENTER" prefHeight="39.0" prefWidth="193.0" text="Zone">
+         <font>
+            <Font size="21.0" />
+         </font>
+      </Label>
+      <Label fx:id="localityNameLabel" alignment="CENTER" prefHeight="25.0" prefWidth="193.0" text="Locality">
+         <font>
+            <Font size="17.0" />
+         </font>
+      </Label>
+      <Separator prefWidth="200.0">
+         <padding>
+            <Insets bottom="20.0" top="20.0" />
+         </padding>
+      </Separator>
+      <Label alignment="CENTER" prefHeight="25.0" prefWidth="193.0" text="Alarm Status">
+         <font>
+            <Font size="21.0" />
+         </font>
+      </Label>
+      <Label fx:id="alarmStatusLabel" alignment="CENTER" prefHeight="25.0" prefWidth="193.0">
+         <font>
+            <Font name="System Bold Italic" size="21.0" />
+         </font>
+      </Label>
+      <Button fx:id="resetAlarmButton" mnemonicParsing="false" text="Reset Alarm" onMouseClicked="#handleResetAlarmButtonClicked">
+         <VBox.margin>
+            <Insets bottom="10.0" top="10.0" />
+         </VBox.margin>
+      </Button>
+   </children>
+   <padding>
+      <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+   </padding>
+</VBox>

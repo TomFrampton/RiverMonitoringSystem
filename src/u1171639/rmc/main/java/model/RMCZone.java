@@ -5,6 +5,7 @@ import java.util.List;
 
 public class RMCZone {
 	private String name;
+	private String localityName;
 	private boolean alarmRaised;
 	private List<RMCSensor> sensors;
 	
@@ -16,6 +17,14 @@ public class RMCZone {
 		this.name = name;
 	}
 	
+	public String getLocalityName() {
+		return localityName;
+	}
+
+	public void setLocalityName(String localityName) {
+		this.localityName = localityName;
+	}
+
 	public boolean isAlarmRaised() {
 		return alarmRaised;
 	}

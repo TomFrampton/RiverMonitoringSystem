@@ -22,6 +22,7 @@ public class MonitoringViewController extends ViewController {
 	@FXML private TreeItem<String> root;
 	
 	private LogsViewController logsViewController;
+	private ZoneConfigViewController zoneConfigViewController;
 	private SensorConfigViewController sensorConfigViewController;
 	private SensorRegisterViewController sensorRegisterViewController;
 	
@@ -30,6 +31,7 @@ public class MonitoringViewController extends ViewController {
 		FXMLViewLoader.loadView(this, "monitoring.fxml");
 		
 		this.logsViewController = new LogsViewController(viewManager);
+		this.zoneConfigViewController = new ZoneConfigViewController(viewManager);
 		this.sensorConfigViewController = new SensorConfigViewController(viewManager);
 		this.sensorRegisterViewController = new SensorRegisterViewController(viewManager);
 		
@@ -43,10 +45,23 @@ public class MonitoringViewController extends ViewController {
             public void changed(ObservableValue<? extends TreeItem<String>> observable, TreeItem<String> oldValue, TreeItem<String> newValue) {
             	if(observable.getValue() != null) {
             		// A Locality Node
-	                if(observable.getValue().getParent() == root) {
-	                	
+	                if(observable.getValue().getParent() == root) {                	
 	                	logsViewController.showLogs(getRMCController().getLocalityByName(newValue.getValue()));
 	                	logsViewController.showInCentrePanel();
+	                	clearRightPanel();
+	                
+	                // Zone Node
+	                } else if(observable.getValue().getParent() != null &&
+	                		  observable.getValue().getParent().getParent() == root) {
+	                	
+	                	String localityName = observable.getValue().getParent().getValue();
+	                	String zoneName = observable.getValue().getValue();
+	                	
+	                	Locality locality = getRMCController().getLocalityByName(localityName);
+	                	RMCZone zone = locality.getZoneByName(zoneName);
+	                	
+	                	zoneConfigViewController.setZone(zone);
+	                	zoneConfigViewController.showInCentrePanel();
 	                	clearRightPanel();
 	                	
 	                // Sensor Node

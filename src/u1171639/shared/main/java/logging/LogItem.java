@@ -47,6 +47,7 @@ public class LogItem {
 
 	public enum Event {
 		ALARM_RAISED,
+		ALARM_CONFIRMED,
 		CONNECTION
 	}
 }
