@@ -49,6 +49,12 @@
 	    <version>1.10</version>
 	</dependency>
 	
+	<!-- Json -->
+	<dependency>
+		<groupId>org.json</groupId>
+		<artifactId>json</artifactId>
+		<version>20141113</version>
+	</dependency>
 	
   </dependencies>
 </project>

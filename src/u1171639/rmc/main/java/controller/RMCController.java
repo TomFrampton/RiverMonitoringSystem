@@ -11,6 +11,7 @@ import u1171639.rmc.main.java.client.CorbaLMS;
 import u1171639.rmc.main.java.client.LMS;
 import u1171639.rmc.main.java.model.Alarm;
 import u1171639.rmc.main.java.model.Locality;
+import u1171639.rmc.main.java.service.ExternalRMCService;
 import u1171639.rmc.main.java.service.RMCService;
 import u1171639.rmc.main.java.users.HomeUserManager;
 import u1171639.rmc.main.java.users.TransientHomeUserManager;
@@ -88,16 +89,27 @@ public class RMCController {
 		RMCView view = new JavaFXRMCView();
 		
 		RMCController controller = new RMCController(view, homeUserManager);
+		
+		// Start RMC-LMS Service
 		RMCService service = new RMCService(controller);
 		
-		Thread serviceThread = new Thread(new Runnable() {
+		// Start RMC External Service
+		ExternalRMCService externalService = new ExternalRMCService(controller);
+		
+		new Thread(new Runnable() {
 			@Override
 			public void run() {
 				service.listen();
 			}
-		});
+		}).start();
 		
-		serviceThread.start();
+		new Thread(new Runnable() {
+			@Override
+			public void run() {
+				externalService.listen();
+			}
+		}).start();
+		
 		view.start(controller);
 		
 		// Terminate all threads when view is closed
