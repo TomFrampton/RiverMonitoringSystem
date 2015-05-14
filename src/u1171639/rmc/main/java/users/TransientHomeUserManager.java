@@ -5,6 +5,7 @@ import java.util.List;
 
 import u1171639.rmc.main.java.model.RMCSensor;
 import u1171639.shared.main.java.exception.AuthenticationException;
+import u1171639.shared.main.java.exception.RegistrationException;
 
 
 public class TransientHomeUserManager implements HomeUserManager {
@@ -64,15 +65,17 @@ public class TransientHomeUserManager implements HomeUserManager {
 	}
 
 	@Override
-	public void registerUserWithSensor(int userId, RMCSensor sensor) {
+	public void registerUserWithSensor(int userId, RMCSensor sensor) throws RegistrationException {
 		HomeUser user = this.getUserById(userId);
 		if(user != null && !isUserRegisteredWithSensor(user, sensor)) {
 			user.getRegisteredSensors().add(sensor);
+		} else {
+			throw new RegistrationException("User already registered with sensor.");
 		}
 	}
 	
 	@Override
-	public void registerUserWithSensor(String username, RMCSensor sensor) {
+	public void registerUserWithSensor(String username, RMCSensor sensor) throws RegistrationException {
 		HomeUser user = this.getUserByUsername(username);
 		this.registerUserWithSensor(user.getId(), sensor);
 	}

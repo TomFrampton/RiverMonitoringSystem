@@ -14,6 +14,9 @@ import u1171639.rmc.main.java.users.HomeUser;
 import u1171639.rmc.main.java.users.HomeUserManager;
 import u1171639.rmc.main.java.utils.FXMLViewLoader;
 import u1171639.rmc.main.java.view.ViewManager;
+import u1171639.shared.main.java.exception.RegistrationException;
+import u1171639.shared.main.java.exception.ValidationException;
+import u1171639.shared.main.java.utils.ValidationUtils;
 
 public class NewHomeUserViewController extends ViewController {
 	@FXML private TextField forenameField;
@@ -21,7 +24,6 @@ public class NewHomeUserViewController extends ViewController {
 	@FXML private TextField usernameField;
 	
 	@FXML private PasswordField passwordField;
-	@FXML private PasswordField confirmPasswordField;
 	
 	@FXML private Stage modalStage = new Stage();
 	private Callable<Void> modalCallback;
@@ -54,7 +56,6 @@ public class NewHomeUserViewController extends ViewController {
 		this.surnameField.setText("");
 		this.usernameField.setText("");
 		this.passwordField.setText("");
-		this.confirmPasswordField.setText("");
 	}
 	
 	@FXML protected void handleAddButtonClicked(MouseEvent event) {
@@ -64,26 +65,34 @@ public class NewHomeUserViewController extends ViewController {
 		newUser.setUsername(this.usernameField.getText());
 		newUser.setPassword(this.passwordField.getText());
 		
-		HomeUserManager manager = getRMCController().getHomeUserManager();
-		
-		int id = manager.addHomeUser(newUser);
-		
-		if(id > -1) {
-			manager.registerUserWithSensor(id, sensor);
+		try {
+			ValidationUtils.validate(newUser);
 			
-			try {
-				this.modalCallback.call();
-				this.modalCallback = null;
-			} catch (Exception e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+			HomeUserManager manager = getRMCController().getHomeUserManager();
+			
+			int id = manager.addHomeUser(newUser);
+			
+			if(id > -1) {
+				manager.registerUserWithSensor(id, sensor);
+				
+				try {
+					this.modalCallback.call();
+					this.modalCallback = null;
+				} catch (Exception e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				
+				this.clearTextBoxes();
+				this.modalStage.close();
+				
+			} else {
+				System.out.println("User already exists");
 			}
-			
-			this.clearTextBoxes();
-			this.modalStage.close();
-			
-		} else {
-			System.out.println("User already exists");
+		} catch (ValidationException e) {
+			showValidationAlert(e.getViolations());
+		} catch (RegistrationException e) {
+			showErrorAlert("User Already Registered", "The specified user is already registered with that sensor.");
 		}
 	}
 	

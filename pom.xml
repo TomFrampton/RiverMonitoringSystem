@@ -56,5 +56,13 @@
 		<version>20141113</version>
 	</dependency>
 	
+	<!-- OVal -->
+	
+	<dependency>
+		<groupId>net.sf.oval</groupId>
+		<artifactId>oval</artifactId>
+		<version>1.31</version>
+	</dependency>
+	
   </dependencies>
 </project>

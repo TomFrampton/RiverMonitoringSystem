@@ -13,6 +13,7 @@ import u1171639.rmc.main.java.model.RMCSensor;
 import u1171639.rmc.main.java.users.HomeUser;
 import u1171639.rmc.main.java.users.HomeUserManager;
 import u1171639.rmc.main.java.users.TransientHomeUserManager;
+import u1171639.shared.main.java.exception.RegistrationException;
 
 public class TransientHomeUserManagerTest {
 
@@ -102,7 +103,11 @@ public class TransientHomeUserManagerTest {
 		
 		RMCSensor sensor1 = new RMCSensor();
 		sensor1.setName("Sensor1");
-		this.homeUserManager.registerUserWithSensor(user.getId(), sensor1);
+		try {
+			this.homeUserManager.registerUserWithSensor(user.getId(), sensor1);
+		} catch (RegistrationException e) {
+			fail("User not already registered with sensor");
+		}
 		
 		registeredSensors = user.getRegisteredSensors();
 		assertTrue(registeredSensors.size() == 1);
@@ -117,13 +122,21 @@ public class TransientHomeUserManagerTest {
 		RMCSensor sensor1 = new RMCSensor();
 		sensor1.setName("Sensor1");
 		
-		this.homeUserManager.registerUserWithSensor(user1.getId(), sensor1);
+		try {
+			this.homeUserManager.registerUserWithSensor(user1.getId(), sensor1);
+		} catch (RegistrationException e) {
+			fail("User not already registered with sensor");
+		}
 		
 		List<HomeUser> registeredUsers = this.homeUserManager.getAllUsersRegistered("Sensor1");
 		assertTrue(registeredUsers.size() == 1);
 		assertTrue(registeredUsers.get(0) == user1);
 		
-		this.homeUserManager.registerUserWithSensor(user2.getId(), sensor1);
+		try {
+			this.homeUserManager.registerUserWithSensor(user2.getId(), sensor1);
+		} catch (RegistrationException e) {
+			fail("User not already registered with sensor");
+		}
 		
 		registeredUsers = this.homeUserManager.getAllUsersRegistered("Sensor1");
 		assertTrue(registeredUsers.size() == 2);

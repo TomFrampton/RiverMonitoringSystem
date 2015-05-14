@@ -14,6 +14,7 @@ import u1171639.rmc.main.java.users.HomeUser;
 import u1171639.rmc.main.java.users.HomeUserManager;
 import u1171639.rmc.main.java.utils.FXMLViewLoader;
 import u1171639.rmc.main.java.view.ViewManager;
+import u1171639.shared.main.java.exception.RegistrationException;
 
 public class ExistingHomeUserViewController extends ViewController {
 	@FXML private TextField usernameField;
@@ -53,21 +54,24 @@ public class ExistingHomeUserViewController extends ViewController {
 		HomeUser user = manager.getUserByUsername(this.usernameField.getText());
 		
 		if(user != null) {
-			manager.registerUserWithSensor(user.getId(), sensor);
+			try {
+				manager.registerUserWithSensor(user.getId(), sensor);
+			} catch (RegistrationException e) {
+				showErrorAlert("User Already Registered", "The specified user is already registered with that sensor.");
+			}
 			
 			try {
 				this.modalCallback.call();
 				this.modalCallback = null;
 			} catch (Exception e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+				showUnspecifiedErrorAlert();
 			}
 			
 			this.clearTextBoxes();
 			this.modalStage.close();
 			
 		} else {
-			System.out.println("User not found");
+			showErrorAlert("User Not Found", "The user with that username was not found in the system.");
 		}
 	}
 	

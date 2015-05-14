@@ -90,10 +90,6 @@ public class RMCController {
 		return this.homeUserManager.authenticateUser(username, password);
 	}
 	
-//	public List<RMCSensor> getHomeUserSensors() {
-//		
-//	}
-	
 	public HomeUserManager getHomeUserManager() {
 		return this.homeUserManager;
 	}

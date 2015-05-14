@@ -33,7 +33,7 @@ public class HomeUserWebApi {
 	}
 	
 	public static void setRMCController(RMCController rmcController) {
-		HomeUserWebApi.setRMCController(rmcController);
+		HomeUserWebApi.rmcController = rmcController;
 	}
 	
 	@GET
