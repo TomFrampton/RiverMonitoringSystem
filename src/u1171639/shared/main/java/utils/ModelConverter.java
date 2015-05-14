@@ -1,6 +1,7 @@
 package u1171639.shared.main.java.utils;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import u1171639.lms.main.java.client.Sensor;
@@ -116,11 +117,13 @@ public final class ModelConverter {
 	}
 	
 	public static LogItem convertLogItem(CorbaModel_LogItem corbaLogItem) {
-		return new LogItem(corbaLogItem.message, getEventFromString(corbaLogItem.event));
+		Date time = new Date(corbaLogItem.timestamp);
+		return new LogItem(time, corbaLogItem.message, getEventFromString(corbaLogItem.event));
 	}
 	
 	public static CorbaModel_LogItem convertLogItem(LogItem genericLogItem) {
 		CorbaModel_LogItem corbaLogItem = new CorbaModel_LogItem();
+		corbaLogItem.timestamp = genericLogItem.getTime().getTime();
 		corbaLogItem.message = genericLogItem.getMessage();
 		corbaLogItem.event = genericLogItem.getEvent().toString();
 		return corbaLogItem;

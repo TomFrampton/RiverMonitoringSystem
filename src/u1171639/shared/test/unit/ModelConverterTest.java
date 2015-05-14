@@ -3,6 +3,7 @@ package u1171639.shared.test.unit;
 import static org.junit.Assert.*;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import org.junit.After;
@@ -238,6 +239,8 @@ public class ModelConverterTest {
 		assertTrue(corbaLog.logItems.length == 0);
 		
 		LogItem genericLogItem1 = new LogItem();
+		Date date1 = new Date();
+		genericLogItem1.setTime(date1);
 		genericLogItem1.setEvent(LogItem.Event.ALARM_RAISED);
 		genericLogItem1.setMessage("This is the first log item.");
 		genericLog.add(genericLogItem1);
@@ -245,10 +248,13 @@ public class ModelConverterTest {
 		corbaLog = ModelConverter.convertLog(genericLog);
 		
 		assertTrue(corbaLog.logItems.length == 1);
+		assertEquals(corbaLog.logItems[0].timestamp, date1.getTime());
 		assertEquals(corbaLog.logItems[0].event, "ALARM_RAISED");
 		assertEquals(corbaLog.logItems[0].message, "This is the first log item.");
 		
 		LogItem genericLogItem2 = new LogItem();
+		Date date2 = new Date();
+		genericLogItem2.setTime(date1);
 		genericLogItem2.setEvent(LogItem.Event.CONNECTION);
 		genericLogItem2.setMessage("This is the second log item.");
 		genericLog.add(genericLogItem2);
@@ -256,8 +262,10 @@ public class ModelConverterTest {
 		corbaLog = ModelConverter.convertLog(genericLog);
 		
 		assertTrue(corbaLog.logItems.length == 2);
+		assertEquals(corbaLog.logItems[0].timestamp, date1.getTime());
 		assertEquals(corbaLog.logItems[0].event, "ALARM_RAISED");
 		assertEquals(corbaLog.logItems[0].message, "This is the first log item.");
+		assertEquals(corbaLog.logItems[1].timestamp, date2.getTime());
 		assertEquals(corbaLog.logItems[1].event, "CONNECTION");
 		assertEquals(corbaLog.logItems[1].message, "This is the second log item.");
 	}
@@ -265,11 +273,14 @@ public class ModelConverterTest {
 	@Test
 	public void testCorbaLogItemToGenericLogItem() {
 		CorbaModel_LogItem corbaLogItem = new CorbaModel_LogItem();
+		Date date = new Date();
+		corbaLogItem.timestamp = date.getTime();
 		corbaLogItem.event = "ALARM_RAISED";
 		corbaLogItem.message = "Sample message.";
 		
 		LogItem genericLogItem = ModelConverter.convertLogItem(corbaLogItem);
 		
+		assertEquals(genericLogItem.getTime(), date);
 		assertTrue(genericLogItem.getEvent() == LogItem.Event.ALARM_RAISED);
 		assertEquals(genericLogItem.getMessage(), "Sample message.");
 	}
@@ -277,11 +288,14 @@ public class ModelConverterTest {
 	@Test
 	public void testGenericLogItemToCorbaLogItem() {
 		LogItem genericLogItem = new LogItem();
+		Date date = new Date();
+		genericLogItem.setTime(date);
 		genericLogItem.setEvent(LogItem.Event.ALARM_RAISED);
 		genericLogItem.setMessage("Sample message.");
 		
 		CorbaModel_LogItem corbaLogItem = ModelConverter.convertLogItem(genericLogItem);
 		
+		assertEquals(corbaLogItem.timestamp, date.getTime());
 		assertEquals(corbaLogItem.event, "ALARM_RAISED");
 		assertEquals(corbaLogItem.message, "Sample message.");		
 	}

@@ -18,14 +18,9 @@ public class ViewManager {
 	
 	private AnchorPane leftPanel;
 	private AnchorPane rightPanel;
-	private AnchorPane centrePanel;
 	
 	public void showInLeftPanel(ViewController screen) {
 		this.showInPanel(this.leftPanel, screen.getView());
-	}
-	
-	public void showInCentrePanel(ViewController screen) {
-		this.showInPanel(this.centrePanel, screen.getView());
 	}
 	
 	public void showInRightPanel(ViewController screen) {
@@ -34,10 +29,6 @@ public class ViewManager {
 	
 	public void clearLeftPanel() {
 		this.leftPanel.getChildren().clear();
-	}
-	
-	public void clearCentrePanel() {
-		this.centrePanel.getChildren().clear();
 	}
 	
 	public void clearRightPanel() {
@@ -56,20 +47,16 @@ public class ViewManager {
 	
 	public void initStage(Stage stage, int width, int height) {
 		this.rightPanel = new AnchorPane();
-		this.rightPanel.setMinWidth(width * 0.4);
+		this.rightPanel.setMinWidth(width * 0.75);
 		this.rightPanel.setMinHeight(height);
 		
 		this.leftPanel = new AnchorPane();
 		this.leftPanel.setMinWidth(width * 0.25);
 		this.leftPanel.setMinHeight(height);
 		
-		this.centrePanel = new AnchorPane();
-		this.centrePanel.setMinWidth(width * 0.35);
-		this.centrePanel.setMinHeight(height);
-		
 		this.stage = stage;
 		HBox layout = new HBox();
-		layout.getChildren().addAll(this.leftPanel, this.centrePanel, this.rightPanel);
+		layout.getChildren().addAll(this.leftPanel, this.rightPanel);
 		this.stage.setScene(new Scene(layout, width, height));
 		
 		this.stage.show();

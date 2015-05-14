@@ -24,7 +24,6 @@ public class MonitoringViewController extends ViewController {
 	private LogsViewController logsViewController;
 	private ZoneConfigViewController zoneConfigViewController;
 	private SensorConfigViewController sensorConfigViewController;
-	private SensorRegisterViewController sensorRegisterViewController;
 	
 	public MonitoringViewController(ViewManager viewManager) {
 		super(viewManager);
@@ -33,7 +32,6 @@ public class MonitoringViewController extends ViewController {
 		this.logsViewController = new LogsViewController(viewManager);
 		this.zoneConfigViewController = new ZoneConfigViewController(viewManager);
 		this.sensorConfigViewController = new SensorConfigViewController(viewManager);
-		this.sensorRegisterViewController = new SensorRegisterViewController(viewManager);
 		
 		init();
 	}
@@ -47,8 +45,7 @@ public class MonitoringViewController extends ViewController {
             		// A Locality Node
 	                if(observable.getValue().getParent() == root) {                	
 	                	logsViewController.showLogs(getRMCController().getLocalityByName(newValue.getValue()));
-	                	logsViewController.showInCentrePanel();
-	                	clearRightPanel();
+	                	logsViewController.showInRightPanel();
 	                
 	                // Zone Node
 	                } else if(observable.getValue().getParent() != null &&
@@ -61,8 +58,7 @@ public class MonitoringViewController extends ViewController {
 	                	RMCZone zone = locality.getZoneByName(zoneName);
 	                	
 	                	zoneConfigViewController.setZone(zone);
-	                	zoneConfigViewController.showInCentrePanel();
-	                	clearRightPanel();
+	                	zoneConfigViewController.showInRightPanel();
 	                	
 	                // Sensor Node
 	                } else if(observable.getValue().getParent() != null && 
@@ -80,12 +76,8 @@ public class MonitoringViewController extends ViewController {
 	                	sensor.setLocalityName(localityName);
 	                	
 	                	sensorConfigViewController.setSensor(sensor);
-	                	sensorConfigViewController.showInCentrePanel();
-	                	
-	                	sensorRegisterViewController.setSensor(sensor);
-	                	sensorRegisterViewController.showInRightPanel();
+	                	sensorConfigViewController.showInRightPanel();
 	                } else {
-	                	clearCentrePanel();
 	                	clearRightPanel();
 	                }
             	}

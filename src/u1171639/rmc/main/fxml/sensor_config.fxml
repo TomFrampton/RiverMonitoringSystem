@@ -7,7 +7,7 @@
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
 
-<HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="u1171639.rmc.main.java.view.fxml.SensorConfigViewController">
+<HBox xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="u1171639.rmc.main.java.view.fxml.SensorConfigViewController">
    <children>
       <VBox alignment="TOP_CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="467.0" prefWidth="277.0">
          <children>
@@ -66,12 +66,38 @@
                   <Insets bottom="10.0" left="10.0" top="10.0" />
                </VBox.margin>
             </Slider>
-            <Button fx:id="sensorThresholdUpdateButton" mnemonicParsing="false" text="Update Sensor Threshold" onMouseClicked="#handleUpdateSensorThresholdClicked">
+            <Button fx:id="sensorThresholdUpdateButton" mnemonicParsing="false" onMouseClicked="#handleUpdateSensorThresholdClicked" text="Update Sensor Threshold">
                <VBox.margin>
                   <Insets bottom="10.0" top="10.0" />
                </VBox.margin>
             </Button>
          </children>
+      </VBox>
+
+      <VBox xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+         <padding>
+              <Insets bottom="20.0" right="20.0" top="20.0" />
+           </padding>
+   <children>
+   
+            <TableView fx:id="registeredUsersTable" prefHeight="400.0" prefWidth="566.0" />
+   
+             <HBox alignment="CENTER">
+                  <children>
+                     <Button mnemonicParsing="false" onMouseClicked="#handleRegisterExistingUserClicked" text="Register Existing User">
+                        <HBox.margin>
+                           <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                        </HBox.margin>
+                     </Button>
+                     <Button mnemonicParsing="false" onMouseClicked="#handleRegisterNewUserClicked" text="Register New User">
+                        <HBox.margin>
+                           <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                        </HBox.margin>
+                     </Button>
+                  </children>
+               </HBox>
+   </children>
+
       </VBox>
    </children>
 </HBox>

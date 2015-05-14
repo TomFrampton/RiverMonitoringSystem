@@ -93,7 +93,7 @@ public class LMSController {
 				rmc.raiseAlarm(zoneName);
 			} else {
 				// Write log about unconfirmed alarm condition
-				logger.logEvent(new LogItem("Alarm in " + zoneName + " unconfirmed. Standing down.", LogItem.Event.ALARM_RAISED));
+				logger.logEvent(new LogItem("Alarm in " + zoneName + " unconfirmed. Standing down.", LogItem.Event.ALARM_IGNORED));
 			}
 		}
 	}
@@ -105,18 +105,21 @@ public class LMSController {
 	public boolean activateSensor(String zoneName, String sensorName) {
 		LMSZone zone = this.getZoneByName(zoneName);
 		Sensor sensor = zone.getSensorByName(sensorName);
+		logger.logEvent(new LogItem(sensorName + " in " + zoneName + " activated.", LogItem.Event.SENSOR_ACTIVATION));
 		return sensor.activate();
 	}
 	
 	public boolean deactivateSensor(String zoneName, String sensorName) {
 		LMSZone zone = this.getZoneByName(zoneName);
 		Sensor sensor = zone.getSensorByName(sensorName);
+		logger.logEvent(new LogItem(sensorName + " in " + zoneName + " deactivated.", LogItem.Event.SENSOR_ACTIVATION));
 		return sensor.deactivate();
 	}
 	
 	public boolean setWarningThreshold(String zoneName, String sensorName, double threshold) {
 		LMSZone zone = this.getZoneByName(zoneName);
 		Sensor sensor = zone.getSensorByName(sensorName);
+		logger.logEvent(new LogItem(sensorName + " in " + zoneName + " threshold changed to "  + threshold + ".", LogItem.Event.SENSOR_THRESHOLD));
 		return sensor.setThreshold(threshold);
 	}
 	
@@ -128,6 +131,7 @@ public class LMSController {
 	
 	public boolean resetAlarm(String zoneName) {
 		LMSZone zone = this.getZoneByName(zoneName);
+		logger.logEvent(new LogItem("Alarm reset in Zone: " + zoneName, LogItem.Event.ALARM_RESET));	
 		return zone.resetAlarms();
 	}
 	

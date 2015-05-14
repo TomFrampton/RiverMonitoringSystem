@@ -1,6 +1,7 @@
 module models {
 	
 	struct CorbaModel_LogItem {
+		long long timestamp;
 		string event;
 		string message;
 	};
