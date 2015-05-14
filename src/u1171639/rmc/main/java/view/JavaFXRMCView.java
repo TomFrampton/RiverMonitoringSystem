@@ -7,6 +7,8 @@ import org.controlsfx.control.Notifications;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import u1171639.rmc.main.java.controller.RMCController;
@@ -16,9 +18,12 @@ import u1171639.sensor.main.java.monitor.SimulatedWaterLevelMonitor;
 import u1171639.sensor.main.java.view.fxml.SimulationViewController;
 
 public class JavaFXRMCView extends Application implements RMCView {
-
 	private static RMCController controller;
 	private static MonitoringViewController homeController;
+	
+	private static boolean startUpError = false;
+	private static String startUpErrorHeader;
+	private static String startUpErrorMessage;
 	
 	@Override
 	public void start(RMCController controller) {
@@ -28,22 +33,22 @@ public class JavaFXRMCView extends Application implements RMCView {
 
 	@Override
 	public void start(Stage stage) throws Exception {
-		ViewManager viewManager = new ViewManager();
-		viewManager.initStage(stage, 1350, 450);
-		viewManager.setRmcController(controller);
-		
-		homeController = new MonitoringViewController(viewManager);
-		
-		homeController.showInLeftPanel();
-		
-		// Load CSS
-		// Load all CSS files
-//		File cssDirectory = new File("./src/u1171639/main/resources/styles/");
-//		for(File cssFile : cssDirectory.listFiles()) {
-//			String css = this.getClass().getResource("/u1171639/main/resources/styles/" + cssFile.getName()).toExternalForm();
-//			scene.getStylesheets().add(css);
-//		}
-		
+		if(!startUpError) {
+			ViewManager viewManager = new ViewManager();
+			viewManager.initStage(stage, 1350, 450);
+			viewManager.setRmcController(controller);
+			
+			homeController = new MonitoringViewController(viewManager);
+			
+			homeController.showInLeftPanel();
+			
+		} else {
+			Alert alert = new Alert(AlertType.ERROR);
+			alert.setTitle(startUpErrorHeader);
+			alert.setHeaderText(startUpErrorHeader);
+			alert.setContentText(startUpErrorMessage);
+			alert.show();
+		}
 	}
 
 	@Override
@@ -69,5 +74,12 @@ public class JavaFXRMCView extends Application implements RMCView {
 				homeController.updateTreeView();
 			}
 		});
+	}
+	
+	public static void startUpError(String errorHeader, String errorMessage) {
+		JavaFXRMCView.startUpError = true;
+		JavaFXRMCView.startUpErrorHeader = errorHeader;
+		JavaFXRMCView.startUpErrorMessage = errorMessage;
+		Application.launch();
 	}
 }

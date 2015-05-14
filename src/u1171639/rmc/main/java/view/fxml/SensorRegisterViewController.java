@@ -55,7 +55,7 @@ public class SensorRegisterViewController extends ViewController {
 	
 	private void updateUsersList() {
 		this.registeredUsers.clear();
-		this.registeredUsers.addAll(this.sensor.getAllRegisteredUsers());
+		this.registeredUsers.addAll(getRMCController().getHomeUserManager().getAllUsersRegistered(this.sensor.getName()));
 	}
 	
 	@FXML protected void handleRegisterExistingUserClicked(MouseEvent event) {

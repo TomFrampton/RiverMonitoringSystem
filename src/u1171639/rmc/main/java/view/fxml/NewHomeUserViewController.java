@@ -11,6 +11,7 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import u1171639.rmc.main.java.model.RMCSensor;
 import u1171639.rmc.main.java.users.HomeUser;
+import u1171639.rmc.main.java.users.HomeUserManager;
 import u1171639.rmc.main.java.utils.FXMLViewLoader;
 import u1171639.rmc.main.java.view.ViewManager;
 
@@ -63,9 +64,13 @@ public class NewHomeUserViewController extends ViewController {
 		newUser.setUsername(this.usernameField.getText());
 		newUser.setPassword(this.passwordField.getText());
 		
-		int id = getRMCController().getHomeUserManager().addHomeUser(newUser);
+		HomeUserManager manager = getRMCController().getHomeUserManager();
+		
+		int id = manager.addHomeUser(newUser);
+		
 		if(id > -1) {
-			this.sensor.registerHomeUser(newUser);
+			manager.registerUserWithSensor(id, sensor);
+			
 			try {
 				this.modalCallback.call();
 				this.modalCallback = null;

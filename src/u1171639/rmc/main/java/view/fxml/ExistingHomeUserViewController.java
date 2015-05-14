@@ -11,6 +11,7 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import u1171639.rmc.main.java.model.RMCSensor;
 import u1171639.rmc.main.java.users.HomeUser;
+import u1171639.rmc.main.java.users.HomeUserManager;
 import u1171639.rmc.main.java.utils.FXMLViewLoader;
 import u1171639.rmc.main.java.view.ViewManager;
 
@@ -48,10 +49,12 @@ public class ExistingHomeUserViewController extends ViewController {
 	}
 	
 	@FXML protected void handleRegisterButtonClicked(MouseEvent event) {
-		HomeUser user = getRMCController().getHomeUserManager().getUserByUsername(this.usernameField.getText());
+		HomeUserManager manager = getRMCController().getHomeUserManager();
+		HomeUser user = manager.getUserByUsername(this.usernameField.getText());
 		
 		if(user != null) {
-			this.sensor.registerHomeUser(user);
+			manager.registerUserWithSensor(user.getId(), sensor);
+			
 			try {
 				this.modalCallback.call();
 				this.modalCallback = null;

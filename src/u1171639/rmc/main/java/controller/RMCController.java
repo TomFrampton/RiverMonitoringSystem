@@ -5,18 +5,28 @@ import java.util.Hashtable;
 import java.util.Iterator;
 import java.util.List;
 
+import org.apache.commons.cli.CommandLine;
+import org.apache.commons.cli.CommandLineParser;
+import org.apache.commons.cli.GnuParser;
+import org.apache.commons.cli.Options;
+import org.apache.commons.cli.ParseException;
+
 import u1171639.lms.main.java.client.Sensor;
 import u1171639.lms.main.java.model.LMSZone;
+import u1171639.lms.main.java.utils.LMSConfig;
 import u1171639.rmc.main.java.client.CorbaLMS;
 import u1171639.rmc.main.java.client.LMS;
 import u1171639.rmc.main.java.model.Alarm;
 import u1171639.rmc.main.java.model.Locality;
+import u1171639.rmc.main.java.model.RMCSensor;
 import u1171639.rmc.main.java.service.ExternalRMCService;
 import u1171639.rmc.main.java.service.RMCService;
+import u1171639.rmc.main.java.users.HomeUser;
 import u1171639.rmc.main.java.users.HomeUserManager;
 import u1171639.rmc.main.java.users.TransientHomeUserManager;
 import u1171639.rmc.main.java.view.JavaFXRMCView;
 import u1171639.rmc.main.java.view.RMCView;
+import u1171639.shared.main.java.exception.AuthenticationException;
 import u1171639.shared.main.java.utils.CorbaUtils;
 
 public class RMCController {
@@ -76,11 +86,35 @@ public class RMCController {
 		return this.localities;
 	}
 	
+	public HomeUser getHomeUser(String username, String password) throws AuthenticationException {
+		return this.homeUserManager.authenticateUser(username, password);
+	}
+	
+//	public List<RMCSensor> getHomeUserSensors() {
+//		
+//	}
+	
 	public HomeUserManager getHomeUserManager() {
 		return this.homeUserManager;
 	}
 	
 	public static void main(String[] args) {
+		Options options = new Options();
+		options.addOption("ORBInitialPort", true, "Port number of the Name Service.");
+		CommandLineParser parser = new GnuParser();
+		
+		try {
+			CommandLine cmd = parser.parse(options, args);
+			
+			if(!cmd.hasOption("ORBInitialPort")) {
+				JavaFXRMCView.startUpError("Invalid Arguments", "ORBInitialPort argument required.");
+				System.exit(1);
+			}
+		} catch (ParseException e) {
+			JavaFXRMCView.startUpError("Invalid Arguments", "Could not parse command line arguments.");
+			System.exit(1);
+		}
+		
 		CorbaUtils.initOrb(args);
 		CorbaUtils.initRootPOA();
 		CorbaUtils.initNameService();

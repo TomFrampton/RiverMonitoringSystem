@@ -1,11 +1,18 @@
 package u1171639.rmc.main.java.users;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import u1171639.rmc.main.java.model.RMCSensor;
+
 public class HomeUser {
 	private int id;
 	private String forename;
 	private String surname;
 	private String username;
 	private String password;
+	
+	private List<RMCSensor> registeredSensors = new ArrayList<RMCSensor>();
 	
 	public int getId() {
 		return id;
@@ -45,5 +52,13 @@ public class HomeUser {
 	
 	public void setPassword(String password) {
 		this.password = password;
+	}
+
+	public List<RMCSensor> getRegisteredSensors() {
+		return registeredSensors;
+	}
+
+	public void setRegisteredSensors(List<RMCSensor> registeredSensors) {
+		this.registeredSensors = registeredSensors;
 	}
 }

@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import u1171639.rmc.main.java.model.RMCSensor;
+import u1171639.shared.main.java.exception.AuthenticationException;
 
 
 public class TransientHomeUserManager implements HomeUserManager {
@@ -45,5 +46,64 @@ public class TransientHomeUserManager implements HomeUserManager {
 		}
 		
 		return null;
+	}
+
+	@Override
+	public HomeUser authenticateUser(String username, String password) throws AuthenticationException {
+		HomeUser user = this.getUserByUsername(username);
+		if(user == null) {
+			throw new AuthenticationException("User not found");
+		}
+		
+		if(!user.getPassword().equals(password)) {
+			throw new AuthenticationException("Incorrect password");
+		}
+		
+		return user;
+		
+	}
+
+	@Override
+	public void registerUserWithSensor(int userId, RMCSensor sensor) {
+		HomeUser user = this.getUserById(userId);
+		if(user != null && !isUserRegisteredWithSensor(user, sensor)) {
+			user.getRegisteredSensors().add(sensor);
+		}
+	}
+	
+	@Override
+	public void registerUserWithSensor(String username, RMCSensor sensor) {
+		HomeUser user = this.getUserByUsername(username);
+		this.registerUserWithSensor(user.getId(), sensor);
+	}
+	
+	private boolean isUserRegisteredWithSensor(HomeUser user, RMCSensor sensor) {
+		List<RMCSensor> userSensors = user.getRegisteredSensors();
+		for(RMCSensor userSensor : userSensors) {
+			if(userSensor.getName().equals(sensor.getName())) {
+				return true;
+			}
+		}
+		
+		return false;
+	}
+	
+	private boolean isUserRegisteredWithSensor(HomeUser user, String sensorName) {
+		RMCSensor sensor = new RMCSensor();
+		sensor.setName(sensorName);
+		return this.isUserRegisteredWithSensor(user, sensor);
+	}
+
+	@Override
+	public List<HomeUser> getAllUsersRegistered(String sensorName) {
+		List<HomeUser> users = new ArrayList<HomeUser>();
+		
+		for(HomeUser user : this.homeUsers) {
+			if(this.isUserRegisteredWithSensor(user, sensorName)) {
+				users.add(user);
+			}
+		}
+		
+		return users;
 	}
 }
