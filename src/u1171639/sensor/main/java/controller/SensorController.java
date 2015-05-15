@@ -1,5 +1,8 @@
 package u1171639.sensor.main.java.controller;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.apache.commons.cli.CommandLine;
 import org.apache.commons.cli.CommandLineParser;
 import org.apache.commons.cli.GnuParser;
@@ -72,31 +75,33 @@ public class SensorController {
 		CommandLineParser parser = new GnuParser();
 		
 		CommandLine cmd = null;
+		List<String> errors = new ArrayList<String>();
 		
 		try {
 			cmd = parser.parse(options, args);
 			
 			if(!cmd.hasOption("locality")) {
-				JavaFXSimulationView.startUpError("Invalid Arguments", "-locality option required for Sensor.");
-				System.exit(1);
+				errors.add("-locality option required for Sensor.");
 			} else {
 				SensorConfig.setLocality(cmd.getOptionValue("locality"));
 			}
 			
 			if(!cmd.hasOption("zone")) {
-				JavaFXSimulationView.startUpError("Invalid Arguments", "-zone option required for Sensor.");
-				System.exit(1);
+				errors.add("-zone option required for Sensor.");
 			} else {
 				SensorConfig.setZone(cmd.getOptionValue("zone"));
 			}
 			
 			if(!cmd.hasOption("ORBInitialPort")) {
-				JavaFXSimulationView.startUpError("Invalid Arguments", "-ORBInitialPort option required.");
-				System.exit(1);
+				errors.add("-ORBInitialPort option required.");
 			}
 			
 		} catch (ParseException e) {
-			JavaFXSimulationView.startUpError("Invalid Arguments", "Could not parse command line arguments.");
+			errors.add("Could not parse command line arguments.");
+		}
+		
+		if(!errors.isEmpty()) {
+			JavaFXSimulationView.startUpErrors("Invalid Command Line Arguments", errors);
 			System.exit(1);
 		}
 		
@@ -110,7 +115,7 @@ public class SensorController {
 		try {
 			CorbaUtils.initNameService();
 		} catch (ServerNotFoundException e) {
-			JavaFXSimulationView.startUpError("Name Service", "Name service not found");
+			JavaFXSimulationView.startUpError("Name Service Error", "Name service not found");
 			System.exit(1);
 		}
 		

@@ -140,24 +140,29 @@ public class LMSController {
 		options.addOption("locality", true, "The name of the Locality this LMS resides in.");
 		options.addOption("ORBInitialPort", true, "Port number of the Name Service.");
 		CommandLineParser parser = new GnuParser();
+		List<String> errors = new ArrayList<String>();
 		
 		try {
 			CommandLine cmd = parser.parse(options, args);
 			
 			if(!cmd.hasOption("locality")) {
-				System.err.println("-locality option required for LMS.");
-				System.exit(1);
+				errors.add("-locality option required for LMS.");
 			} else {
 				LMSConfig.setLocality(cmd.getOptionValue("locality"));
 			}
 			
 			if(!cmd.hasOption("ORBInitialPort")) {
-				System.err.println("-ORBInitialPort option required.");
-				System.exit(1);
+				errors.add("-ORBInitialPort option required.");
 			}
 			
 		} catch (ParseException e) {
-			System.err.println("Could not parse command line arguments.");
+			errors.add("Could not parse command line arguments.");
+		}
+		
+		if(!errors.isEmpty()) {
+			for(String error : errors) {
+				System.err.println(error);
+			}
 			System.exit(1);
 		}
 				
@@ -193,5 +198,7 @@ public class LMSController {
 			System.err.println("RMC for region not found.");
 			System.exit(1);
 		}
+		
+		System.out.println("LMS running in " + LMSConfig.getLocality() + "...");
 	}
 }

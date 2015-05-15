@@ -33,16 +33,16 @@ import com.sun.net.httpserver.HttpServer;
 
 @Path("/home")
 @Produces({ MediaType.APPLICATION_JSON })
-public class HomeUserWebApi {
+public class HomeUserWebAPI {
 
 	private static RMCController rmcController;
 	
-	public HomeUserWebApi(@Context WadlApplicationContext wadlApplicationContext) {
+	public HomeUserWebAPI(@Context WadlApplicationContext wadlApplicationContext) {
 		 wadlApplicationContext.setWadlGenerationEnabled(false);
 	}
 	
 	public static void setRMCController(RMCController rmcController) {
-		HomeUserWebApi.rmcController = rmcController;
+		HomeUserWebAPI.rmcController = rmcController;
 	}
 	
 	@POST

@@ -19,7 +19,7 @@ import u1171639.rmc.main.java.client.LMS;
 import u1171639.rmc.main.java.model.Alarm;
 import u1171639.rmc.main.java.model.Locality;
 import u1171639.rmc.main.java.model.RMCSensor;
-import u1171639.rmc.main.java.service.ExternalRMCService;
+import u1171639.rmc.main.java.service.HomeUserRMCService;
 import u1171639.rmc.main.java.service.RMCService;
 import u1171639.rmc.main.java.users.HomeUser;
 import u1171639.rmc.main.java.users.HomeUserManager;
@@ -150,7 +150,7 @@ public class RMCController {
 		RMCService service = new RMCService(controller);
 		
 		// Start RMC External Service
-		ExternalRMCService externalService = new ExternalRMCService(controller);
+		HomeUserRMCService homeUserService = new HomeUserRMCService(controller);
 		
 		new Thread(new Runnable() {
 			@Override
@@ -162,7 +162,7 @@ public class RMCController {
 		new Thread(new Runnable() {
 			@Override
 			public void run() {
-				externalService.listen();
+				homeUserService.listen();
 			}
 		}).start();
 		

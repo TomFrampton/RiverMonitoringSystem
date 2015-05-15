@@ -59,6 +59,14 @@ public class SimulatedWaterLevelMonitor implements WaterLevelMonitor, Runnable {
 			this.viewController.sensorDeactivated();
 		}
 	}
+	
+	public void setController(SensorController controller) {
+		this.controller = controller;
+	}
+	
+	public void setViewController(SimulationViewController viewController) {
+		this.viewController = viewController;
+	}
 
 	@Override
 	public void run() {
@@ -66,12 +74,7 @@ public class SimulatedWaterLevelMonitor implements WaterLevelMonitor, Runnable {
 			for(;;Thread.sleep(SensorConfig.getMonitoringInterval())) {
 				if(!paused) {
 					if(this.waterLevel >= SensorConfig.getWarningThreshold()) {
-						//Logger.log(LogLevel.WARNING, "Water Level Reading Exceeded Warning Level - " + this.waterLevel);
-						//Logger.log(LogLevel.WARNING, "Raising Alarm At LMS");
-						
 						controller.raiseAlarm();
-					} else {
-						//Logger.log(LogLevel.INFO, "Water Level Reading - " + this.waterLevel);
 					}
 				} else {
 					synchronized(lock) {
@@ -85,11 +88,5 @@ public class SimulatedWaterLevelMonitor implements WaterLevelMonitor, Runnable {
 		}
 	}
 	
-	public void setController(SensorController controller) {
-		this.controller = controller;
-	}
 	
-	public void setViewController(SimulationViewController viewController) {
-		this.viewController = viewController;
-	}
 }
