@@ -39,7 +39,7 @@ public class CorbaUtils {
 		}
 	}
 	
-	public static void initNameService() {
+	public static void initNameService() throws ServerNotFoundException {
 		if(nameService == null) {
 			try {
 				// Get a reference to the naming service
@@ -57,9 +57,8 @@ public class CorbaUtils {
 					System.err.println("Name service == null");
 					return;
 				}
-			} catch (InvalidName e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+			} catch (org.omg.CORBA.SystemException | InvalidName e) {
+				throw new ServerNotFoundException("Name Service not found.");
 			}
 		}
 	}

@@ -7,6 +7,7 @@ import org.apache.commons.cli.Options;
 import org.apache.commons.cli.ParseException;
 
 import u1171639.lms.main.java.utils.LMSConfig;
+import u1171639.rmc.main.java.view.JavaFXRMCView;
 import u1171639.sensor.main.java.client.CorbaLMS;
 import u1171639.sensor.main.java.client.LMS;
 import u1171639.sensor.main.java.monitor.SimulatedWaterLevelMonitor;
@@ -76,27 +77,27 @@ public class SensorController {
 			cmd = parser.parse(options, args);
 			
 			if(!cmd.hasOption("locality")) {
-				System.err.println("-locality option required for Sensor.");
+				JavaFXSimulationView.startUpError("Invalid Arguments", "-locality option required for Sensor.");
 				System.exit(1);
 			} else {
 				SensorConfig.setLocality(cmd.getOptionValue("locality"));
 			}
 			
 			if(!cmd.hasOption("zone")) {
-				System.err.println("-zone option required for Sensor.");
+				JavaFXSimulationView.startUpError("Invalid Arguments", "-zone option required for Sensor.");
 				System.exit(1);
 			} else {
 				SensorConfig.setZone(cmd.getOptionValue("zone"));
 			}
 			
 			if(!cmd.hasOption("ORBInitialPort")) {
-				System.err.println("-ORBInitialPort option required.");
+				JavaFXSimulationView.startUpError("Invalid Arguments", "-ORBInitialPort option required.");
 				System.exit(1);
 			}
 			
 		} catch (ParseException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			JavaFXSimulationView.startUpError("Invalid Arguments", "Could not parse command line arguments.");
+			System.exit(1);
 		}
 		
 		/** Set monitoring configuration */
@@ -106,7 +107,12 @@ public class SensorController {
 		
 		CorbaUtils.initOrb(args);
 		CorbaUtils.initRootPOA();
-		CorbaUtils.initNameService();
+		try {
+			CorbaUtils.initNameService();
+		} catch (ServerNotFoundException e) {
+			JavaFXSimulationView.startUpError("Name Service", "Name service not found");
+			System.exit(1);
+		}
 		
 		CorbaLMS lms = new CorbaLMS(SensorConfig.getLocality() + "_LMSServer", null);
 		SimulatedWaterLevelMonitor monitor = new SimulatedWaterLevelMonitor();
@@ -121,7 +127,7 @@ public class SensorController {
 		try {
 			lms.connect();
 		} catch (ServerNotFoundException | ConnectionException e) {
-			System.err.println(e);
+			JavaFXSimulationView.startUpError("LMS Not Found", "LMS for specified locality not found.");
 			System.exit(1);
 		}
 		

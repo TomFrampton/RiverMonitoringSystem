@@ -11,6 +11,7 @@ public class RMCSensor {
 	private boolean active;
 	private String localityName;
 	private String zoneName;
+	private double reading;
 	
 	public void setName(String name) {
 		this.name = name;
@@ -50,5 +51,13 @@ public class RMCSensor {
 
 	public void setZoneName(String zoneName) {
 		this.zoneName = zoneName;
+	}
+
+	public double getReading() {
+		return reading;
+	}
+
+	public void setReading(double reading) {
+		this.reading = reading;
 	}
 }

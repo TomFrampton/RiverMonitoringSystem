@@ -2,6 +2,7 @@ package u1171639.shared.test.integration;
 
 import static org.junit.Assert.*;
 
+import java.util.Date;
 import java.util.List;
 
 import org.junit.After;
@@ -87,12 +88,15 @@ public class RMC_LMSTest {
 	public void testGetLogs() {
 		// Log an item with the Logger used by the LMS
 		LogItem logItem1 = new LogItem();
+		Date time = new Date();
+		logItem1.setTime(time);
 		logItem1.setEvent(LogItem.Event.ALARM_RAISED);
 		logItem1.setMessage("Alarm raised in Zone 1");
 		this.lmsLogger.logEvent(logItem1);
 		
 		List<LogItem> logs = this.rmcController.getLocalityByName("Locality1").getUpdatedLogs();
 		assertTrue(logs.size() == 1);
+		assertEquals(logs.get(0).getTime(), time);
 		assertTrue(logs.get(0).getEvent() == LogItem.Event.ALARM_RAISED);
 		assertTrue(logs.get(0).getMessage().equals("Alarm raised in Zone 1"));
 	}

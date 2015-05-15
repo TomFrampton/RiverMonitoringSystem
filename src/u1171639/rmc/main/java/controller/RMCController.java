@@ -27,6 +27,7 @@ import u1171639.rmc.main.java.users.TransientHomeUserManager;
 import u1171639.rmc.main.java.view.JavaFXRMCView;
 import u1171639.rmc.main.java.view.RMCView;
 import u1171639.shared.main.java.exception.AuthenticationException;
+import u1171639.shared.main.java.exception.ServerNotFoundException;
 import u1171639.shared.main.java.utils.CorbaUtils;
 
 public class RMCController {
@@ -94,6 +95,26 @@ public class RMCController {
 		return this.homeUserManager;
 	}
 	
+	public List<RMCSensor> getHomeUserSensorReadings(int userId) {
+		HomeUser user = this.homeUserManager.getUserById(userId);
+		List<RMCSensor> sensors = user.getRegisteredSensors();
+		List<RMCSensor> sensorsCopy = new ArrayList<RMCSensor>();
+		
+		for(RMCSensor sensor : sensors) {
+			Locality locality = this.getLocalityByName(sensor.getLocalityName());
+			
+			RMCSensor sensorCopy = new RMCSensor();
+			sensorCopy.setLocalityName(sensor.getLocalityName());
+			sensorCopy.setZoneName(sensor.getZoneName());
+			sensorCopy.setName(sensor.getName());
+			sensorCopy.setReading(locality.getSensorReading(sensor.getZoneName(), sensor.getName()));
+			
+			sensorsCopy.add(sensorCopy);
+		}
+		
+		return sensorsCopy;
+	}
+	
 	public static void main(String[] args) {
 		Options options = new Options();
 		options.addOption("ORBInitialPort", true, "Port number of the Name Service.");
@@ -113,7 +134,12 @@ public class RMCController {
 		
 		CorbaUtils.initOrb(args);
 		CorbaUtils.initRootPOA();
-		CorbaUtils.initNameService();
+		try {
+			CorbaUtils.initNameService();
+		} catch (ServerNotFoundException e) {
+			JavaFXRMCView.startUpError("Name Service", "Name Service not found.");
+			System.exit(1);
+		}
 		
 		HomeUserManager homeUserManager = new TransientHomeUserManager();
 		RMCView view = new JavaFXRMCView();

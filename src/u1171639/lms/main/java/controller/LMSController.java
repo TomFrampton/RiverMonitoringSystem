@@ -131,7 +131,7 @@ public class LMSController {
 	
 	public boolean resetAlarm(String zoneName) {
 		LMSZone zone = this.getZoneByName(zoneName);
-		logger.logEvent(new LogItem("Alarm reset in Zone: " + zoneName, LogItem.Event.ALARM_RESET));	
+		logger.logEvent(new LogItem("Alarm reset in " + zoneName, LogItem.Event.ALARM_RESET));	
 		return zone.resetAlarms();
 	}
 	
@@ -157,13 +157,18 @@ public class LMSController {
 			}
 			
 		} catch (ParseException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			System.err.println("Could not parse command line arguments.");
+			System.exit(1);
 		}
 				
 		CorbaUtils.initOrb(args);
 		CorbaUtils.initRootPOA();
-		CorbaUtils.initNameService();
+		try {
+			CorbaUtils.initNameService();
+		} catch (ServerNotFoundException e) {
+			System.err.println("Name service not found");
+			System.exit(1);
+		}
 		
 		CorbaRMC rmc = new CorbaRMC("RMCServer", null);
 		Logger logger = new TransientLogger();
@@ -185,7 +190,7 @@ public class LMSController {
 		try {
 			rmc.connect();
 		} catch (ServerNotFoundException | ConnectionException e) {
-			System.err.println(e);
+			System.err.println("RMC for region not found.");
 			System.exit(1);
 		}
 	}
