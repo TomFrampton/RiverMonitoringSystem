@@ -1,9 +1,5 @@
 package u1171639.sensor.main.java.monitor;
 
-import java.util.Random;
-import java.util.Timer;
-
-import u1171639.sensor.main.java.client.LMS;
 import u1171639.sensor.main.java.controller.SensorController;
 import u1171639.sensor.main.java.utils.SensorConfig;
 import u1171639.sensor.main.java.view.fxml.SimulationViewController;
@@ -42,8 +38,8 @@ public class SimulatedWaterLevelMonitor implements WaterLevelMonitor, Runnable {
 	@Override
 	public void resumeMonitoring() {
 		this.paused = false;
-		synchronized(lock) {
-			lock.notifyAll();
+		synchronized(this.lock) {
+			this.lock.notifyAll();
 		}
 		
 		if(this.viewController != null) {
@@ -72,13 +68,13 @@ public class SimulatedWaterLevelMonitor implements WaterLevelMonitor, Runnable {
 	public void run() {
 		try {
 			for(;;Thread.sleep(SensorConfig.getMonitoringInterval())) {
-				if(!paused) {
+				if(!this.paused) {
 					if(this.waterLevel >= SensorConfig.getWarningThreshold()) {
-						controller.raiseAlarm();
+						this.controller.raiseAlarm();
 					}
 				} else {
-					synchronized(lock) {
-						lock.wait();
+					synchronized(this.lock) {
+						this.lock.wait();
 					}
 				}
 			}

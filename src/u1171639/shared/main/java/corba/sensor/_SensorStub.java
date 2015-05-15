@@ -11,7 +11,8 @@ package u1171639.shared.main.java.corba.sensor;
 public class _SensorStub extends org.omg.CORBA.portable.ObjectImpl implements u1171639.shared.main.java.corba.sensor.Sensor
 {
 
-  public boolean isAlarmRaised ()
+  @Override
+public boolean isAlarmRaised ()
   {
             org.omg.CORBA.portable.InputStream $in = null;
             try {
@@ -30,7 +31,8 @@ public class _SensorStub extends org.omg.CORBA.portable.ObjectImpl implements u1
             }
   } // isAlarmRaised
 
-  public boolean activate ()
+  @Override
+public boolean activate ()
   {
             org.omg.CORBA.portable.InputStream $in = null;
             try {
@@ -49,7 +51,8 @@ public class _SensorStub extends org.omg.CORBA.portable.ObjectImpl implements u1
             }
   } // activate
 
-  public boolean deactivate ()
+  @Override
+public boolean deactivate ()
   {
             org.omg.CORBA.portable.InputStream $in = null;
             try {
@@ -68,7 +71,8 @@ public class _SensorStub extends org.omg.CORBA.portable.ObjectImpl implements u1
             }
   } // deactivate
 
-  public boolean isActive ()
+  @Override
+public boolean isActive ()
   {
             org.omg.CORBA.portable.InputStream $in = null;
             try {
@@ -87,7 +91,8 @@ public class _SensorStub extends org.omg.CORBA.portable.ObjectImpl implements u1
             }
   } // isActive
 
-  public double getThreshold ()
+  @Override
+public double getThreshold ()
   {
             org.omg.CORBA.portable.InputStream $in = null;
             try {
@@ -106,7 +111,8 @@ public class _SensorStub extends org.omg.CORBA.portable.ObjectImpl implements u1
             }
   } // getThreshold
 
-  public boolean setThreshold (double threshold)
+  @Override
+public boolean setThreshold (double threshold)
   {
             org.omg.CORBA.portable.InputStream $in = null;
             try {
@@ -126,7 +132,8 @@ public class _SensorStub extends org.omg.CORBA.portable.ObjectImpl implements u1
             }
   } // setThreshold
 
-  public double getReading ()
+  @Override
+public double getReading ()
   {
             org.omg.CORBA.portable.InputStream $in = null;
             try {
@@ -149,9 +156,10 @@ public class _SensorStub extends org.omg.CORBA.portable.ObjectImpl implements u1
   private static String[] __ids = {
     "IDL:sensor/Sensor:1.0"};
 
-  public String[] _ids ()
+  @Override
+public String[] _ids ()
   {
-    return (String[])__ids.clone ();
+    return __ids.clone ();
   }
 
   private void readObject (java.io.ObjectInputStream s) throws java.io.IOException

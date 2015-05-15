@@ -11,7 +11,8 @@ package u1171639.shared.main.java.corba.lms_sensor;
 public class _LMS_SensorStub extends org.omg.CORBA.portable.ObjectImpl implements u1171639.shared.main.java.corba.lms_sensor.LMS_Sensor
 {
 
-  public void raiseAlarm (String zone)
+  @Override
+public void raiseAlarm (String zone)
   {
             org.omg.CORBA.portable.InputStream $in = null;
             try {
@@ -30,7 +31,8 @@ public class _LMS_SensorStub extends org.omg.CORBA.portable.ObjectImpl implement
             }
   } // raiseAlarm
 
-  public String register (String ior, String zone)
+  @Override
+public String register (String ior, String zone)
   {
             org.omg.CORBA.portable.InputStream $in = null;
             try {
@@ -55,9 +57,10 @@ public class _LMS_SensorStub extends org.omg.CORBA.portable.ObjectImpl implement
   private static String[] __ids = {
     "IDL:lms_sensor/LMS_Sensor:1.0"};
 
-  public String[] _ids ()
+  @Override
+public String[] _ids ()
   {
-    return (String[])__ids.clone ();
+    return __ids.clone ();
   }
 
   private void readObject (java.io.ObjectInputStream s) throws java.io.IOException

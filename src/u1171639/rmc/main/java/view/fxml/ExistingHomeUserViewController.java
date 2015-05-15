@@ -4,7 +4,6 @@ import java.util.concurrent.Callable;
 
 import javafx.fxml.FXML;
 import javafx.scene.Scene;
-import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Modality;
@@ -31,7 +30,7 @@ public class ExistingHomeUserViewController extends ViewController {
 	}
 	
 	private void init() {
-		this.modalStage.setScene(new Scene(this.getView()));
+		this.modalStage.setScene(new Scene(getView()));
 		this.modalStage.setTitle("Register Existing Home User");
 		this.modalStage.initModality(Modality.WINDOW_MODAL);
 	}
@@ -55,7 +54,7 @@ public class ExistingHomeUserViewController extends ViewController {
 		
 		if(user != null) {
 			try {
-				manager.registerUserWithSensor(user.getId(), sensor);
+				manager.registerUserWithSensor(user.getId(), this.sensor);
 			} catch (RegistrationException e) {
 				showErrorAlert("User Already Registered", "The specified user is already registered with that sensor.");
 			}
@@ -67,7 +66,7 @@ public class ExistingHomeUserViewController extends ViewController {
 				showUnspecifiedErrorAlert();
 			}
 			
-			this.clearTextBoxes();
+			clearTextBoxes();
 			this.modalStage.close();
 			
 		} else {
@@ -76,7 +75,7 @@ public class ExistingHomeUserViewController extends ViewController {
 	}
 	
 	@FXML protected void handleCancelButtonClicked(MouseEvent event) {
-		this.clearTextBoxes();
+		clearTextBoxes();
 		this.modalStage.close();
 	}
 }

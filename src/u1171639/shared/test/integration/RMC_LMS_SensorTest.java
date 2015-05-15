@@ -9,8 +9,6 @@ import org.junit.Before;
 import org.junit.Test;
 
 import u1171639.lms.main.java.client.CorbaRMC;
-import u1171639.lms.main.java.client.RMC;
-import u1171639.lms.main.java.client.Sensor;
 import u1171639.lms.main.java.controller.LMSController;
 import u1171639.lms.main.java.model.LMSZone;
 import u1171639.lms.main.java.service.LMS_RMCService;
@@ -23,7 +21,6 @@ import u1171639.rmc.main.java.model.Locality;
 import u1171639.rmc.main.java.model.RMCZone;
 import u1171639.rmc.main.java.service.RMCService;
 import u1171639.rmc.test.mocks.MockHomeUserManager;
-import u1171639.rmc.test.mocks.MockRMC;
 import u1171639.rmc.test.mocks.MockRMCView;
 import u1171639.sensor.main.java.client.CorbaLMS;
 import u1171639.sensor.main.java.controller.SensorController;
@@ -65,7 +62,7 @@ public class RMC_LMS_SensorTest {
 			@Override
 			public void alarmRaised(Alarm alarm) {
 				super.alarmRaised(alarm);
-				rmcAlarmRaised = true;
+				RMC_LMS_SensorTest.this.rmcAlarmRaised = true;
 			}
 		};
 		RMCService service = new RMCService(this.rmcController);
@@ -86,7 +83,7 @@ public class RMC_LMS_SensorTest {
 		this.lmsController = new LMSController(this.rmc, new MockLogger());
 		
 		// Start LMS service for listening for Sensors
-		final LMS_SensorService lmsSensorService = new LMS_SensorService(lmsController);
+		final LMS_SensorService lmsSensorService = new LMS_SensorService(this.lmsController);
 		new Thread(new Runnable() {
 			@Override
 			public void run() {
@@ -98,7 +95,7 @@ public class RMC_LMS_SensorTest {
 		Thread.sleep(100);
 		
 		// Start LMS service for listening to RMC
-		final LMS_RMCService lmsRmcService = new LMS_RMCService(lmsController);
+		final LMS_RMCService lmsRmcService = new LMS_RMCService(this.lmsController);
 		// Use Array to get around requiring a variable that is being accessed from an anonymous class must be final
 		final String[] lmsRmcServiceIor = new String[1];
 		new Thread(new Runnable() {
@@ -141,29 +138,29 @@ public class RMC_LMS_SensorTest {
 		SimulatedWaterLevelMonitor monitor2 = (SimulatedWaterLevelMonitor) this.sensor2.getMonitor();
 		
 		monitor1.setWaterLevel(70);
-		synchronized(lock1) { lock1.wait(); }
+		synchronized(this.lock1) { this.lock1.wait(); }
 		assertFalse(this.rmcAlarmRaised);
 		
 		monitor1.setWaterLevel(69);
 		monitor2.setWaterLevel(70);
-		synchronized(lock2) { lock2.wait(); }
+		synchronized(this.lock2) { this.lock2.wait(); }
 		assertFalse(this.rmcAlarmRaised);
 		
 		monitor1.setWaterLevel(70);
-		synchronized(lock1) { lock1.wait(); }
-		synchronized(lock2) { lock2.wait(); }
+		synchronized(this.lock1) { this.lock1.wait(); }
+		synchronized(this.lock2) { this.lock2.wait(); }
 		assertTrue(this.rmcAlarmRaised);
 		
 		// Reset alarm
 		this.lmsController.getZoneByName("Zone1").resetAlarms();
 		this.rmcAlarmRaised = false;
 		monitor2.setWaterLevel(69);
-		synchronized(lock1) { lock1.wait(); }
+		synchronized(this.lock1) { this.lock1.wait(); }
 		assertFalse(this.rmcAlarmRaised);
 		
 		this.lmsController.getZoneByName("Zone1").resetAlarms();
 		this.lmsController.getSensorsByZone("Zone1").get(1).deactivate();
-		synchronized(lock1) { lock1.wait(); }
+		synchronized(this.lock1) { this.lock1.wait(); }
 		assertTrue(this.rmcAlarmRaised);	
 	}
 	
@@ -200,7 +197,7 @@ public class RMC_LMS_SensorTest {
 		
 		monitor1.setWaterLevel(70);
 		monitor2.setWaterLevel(70);
-		synchronized(lock2) { lock2.wait(); }
+		synchronized(this.lock2) { this.lock2.wait(); }
 		
 		locality.getUpdatedZones();
 		zones = locality.getZones();
@@ -250,8 +247,8 @@ public class RMC_LMS_SensorTest {
 		
 		monitor1.setWaterLevel(70);
 		monitor2.setWaterLevel(70);
-		synchronized(lock1) { lock1.wait(); }
-		synchronized(lock2) { lock2.wait(); }
+		synchronized(this.lock1) { this.lock1.wait(); }
+		synchronized(this.lock2) { this.lock2.wait(); }
 		
 		assertTrue(this.rmcAlarmRaised);
 		assertTrue(zone.isAlarmRaised());

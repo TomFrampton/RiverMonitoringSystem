@@ -3,7 +3,6 @@ package u1171639.lms.main.java.client;
 import java.util.concurrent.Callable;
 
 import u1171639.shared.main.java.corba.sensor.SensorHelper;
-import u1171639.shared.main.java.utils.CorbaUtils;
 
 public class CorbaSensor implements Sensor {
 	private org.omg.CORBA.Object ior;
@@ -32,7 +31,7 @@ public class CorbaSensor implements Sensor {
 		return this.communicate(new Callable<Boolean>() {
 			@Override
 			public Boolean call() throws Exception {
-				return sensor.isAlarmRaised();
+				return CorbaSensor.this.sensor.isAlarmRaised();
 			}
 		});
 	}
@@ -42,7 +41,7 @@ public class CorbaSensor implements Sensor {
 		return this.communicate(new Callable<Boolean>() {
 			@Override
 			public Boolean call() throws Exception {
-				return sensor.activate();
+				return CorbaSensor.this.sensor.activate();
 			}
 		});
 	}
@@ -52,7 +51,7 @@ public class CorbaSensor implements Sensor {
 		return this.communicate(new Callable<Boolean>() {
 			@Override
 			public Boolean call() throws Exception {
-				return sensor.deactivate();
+				return CorbaSensor.this.sensor.deactivate();
 			}
 		});
 	}
@@ -62,7 +61,7 @@ public class CorbaSensor implements Sensor {
 		return this.communicate(new Callable<Boolean>() {
 			@Override
 			public Boolean call() throws Exception {
-				return sensor.isActive();
+				return CorbaSensor.this.sensor.isActive();
 			}
 		});
 	}
@@ -82,7 +81,7 @@ public class CorbaSensor implements Sensor {
 		return this.communicate(new Callable<Double>() {
 			@Override
 			public Double call() throws Exception {
-				return sensor.getThreshold();
+				return CorbaSensor.this.sensor.getThreshold();
 			}
 		});
 	}
@@ -92,7 +91,7 @@ public class CorbaSensor implements Sensor {
 		return this.communicate(new Callable<Boolean>() {
 			@Override
 			public Boolean call() throws Exception {
-				return sensor.setThreshold(threshold);
+				return CorbaSensor.this.sensor.setThreshold(threshold);
 			}
 		});
 	}
@@ -102,7 +101,7 @@ public class CorbaSensor implements Sensor {
 		return this.communicate(new Callable<Double>() {
 			@Override
 			public Double call() throws Exception {
-				return sensor.getReading();
+				return CorbaSensor.this.sensor.getReading();
 			}
 		});
 	}

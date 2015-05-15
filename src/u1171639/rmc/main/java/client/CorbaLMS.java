@@ -1,19 +1,14 @@
 package u1171639.rmc.main.java.client;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.Callable;
 
-import u1171639.rmc.main.java.model.RMCSensor;
 import u1171639.rmc.main.java.model.RMCZone;
 import u1171639.shared.main.java.corba.lms_rmc.LMS_RMC;
 import u1171639.shared.main.java.corba.lms_rmc.LMS_RMCHelper;
 import u1171639.shared.main.java.corba.models.CorbaModel_Locality;
 import u1171639.shared.main.java.corba.models.CorbaModel_Log;
-import u1171639.shared.main.java.corba.models.CorbaModel_LogItem;
-import u1171639.shared.main.java.corba.models.CorbaModel_Sensor;
 import u1171639.shared.main.java.logging.LogItem;
-import u1171639.shared.main.java.utils.EnumParser;
 import u1171639.shared.main.java.utils.ModelConverter;
 
 public class CorbaLMS implements LMS {
@@ -41,7 +36,7 @@ public class CorbaLMS implements LMS {
 		CorbaModel_Locality corbaLocality = this.communicate(new Callable<CorbaModel_Locality>() {
 			@Override
 			public CorbaModel_Locality call() throws Exception {
-				return lms.getZoneUpdates();
+				return CorbaLMS.this.lms.getZoneUpdates();
 			}
 		});
 		
@@ -59,7 +54,7 @@ public class CorbaLMS implements LMS {
 		CorbaModel_Log corbaLog = this.communicate(new Callable<CorbaModel_Log>() {
 			@Override
 			public CorbaModel_Log call() throws Exception {
-				return lms.getLog();
+				return CorbaLMS.this.lms.getLog();
 			}
 		});
 		
@@ -71,7 +66,7 @@ public class CorbaLMS implements LMS {
 		return this.communicate(new Callable<Boolean>() {
 			@Override
 			public Boolean call() throws Exception {
-				return lms.activateSensor(zoneName, sensorName);
+				return CorbaLMS.this.lms.activateSensor(zoneName, sensorName);
 			}
 		});
 	}
@@ -81,7 +76,7 @@ public class CorbaLMS implements LMS {
 		return this.communicate(new Callable<Boolean>() {
 			@Override
 			public Boolean call() throws Exception {
-				return lms.deactivateSensor(zoneName, sensorName);
+				return CorbaLMS.this.lms.deactivateSensor(zoneName, sensorName);
 			}
 		});
 	}
@@ -91,7 +86,7 @@ public class CorbaLMS implements LMS {
 		return this.communicate(new Callable<Boolean>() {
 			@Override
 			public Boolean call() throws Exception {
-				return lms.setWarningThreshold(zoneName, sensorName, threshold);
+				return CorbaLMS.this.lms.setWarningThreshold(zoneName, sensorName, threshold);
 			}
 		});
 	}
@@ -101,7 +96,7 @@ public class CorbaLMS implements LMS {
 		return this.communicate(new Callable<Double>() {
 			@Override
 			public Double call() throws Exception {
-				return lms.getSensorReading(zoneName, sensorName);
+				return CorbaLMS.this.lms.getSensorReading(zoneName, sensorName);
 			}
 		});
 	}
@@ -111,7 +106,7 @@ public class CorbaLMS implements LMS {
 		return this.communicate(new Callable<Boolean>() {
 			@Override
 			public Boolean call() throws Exception {
-				return lms.resetAlarm(zoneName);
+				return CorbaLMS.this.lms.resetAlarm(zoneName);
 			}
 		});
 	}

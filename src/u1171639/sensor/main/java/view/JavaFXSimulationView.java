@@ -1,17 +1,13 @@
 package u1171639.sensor.main.java.view;
 
-import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
-import net.sf.oval.ConstraintViolation;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
-import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
-import u1171639.rmc.main.java.view.JavaFXRMCView;
 import u1171639.sensor.main.java.monitor.SimulatedWaterLevelMonitor;
 import u1171639.sensor.main.java.view.fxml.SimulationViewController;
 
@@ -25,7 +21,7 @@ public class JavaFXSimulationView extends Application implements SimulationView 
 	@Override
 	public void start(SimulatedWaterLevelMonitor monitor) {
 		JavaFXSimulationView.monitor = monitor;
-		JavaFXSimulationView.launch();
+		Application.launch();
 	}
 
 	@Override

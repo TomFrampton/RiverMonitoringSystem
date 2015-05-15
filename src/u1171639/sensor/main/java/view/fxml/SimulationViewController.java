@@ -43,22 +43,22 @@ public class SimulationViewController extends ViewController implements Observer
 		this.waterLevelSlider.valueProperty().addListener(new ChangeListener<Number>() {
 			@Override
 			public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
-				monitor.setWaterLevel(newValue.floatValue());
+				SimulationViewController.this.monitor.setWaterLevel(newValue.floatValue());
 				waterLevelsUpdated();
 			}
 		});
 		
 		SensorConfig.observeWarningThreshold(this);
 		
-		this.sensorActivated();
+		sensorActivated();
 	}
 	
 	public void sensorActivated() {
 		Platform.runLater(new Runnable() {
 			@Override
 			public void run() {
-				activationLabel.setText("Active");
-				activationLabel.setStyle("-fx-text-fill: #22b90f");
+				SimulationViewController.this.activationLabel.setText("Active");
+				SimulationViewController.this.activationLabel.setStyle("-fx-text-fill: #22b90f");
 			}
 		});
 		
@@ -68,17 +68,17 @@ public class SimulationViewController extends ViewController implements Observer
 		Platform.runLater(new Runnable() {
 			@Override
 			public void run() {
-				activationLabel.setText("Deactivated");
-				activationLabel.setStyle("-fx-text-fill: #ff0000e8");
+				SimulationViewController.this.activationLabel.setText("Deactivated");
+				SimulationViewController.this.activationLabel.setStyle("-fx-text-fill: #ff0000e8");
 			}
 		});
 	}
 	
 	private void waterLevelsUpdated() {
 		if(this.waterLevelSlider.getValue() >= SensorConfig.getWarningThreshold()) {
-			thresholdValueLabel.setStyle("-fx-text-fill: #ff0000e8");
+			this.thresholdValueLabel.setStyle("-fx-text-fill: #ff0000e8");
 		} else {
-			thresholdValueLabel.setStyle("-fx-text-fill: #22b90f");
+			this.thresholdValueLabel.setStyle("-fx-text-fill: #22b90f");
 		}
 	}
 
@@ -88,7 +88,7 @@ public class SimulationViewController extends ViewController implements Observer
 			@Override
 			public void run() {
 				double threshold = (double) warningThreshold;
-				thresholdValueLabel.setText(threshold + "");
+				SimulationViewController.this.thresholdValueLabel.setText(threshold + "");
 				waterLevelsUpdated();
 			}
 		});

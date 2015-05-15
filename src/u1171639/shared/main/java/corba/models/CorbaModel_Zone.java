@@ -20,9 +20,9 @@ public final class CorbaModel_Zone implements org.omg.CORBA.portable.IDLEntity
 
   public CorbaModel_Zone (String _name, boolean _alarmRaised, u1171639.shared.main.java.corba.models.CorbaModel_Sensor[] _sensors)
   {
-    name = _name;
-    alarmRaised = _alarmRaised;
-    sensors = _sensors;
+    this.name = _name;
+    this.alarmRaised = _alarmRaised;
+    this.sensors = _sensors;
   } // ctor
 
 } // class CorbaModel_Zone

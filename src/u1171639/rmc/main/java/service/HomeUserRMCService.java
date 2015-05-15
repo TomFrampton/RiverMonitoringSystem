@@ -29,8 +29,8 @@ public class HomeUserRMCService {
 		    
 			try {
 				System.out.println("Web Server running...");
-				synchronized(lock) {
-					lock.wait();
+				synchronized(this.lock) {
+					this.lock.wait();
 				}
 			} finally {
 		        server.close();
@@ -41,8 +41,8 @@ public class HomeUserRMCService {
 	}
 	
 	public void stopServer() {
-		synchronized(lock) {
-			lock.notify();
+		synchronized(this.lock) {
+			this.lock.notify();
 		}
 	}
 }

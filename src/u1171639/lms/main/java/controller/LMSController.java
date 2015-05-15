@@ -1,8 +1,6 @@
 package u1171639.lms.main.java.controller;
 
 import java.util.ArrayList;
-import java.util.Date;
-import java.util.Hashtable;
 import java.util.Iterator;
 import java.util.List;
 
@@ -37,7 +35,7 @@ public class LMSController {
 	}
 	
 	public String registerSensor(String zoneName, Sensor sensor) {
-		LMSZone zone = this.getZoneByName(zoneName);
+		LMSZone zone = getZoneByName(zoneName);
 		if(zone == null) {
 			zone = new LMSZone();
 			zone.setName(zoneName);
@@ -49,15 +47,15 @@ public class LMSController {
 		zone.getSensors().add(sensor);
 		
 		// Inform RMC that a sensor has been added
-		rmc.sensorAdded();
+		this.rmc.sensorAdded();
 		
-		logger.logEvent(new LogItem("Sensor registered in " + LMSConfig.getLocality() + " - " + zoneName, LogItem.Event.CONNECTION));
+		this.logger.logEvent(new LogItem("Sensor registered in " + LMSConfig.getLocality() + " - " + zoneName, LogItem.Event.CONNECTION));
 		
 		return sensorName;
 	}
 	
 	public List<Sensor> getSensorsByZone(String zoneName) {
-		LMSZone zone = this.getZoneByName(zoneName);
+		LMSZone zone = getZoneByName(zoneName);
 		if(zone != null) {
 			return zone.getSensors();
 		} else {
@@ -82,18 +80,18 @@ public class LMSController {
 	}
 	
 	public void alarmRaised(String zoneName) {
-		LMSZone zone = this.getZoneByName(zoneName);
+		LMSZone zone = getZoneByName(zoneName);
 		// Don't raise another alarm in this zone if the alarm is already raised
 		if(zone != null && !zone.isAlarmRaised()) {
-			logger.logEvent(new LogItem("Alarm raised in " + zoneName, LogItem.Event.ALARM_RAISED));
+			this.logger.logEvent(new LogItem("Alarm raised in " + zoneName, LogItem.Event.ALARM_RAISED));
 			
 			if(zone.confirmAlarm()) {
 				// Alarm condition confirmed by all sensors in zone
-				logger.logEvent(new LogItem("ALARM CONDITION CONFIRMED IN " + zoneName.toUpperCase(), LogItem.Event.ALARM_CONFIRMED));
-				rmc.raiseAlarm(zoneName);
+				this.logger.logEvent(new LogItem("ALARM CONDITION CONFIRMED IN " + zoneName.toUpperCase(), LogItem.Event.ALARM_CONFIRMED));
+				this.rmc.raiseAlarm(zoneName);
 			} else {
 				// Write log about unconfirmed alarm condition
-				logger.logEvent(new LogItem("Alarm in " + zoneName + " unconfirmed. Standing down.", LogItem.Event.ALARM_IGNORED));
+				this.logger.logEvent(new LogItem("Alarm in " + zoneName + " unconfirmed. Standing down.", LogItem.Event.ALARM_IGNORED));
 			}
 		}
 	}
@@ -103,35 +101,35 @@ public class LMSController {
 	}
 	
 	public boolean activateSensor(String zoneName, String sensorName) {
-		LMSZone zone = this.getZoneByName(zoneName);
+		LMSZone zone = getZoneByName(zoneName);
 		Sensor sensor = zone.getSensorByName(sensorName);
-		logger.logEvent(new LogItem(sensorName + " in " + zoneName + " activated.", LogItem.Event.SENSOR_ACTIVATION));
+		this.logger.logEvent(new LogItem(sensorName + " in " + zoneName + " activated.", LogItem.Event.SENSOR_ACTIVATION));
 		return sensor.activate();
 	}
 	
 	public boolean deactivateSensor(String zoneName, String sensorName) {
-		LMSZone zone = this.getZoneByName(zoneName);
+		LMSZone zone = getZoneByName(zoneName);
 		Sensor sensor = zone.getSensorByName(sensorName);
-		logger.logEvent(new LogItem(sensorName + " in " + zoneName + " deactivated.", LogItem.Event.SENSOR_ACTIVATION));
+		this.logger.logEvent(new LogItem(sensorName + " in " + zoneName + " deactivated.", LogItem.Event.SENSOR_ACTIVATION));
 		return sensor.deactivate();
 	}
 	
 	public boolean setWarningThreshold(String zoneName, String sensorName, double threshold) {
-		LMSZone zone = this.getZoneByName(zoneName);
+		LMSZone zone = getZoneByName(zoneName);
 		Sensor sensor = zone.getSensorByName(sensorName);
-		logger.logEvent(new LogItem(sensorName + " in " + zoneName + " threshold changed to "  + threshold + ".", LogItem.Event.SENSOR_THRESHOLD));
+		this.logger.logEvent(new LogItem(sensorName + " in " + zoneName + " threshold changed to "  + threshold + ".", LogItem.Event.SENSOR_THRESHOLD));
 		return sensor.setThreshold(threshold);
 	}
 	
 	public double getSensorReading(String zoneName, String sensorName) {
-		LMSZone zone = this.getZoneByName(zoneName);
+		LMSZone zone = getZoneByName(zoneName);
 		Sensor sensor = zone.getSensorByName(sensorName);
 		return sensor.getReading();
 	}
 	
 	public boolean resetAlarm(String zoneName) {
-		LMSZone zone = this.getZoneByName(zoneName);
-		logger.logEvent(new LogItem("Alarm reset in " + zoneName, LogItem.Event.ALARM_RESET));	
+		LMSZone zone = getZoneByName(zoneName);
+		this.logger.logEvent(new LogItem("Alarm reset in " + zoneName, LogItem.Event.ALARM_RESET));	
 		return zone.resetAlarms();
 	}
 	

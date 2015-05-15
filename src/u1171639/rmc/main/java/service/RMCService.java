@@ -3,14 +3,12 @@ package u1171639.rmc.main.java.service;
 import org.omg.PortableServer.POAPackage.ServantNotActive;
 import org.omg.PortableServer.POAPackage.WrongPolicy;
 
-import u1171639.lms.main.java.client.CorbaSensor;
 import u1171639.rmc.main.java.client.CorbaLMS;
 import u1171639.rmc.main.java.controller.RMCController;
 import u1171639.rmc.main.java.model.Alarm;
 import u1171639.shared.main.java.corba.rmc.RMC;
 import u1171639.shared.main.java.corba.rmc.RMCHelper;
 import u1171639.shared.main.java.corba.rmc.RMCPOA;
-import u1171639.shared.main.java.logging.Logger;
 import u1171639.shared.main.java.utils.CorbaUtils;
 
 public class RMCService extends RMCPOA {
@@ -47,12 +45,12 @@ public class RMCService extends RMCPOA {
 	@Override
 	public void register(String ior, String locality) {
 		CorbaLMS lms = new CorbaLMS(CorbaUtils.getOrb().string_to_object(ior));
-		controller.registerLMS(locality, lms);
+		this.controller.registerLMS(locality, lms);
 	}
 
 	@Override
 	public void sensorAdded() {
-		controller.sensorAdded();
+		this.controller.sensorAdded();
 	}
 
 }

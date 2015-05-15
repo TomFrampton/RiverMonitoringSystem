@@ -11,7 +11,7 @@ package u1171639.shared.main.java.corba.models;
 public final class CorbaModel_Sensor implements org.omg.CORBA.portable.IDLEntity
 {
   public String name = null;
-  public double threshold = (double)0;
+  public double threshold = 0;
   public boolean active = false;
 
   public CorbaModel_Sensor ()
@@ -20,9 +20,9 @@ public final class CorbaModel_Sensor implements org.omg.CORBA.portable.IDLEntity
 
   public CorbaModel_Sensor (String _name, double _threshold, boolean _active)
   {
-    name = _name;
-    threshold = _threshold;
-    active = _active;
+    this.name = _name;
+    this.threshold = _threshold;
+    this.active = _active;
   } // ctor
 
 } // class CorbaModel_Sensor

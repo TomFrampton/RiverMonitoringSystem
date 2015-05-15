@@ -29,7 +29,7 @@ public class HomeUser {
 	private List<RMCSensor> registeredSensors = new ArrayList<RMCSensor>();
 	
 	public int getId() {
-		return id;
+		return this.id;
 	}
 
 	public void setId(int id) {
@@ -37,7 +37,7 @@ public class HomeUser {
 	}
 
 	public String getForename() {
-		return forename;
+		return this.forename;
 	}
 	
 	public void setForename(String forename) {
@@ -45,7 +45,7 @@ public class HomeUser {
 	}
 	
 	public String getSurname() {
-		return surname;
+		return this.surname;
 	}
 	
 	public void setSurname(String surname) {
@@ -53,7 +53,7 @@ public class HomeUser {
 	}
 	
 	public String getUsername() {
-		return username;
+		return this.username;
 	}
 	
 	public void setUsername(String username) {
@@ -61,7 +61,7 @@ public class HomeUser {
 	}
 	
 	public String getPassword() {
-		return password;
+		return this.password;
 	}
 	
 	public void setPassword(String password) {
@@ -69,7 +69,7 @@ public class HomeUser {
 	}
 
 	public List<RMCSensor> getRegisteredSensors() {
-		return registeredSensors;
+		return this.registeredSensors;
 	}
 
 	public void setRegisteredSensors(List<RMCSensor> registeredSensors) {

@@ -32,7 +32,7 @@ public class ZoneConfigViewController extends ViewController {
 		Locality locality = getRMCController().getLocalityByName(this.zone.getLocalityName());
 		
 		if(locality.resetAlarm(this.zone.getName())) {
-			this.alarmReset();
+			alarmReset();
 		}
 	}
 	
@@ -43,9 +43,9 @@ public class ZoneConfigViewController extends ViewController {
 		this.localityNameLabel.setText(zone.getLocalityName());
 		
 		if(this.zone.isAlarmRaised()) {
-			this.alarmRaised();
+			alarmRaised();
 		} else {
-			this.alarmReset();
+			alarmReset();
 		}
 	}
 	

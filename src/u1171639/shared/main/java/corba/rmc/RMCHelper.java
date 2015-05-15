@@ -47,7 +47,7 @@ abstract public class RMCHelper
 
   public static void write (org.omg.CORBA.portable.OutputStream ostream, u1171639.shared.main.java.corba.rmc.RMC value)
   {
-    ostream.write_Object ((org.omg.CORBA.Object) value);
+    ostream.write_Object (value);
   }
 
   public static u1171639.shared.main.java.corba.rmc.RMC narrow (org.omg.CORBA.Object obj)

@@ -22,7 +22,7 @@ public class LogItem {
 	}
 	
 	public Date getTime() {
-		return time;
+		return this.time;
 	}
 
 	public void setTime(Date time) {
@@ -30,7 +30,7 @@ public class LogItem {
 	}
 
 	public String getMessage() {
-		return message;
+		return this.message;
 	}
 
 	public void setMessage(String message) {
@@ -38,7 +38,7 @@ public class LogItem {
 	}
 
 	public Event getEvent() {
-		return event;
+		return this.event;
 	}
 
 	public void setEvent(Event event) {

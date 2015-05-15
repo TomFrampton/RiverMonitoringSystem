@@ -8,7 +8,6 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import u1171639.lms.main.java.client.Sensor;
 import u1171639.rmc.main.java.model.RMCSensor;
 import u1171639.rmc.main.java.users.HomeUser;
 import u1171639.rmc.main.java.users.HomeUserManager;

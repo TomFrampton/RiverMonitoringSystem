@@ -5,7 +5,7 @@ public class Alarm {
 	private String zone;
 	
 	public String getLocality() {
-		return locality;
+		return this.locality;
 	}
 	
 	public void setLocality(String locality) {
@@ -13,7 +13,7 @@ public class Alarm {
 	}
 	
 	public String getZone() {
-		return zone;
+		return this.zone;
 	}
 	
 	public void setZone(String zone) {

@@ -13,7 +13,7 @@ public class LMSZone {
 	
 	public boolean confirmAlarm() {
 		// Check alarm status on all sensors in the zone
-		Iterator<Sensor> it = sensors.iterator();
+		Iterator<Sensor> it = this.sensors.iterator();
 		
 		while(it.hasNext()) {
 			Sensor sensor = it.next();
@@ -27,7 +27,7 @@ public class LMSZone {
 	}
 	
 	public String getName() {
-		return name;
+		return this.name;
 	}
 	
 	public void setName(String name) {
@@ -35,7 +35,7 @@ public class LMSZone {
 	}
 	
 	public List<Sensor> getSensors() {
-		return sensors;
+		return this.sensors;
 	}
 	
 	public void setSensors(List<Sensor> sensors) {

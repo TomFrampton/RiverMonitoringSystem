@@ -11,7 +11,8 @@ package u1171639.shared.main.java.corba.lms_rmc;
 public class _LMS_RMCStub extends org.omg.CORBA.portable.ObjectImpl implements u1171639.shared.main.java.corba.lms_rmc.LMS_RMC
 {
 
-  public u1171639.shared.main.java.corba.models.CorbaModel_Locality getZoneUpdates ()
+  @Override
+public u1171639.shared.main.java.corba.models.CorbaModel_Locality getZoneUpdates ()
   {
             org.omg.CORBA.portable.InputStream $in = null;
             try {
@@ -30,7 +31,8 @@ public class _LMS_RMCStub extends org.omg.CORBA.portable.ObjectImpl implements u
             }
   } // getZoneUpdates
 
-  public u1171639.shared.main.java.corba.models.CorbaModel_Log getLog ()
+  @Override
+public u1171639.shared.main.java.corba.models.CorbaModel_Log getLog ()
   {
             org.omg.CORBA.portable.InputStream $in = null;
             try {
@@ -49,7 +51,8 @@ public class _LMS_RMCStub extends org.omg.CORBA.portable.ObjectImpl implements u
             }
   } // getLog
 
-  public boolean activateSensor (String zoneName, String sensorName)
+  @Override
+public boolean activateSensor (String zoneName, String sensorName)
   {
             org.omg.CORBA.portable.InputStream $in = null;
             try {
@@ -70,7 +73,8 @@ public class _LMS_RMCStub extends org.omg.CORBA.portable.ObjectImpl implements u
             }
   } // activateSensor
 
-  public boolean deactivateSensor (String zoneName, String sensorName)
+  @Override
+public boolean deactivateSensor (String zoneName, String sensorName)
   {
             org.omg.CORBA.portable.InputStream $in = null;
             try {
@@ -91,7 +95,8 @@ public class _LMS_RMCStub extends org.omg.CORBA.portable.ObjectImpl implements u
             }
   } // deactivateSensor
 
-  public boolean setWarningThreshold (String zoneName, String sensorName, double threshold)
+  @Override
+public boolean setWarningThreshold (String zoneName, String sensorName, double threshold)
   {
             org.omg.CORBA.portable.InputStream $in = null;
             try {
@@ -113,7 +118,8 @@ public class _LMS_RMCStub extends org.omg.CORBA.portable.ObjectImpl implements u
             }
   } // setWarningThreshold
 
-  public double getSensorReading (String zoneName, String sensorName)
+  @Override
+public double getSensorReading (String zoneName, String sensorName)
   {
             org.omg.CORBA.portable.InputStream $in = null;
             try {
@@ -134,7 +140,8 @@ public class _LMS_RMCStub extends org.omg.CORBA.portable.ObjectImpl implements u
             }
   } // getSensorReading
 
-  public boolean resetAlarm (String zoneName)
+  @Override
+public boolean resetAlarm (String zoneName)
   {
             org.omg.CORBA.portable.InputStream $in = null;
             try {
@@ -158,9 +165,10 @@ public class _LMS_RMCStub extends org.omg.CORBA.portable.ObjectImpl implements u
   private static String[] __ids = {
     "IDL:lms_rmc/LMS_RMC:1.0"};
 
-  public String[] _ids ()
+  @Override
+public String[] _ids ()
   {
-    return (String[])__ids.clone ();
+    return __ids.clone ();
   }
 
   private void readObject (java.io.ObjectInputStream s) throws java.io.IOException

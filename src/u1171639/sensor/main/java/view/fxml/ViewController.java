@@ -1,7 +1,6 @@
 package u1171639.sensor.main.java.view.fxml;
 
 import javafx.scene.Parent;
-import javafx.stage.Stage;
 
 public abstract class ViewController {
 	private Parent view;

@@ -10,7 +10,7 @@ package u1171639.shared.main.java.corba.models;
 
 public final class CorbaModel_LogItem implements org.omg.CORBA.portable.IDLEntity
 {
-  public long timestamp = (long)0;
+  public long timestamp = 0;
   public String event = null;
   public String message = null;
 
@@ -20,9 +20,9 @@ public final class CorbaModel_LogItem implements org.omg.CORBA.portable.IDLEntit
 
   public CorbaModel_LogItem (long _timestamp, String _event, String _message)
   {
-    timestamp = _timestamp;
-    event = _event;
-    message = _message;
+    this.timestamp = _timestamp;
+    this.event = _event;
+    this.message = _message;
   } // ctor
 
 } // class CorbaModel_LogItem

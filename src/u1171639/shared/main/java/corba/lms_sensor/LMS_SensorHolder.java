@@ -17,20 +17,23 @@ public final class LMS_SensorHolder implements org.omg.CORBA.portable.Streamable
 
   public LMS_SensorHolder (u1171639.shared.main.java.corba.lms_sensor.LMS_Sensor initialValue)
   {
-    value = initialValue;
+    this.value = initialValue;
   }
 
-  public void _read (org.omg.CORBA.portable.InputStream i)
+  @Override
+public void _read (org.omg.CORBA.portable.InputStream i)
   {
-    value = u1171639.shared.main.java.corba.lms_sensor.LMS_SensorHelper.read (i);
+    this.value = u1171639.shared.main.java.corba.lms_sensor.LMS_SensorHelper.read (i);
   }
 
-  public void _write (org.omg.CORBA.portable.OutputStream o)
+  @Override
+public void _write (org.omg.CORBA.portable.OutputStream o)
   {
-    u1171639.shared.main.java.corba.lms_sensor.LMS_SensorHelper.write (o, value);
+    u1171639.shared.main.java.corba.lms_sensor.LMS_SensorHelper.write (o, this.value);
   }
 
-  public org.omg.CORBA.TypeCode _type ()
+  @Override
+public org.omg.CORBA.TypeCode _type ()
   {
     return u1171639.shared.main.java.corba.lms_sensor.LMS_SensorHelper.type ();
   }

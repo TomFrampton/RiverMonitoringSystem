@@ -8,7 +8,6 @@ import u1171639.rmc.main.java.view.ViewManager;
 import javafx.scene.Parent;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
-import javafx.stage.Stage;
 
 public abstract class ViewController {
 	private Parent view;
@@ -27,19 +26,19 @@ public abstract class ViewController {
 	}
 	
 	public void showInLeftPanel() {
-		viewManager.showInLeftPanel(this);
+		this.viewManager.showInLeftPanel(this);
 	}
 	
 	public void showInRightPanel() {
-		viewManager.showInRightPanel(this);
+		this.viewManager.showInRightPanel(this);
 	}
 	
 	public void clearLeftPanel() {
-		viewManager.clearLeftPanel();
+		this.viewManager.clearLeftPanel();
 	}
 	
 	public void clearRightPanel() {
-		viewManager.clearRightPanel();
+		this.viewManager.clearRightPanel();
 	}
 	
 	public RMCController getRMCController() {

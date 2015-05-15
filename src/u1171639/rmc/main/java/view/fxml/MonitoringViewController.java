@@ -4,12 +4,9 @@ import java.util.List;
 
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.TreeItem;
 import javafx.scene.control.TreeView;
-import javafx.scene.input.MouseEvent;
-import u1171639.rmc.main.java.view.JavaFXRMCView;
 import u1171639.rmc.main.java.view.ViewManager;
 import u1171639.rmc.main.java.controller.RMCController;
 import u1171639.rmc.main.java.model.Locality;
@@ -43,13 +40,13 @@ public class MonitoringViewController extends ViewController {
             public void changed(ObservableValue<? extends TreeItem<String>> observable, TreeItem<String> oldValue, TreeItem<String> newValue) {
             	if(observable.getValue() != null) {
             		// A Locality Node
-	                if(observable.getValue().getParent() == root) {                	
-	                	logsViewController.showLogs(getRMCController().getLocalityByName(newValue.getValue()));
-	                	logsViewController.showInRightPanel();
+	                if(observable.getValue().getParent() == MonitoringViewController.this.root) {                	
+	                	MonitoringViewController.this.logsViewController.showLogs(getRMCController().getLocalityByName(newValue.getValue()));
+	                	MonitoringViewController.this.logsViewController.showInRightPanel();
 	                
 	                // Zone Node
 	                } else if(observable.getValue().getParent() != null &&
-	                		  observable.getValue().getParent().getParent() == root) {
+	                		  observable.getValue().getParent().getParent() == MonitoringViewController.this.root) {
 	                	
 	                	String localityName = observable.getValue().getParent().getValue();
 	                	String zoneName = observable.getValue().getValue();
@@ -57,13 +54,13 @@ public class MonitoringViewController extends ViewController {
 	                	Locality locality = getRMCController().getLocalityByName(localityName);
 	                	RMCZone zone = locality.getZoneByName(zoneName);
 	                	
-	                	zoneConfigViewController.setZone(zone);
-	                	zoneConfigViewController.showInRightPanel();
+	                	MonitoringViewController.this.zoneConfigViewController.setZone(zone);
+	                	MonitoringViewController.this.zoneConfigViewController.showInRightPanel();
 	                	
 	                // Sensor Node
 	                } else if(observable.getValue().getParent() != null && 
 	                		  observable.getValue().getParent().getParent() != null &&
-	                		  observable.getValue().getParent().getParent().getParent() == root) {
+	                		  observable.getValue().getParent().getParent().getParent() == MonitoringViewController.this.root) {
 	                	
 	                	String localityName = observable.getValue().getParent().getParent().getValue();
 	                	String zoneName = observable.getValue().getParent().getValue();
@@ -75,8 +72,8 @@ public class MonitoringViewController extends ViewController {
 	                	sensor.setZoneName(zoneName);
 	                	sensor.setLocalityName(localityName);
 	                	
-	                	sensorConfigViewController.setSensor(sensor);
-	                	sensorConfigViewController.showInRightPanel();
+	                	MonitoringViewController.this.sensorConfigViewController.setSensor(sensor);
+	                	MonitoringViewController.this.sensorConfigViewController.showInRightPanel();
 	                } else {
 	                	clearRightPanel();
 	                }
@@ -87,18 +84,18 @@ public class MonitoringViewController extends ViewController {
 	}
 	
 	public void updateTreeView() {
-		RMCController controller = this.getRMCController();
+		RMCController controller = getRMCController();
 		List<Locality> localities = controller.getLocalities();
 		
 		this.root = new TreeItem<String>("Region");
-		this.monitoringTree.setRoot(root);
-		root.setExpanded(true);
+		this.monitoringTree.setRoot(this.root);
+		this.root.setExpanded(true);
 		 
 		for(Locality locality : localities) {
 			List<RMCZone> zones = locality.getUpdatedZones();
 			
 			TreeItem<String> localityItem = new TreeItem<String>(locality.getName());
-			root.getChildren().add(localityItem);
+			this.root.getChildren().add(localityItem);
 			localityItem.setExpanded(true);
 			
 			for(RMCZone zone : zones) {

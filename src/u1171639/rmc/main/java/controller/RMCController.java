@@ -1,7 +1,6 @@
 package u1171639.rmc.main.java.controller;
 
 import java.util.ArrayList;
-import java.util.Hashtable;
 import java.util.Iterator;
 import java.util.List;
 
@@ -11,10 +10,6 @@ import org.apache.commons.cli.GnuParser;
 import org.apache.commons.cli.Options;
 import org.apache.commons.cli.ParseException;
 
-import u1171639.lms.main.java.client.Sensor;
-import u1171639.lms.main.java.model.LMSZone;
-import u1171639.lms.main.java.utils.LMSConfig;
-import u1171639.rmc.main.java.client.CorbaLMS;
 import u1171639.rmc.main.java.client.LMS;
 import u1171639.rmc.main.java.model.Alarm;
 import u1171639.rmc.main.java.model.Locality;
@@ -42,19 +37,19 @@ public class RMCController {
 	}
 	
 	public void alarmRaised(Alarm alarm) {
-		if(view != null) {
-			view.alarmRaised(alarm);
+		if(this.view != null) {
+			this.view.alarmRaised(alarm);
 		}
 	}
 	
 	public void sensorAdded() {
-		if(view != null) {
-			view.updateView();
+		if(this.view != null) {
+			this.view.updateView();
 		}
 	}
 	
 	public void registerLMS(String localityName, LMS lms) {
-		Locality locality = this.getLocalityByName(localityName);
+		Locality locality = getLocalityByName(localityName);
 		if(locality == null) {
 			locality = new Locality();
 			this.localities.add(locality);
@@ -101,7 +96,7 @@ public class RMCController {
 		List<RMCSensor> sensorsCopy = new ArrayList<RMCSensor>();
 		
 		for(RMCSensor sensor : sensors) {
-			Locality locality = this.getLocalityByName(sensor.getLocalityName());
+			Locality locality = getLocalityByName(sensor.getLocalityName());
 			
 			RMCSensor sensorCopy = new RMCSensor();
 			sensorCopy.setLocalityName(sensor.getLocalityName());

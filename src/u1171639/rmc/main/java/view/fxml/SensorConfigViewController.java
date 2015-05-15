@@ -3,8 +3,6 @@ package u1171639.rmc.main.java.view.fxml;
 import java.util.ArrayList;
 import java.util.concurrent.Callable;
 
-import com.sun.prism.paint.Color;
-
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -60,7 +58,7 @@ public class SensorConfigViewController extends ViewController {
 		this.thresholdSlider.valueProperty().addListener(new ChangeListener<Number>() {
 			@Override
 			public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
-				sensorThresholdUpdateButton.setDisable(false);
+				SensorConfigViewController.this.sensorThresholdUpdateButton.setDisable(false);
 			}
 		});
 		
@@ -70,7 +68,7 @@ public class SensorConfigViewController extends ViewController {
 	}
 	
 	@FXML protected void handleUpdateSensorThresholdClicked(MouseEvent event) {
-		Locality locality = this.getRMCController().getLocalityByName(this.sensor.getLocalityName());
+		Locality locality = getRMCController().getLocalityByName(this.sensor.getLocalityName());
 		
 		if(locality.setWarningThreshold(this.sensor.getZoneName(), this.sensor.getName(), Math.round(this.thresholdSlider.getValue()))) {
 			this.sensorThresholdUpdateButton.setDisable(true);
@@ -78,15 +76,15 @@ public class SensorConfigViewController extends ViewController {
 	}
 	
 	@FXML protected void handleActivationButtonClicked(MouseEvent event) {
-		Locality locality = this.getRMCController().getLocalityByName(this.sensor.getLocalityName());
+		Locality locality = getRMCController().getLocalityByName(this.sensor.getLocalityName());
 		
 		if(this.sensor.isActive()) {
 			if(locality.deactivateSensor(this.sensor.getZoneName(), this.sensor.getName())) {
-				this.sensorDeactivated();
+				sensorDeactivated();
 			}
 		} else {
 			if(locality.activateSensor(this.sensor.getZoneName(), this.sensor.getName())) {
-				this.sensorActivated();
+				sensorActivated();
 			}
 		}
 	}
@@ -124,9 +122,9 @@ public class SensorConfigViewController extends ViewController {
 		this.sensorThresholdUpdateButton.setDisable(true);
 		
 		if(sensor.isActive()) {
-			this.sensorActivated();
+			sensorActivated();
 		} else {
-			this.sensorDeactivated();
+			sensorDeactivated();
 		}
 		
 		updateUsersList();

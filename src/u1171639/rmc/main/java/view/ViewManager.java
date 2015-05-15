@@ -1,15 +1,11 @@
 package u1171639.rmc.main.java.view;
 
-import java.util.Hashtable;
-
 import u1171639.rmc.main.java.controller.RMCController;
-import u1171639.rmc.main.java.view.fxml.MonitoringViewController;
 import u1171639.rmc.main.java.view.fxml.ViewController;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
-import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
 public class ViewManager {
@@ -20,11 +16,11 @@ public class ViewManager {
 	private AnchorPane rightPanel;
 	
 	public void showInLeftPanel(ViewController screen) {
-		this.showInPanel(this.leftPanel, screen.getView());
+		showInPanel(this.leftPanel, screen.getView());
 	}
 	
 	public void showInRightPanel(ViewController screen) {
-		this.showInPanel(this.rightPanel, screen.getView());
+		showInPanel(this.rightPanel, screen.getView());
 	}
 	
 	public void clearLeftPanel() {
@@ -63,7 +59,7 @@ public class ViewManager {
 	}
 
 	public RMCController getRmcController() {
-		return rmcController;
+		return this.rmcController;
 	}
 
 	public void setRmcController(RMCController rmcController) {

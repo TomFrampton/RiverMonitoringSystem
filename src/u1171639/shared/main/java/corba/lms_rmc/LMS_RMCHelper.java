@@ -47,7 +47,7 @@ abstract public class LMS_RMCHelper
 
   public static void write (org.omg.CORBA.portable.OutputStream ostream, u1171639.shared.main.java.corba.lms_rmc.LMS_RMC value)
   {
-    ostream.write_Object ((org.omg.CORBA.Object) value);
+    ostream.write_Object (value);
   }
 
   public static u1171639.shared.main.java.corba.lms_rmc.LMS_RMC narrow (org.omg.CORBA.Object obj)

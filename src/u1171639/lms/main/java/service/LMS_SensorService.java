@@ -5,7 +5,6 @@ import org.omg.PortableServer.POAPackage.WrongPolicy;
 
 import u1171639.lms.main.java.client.CorbaSensor;
 import u1171639.lms.main.java.controller.LMSController;
-import u1171639.lms.main.java.utils.LMSConfig;
 import u1171639.shared.main.java.corba.lms_sensor.LMS_Sensor;
 import u1171639.shared.main.java.corba.lms_sensor.LMS_SensorHelper;
 import u1171639.shared.main.java.corba.lms_sensor.LMS_SensorPOA;
@@ -45,12 +44,12 @@ public class LMS_SensorService extends LMS_SensorPOA {
 	
 	@Override
 	public void raiseAlarm(String zone) {
-		controller.alarmRaised(zone);
+		this.controller.alarmRaised(zone);
 	}
 
 	@Override
 	public String register(String ior, String zone) {
 		CorbaSensor sensor = new CorbaSensor(CorbaUtils.getOrb().string_to_object(ior));
-		return controller.registerSensor(zone, sensor);
+		return this.controller.registerSensor(zone, sensor);
 	}
 }

@@ -26,7 +26,8 @@ public abstract class SensorPOA extends org.omg.PortableServer.Servant
     _methods.put ("getReading", new java.lang.Integer (6));
   }
 
-  public org.omg.CORBA.portable.OutputStream _invoke (String $method,
+  @Override
+public org.omg.CORBA.portable.OutputStream _invoke (String $method,
                                 org.omg.CORBA.portable.InputStream in,
                                 org.omg.CORBA.portable.ResponseHandler $rh)
   {
@@ -40,7 +41,7 @@ public abstract class SensorPOA extends org.omg.PortableServer.Servant
        case 0:  // sensor/Sensor/isAlarmRaised
        {
          boolean $result = false;
-         $result = this.isAlarmRaised ();
+         $result = isAlarmRaised ();
          out = $rh.createReply();
          out.write_boolean ($result);
          break;
@@ -49,7 +50,7 @@ public abstract class SensorPOA extends org.omg.PortableServer.Servant
        case 1:  // sensor/Sensor/activate
        {
          boolean $result = false;
-         $result = this.activate ();
+         $result = activate ();
          out = $rh.createReply();
          out.write_boolean ($result);
          break;
@@ -58,7 +59,7 @@ public abstract class SensorPOA extends org.omg.PortableServer.Servant
        case 2:  // sensor/Sensor/deactivate
        {
          boolean $result = false;
-         $result = this.deactivate ();
+         $result = deactivate ();
          out = $rh.createReply();
          out.write_boolean ($result);
          break;
@@ -67,7 +68,7 @@ public abstract class SensorPOA extends org.omg.PortableServer.Servant
        case 3:  // sensor/Sensor/isActive
        {
          boolean $result = false;
-         $result = this.isActive ();
+         $result = isActive ();
          out = $rh.createReply();
          out.write_boolean ($result);
          break;
@@ -75,8 +76,8 @@ public abstract class SensorPOA extends org.omg.PortableServer.Servant
 
        case 4:  // sensor/Sensor/getThreshold
        {
-         double $result = (double)0;
-         $result = this.getThreshold ();
+         double $result = 0;
+         $result = getThreshold ();
          out = $rh.createReply();
          out.write_double ($result);
          break;
@@ -86,7 +87,7 @@ public abstract class SensorPOA extends org.omg.PortableServer.Servant
        {
          double threshold = in.read_double ();
          boolean $result = false;
-         $result = this.setThreshold (threshold);
+         $result = setThreshold (threshold);
          out = $rh.createReply();
          out.write_boolean ($result);
          break;
@@ -94,8 +95,8 @@ public abstract class SensorPOA extends org.omg.PortableServer.Servant
 
        case 6:  // sensor/Sensor/getReading
        {
-         double $result = (double)0;
-         $result = this.getReading ();
+         double $result = 0;
+         $result = getReading ();
          out = $rh.createReply();
          out.write_double ($result);
          break;
@@ -112,9 +113,10 @@ public abstract class SensorPOA extends org.omg.PortableServer.Servant
   private static String[] __ids = {
     "IDL:sensor/Sensor:1.0"};
 
-  public String[] _all_interfaces (org.omg.PortableServer.POA poa, byte[] objectId)
+  @Override
+public String[] _all_interfaces (org.omg.PortableServer.POA poa, byte[] objectId)
   {
-    return (String[])__ids.clone ();
+    return __ids.clone ();
   }
 
   public Sensor _this() 

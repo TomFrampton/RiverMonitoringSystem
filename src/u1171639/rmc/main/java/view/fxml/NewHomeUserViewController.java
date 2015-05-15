@@ -37,7 +37,7 @@ public class NewHomeUserViewController extends ViewController {
 	}
 	
 	private void init() {
-		this.modalStage.setScene(new Scene(this.getView()));
+		this.modalStage.setScene(new Scene(getView()));
 		this.modalStage.setTitle("Add Home User");
 		this.modalStage.initModality(Modality.WINDOW_MODAL);
 	}
@@ -73,7 +73,7 @@ public class NewHomeUserViewController extends ViewController {
 			int id = manager.addHomeUser(newUser);
 			
 			if(id > -1) {
-				manager.registerUserWithSensor(id, sensor);
+				manager.registerUserWithSensor(id, this.sensor);
 				
 				try {
 					this.modalCallback.call();
@@ -83,7 +83,7 @@ public class NewHomeUserViewController extends ViewController {
 					e.printStackTrace();
 				}
 				
-				this.clearTextBoxes();
+				clearTextBoxes();
 				this.modalStage.close();
 				
 			} else {
@@ -97,7 +97,7 @@ public class NewHomeUserViewController extends ViewController {
 	}
 	
 	@FXML protected void handleCancelButtonClicked(MouseEvent event) {
-		this.clearTextBoxes();
+		clearTextBoxes();
 		this.modalStage.close();
 	}
 }

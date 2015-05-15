@@ -9,8 +9,6 @@ import org.apache.commons.cli.GnuParser;
 import org.apache.commons.cli.Options;
 import org.apache.commons.cli.ParseException;
 
-import u1171639.lms.main.java.utils.LMSConfig;
-import u1171639.rmc.main.java.view.JavaFXRMCView;
 import u1171639.sensor.main.java.client.CorbaLMS;
 import u1171639.sensor.main.java.client.LMS;
 import u1171639.sensor.main.java.monitor.SimulatedWaterLevelMonitor;
@@ -38,11 +36,11 @@ public class SensorController {
 	}
 	
 	public void raiseAlarm() {
-		lms.raiseAlarm();
+		this.lms.raiseAlarm();
 	}
 	
 	public boolean isAlarmRaised() {
-		return monitor.isAlarmRaised();
+		return this.monitor.isAlarmRaised();
 	}
 	
 	public void activate() {

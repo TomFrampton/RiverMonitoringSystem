@@ -21,7 +21,8 @@ public abstract class LMS_SensorPOA extends org.omg.PortableServer.Servant
     _methods.put ("register", new java.lang.Integer (1));
   }
 
-  public org.omg.CORBA.portable.OutputStream _invoke (String $method,
+  @Override
+public org.omg.CORBA.portable.OutputStream _invoke (String $method,
                                 org.omg.CORBA.portable.InputStream in,
                                 org.omg.CORBA.portable.ResponseHandler $rh)
   {
@@ -35,7 +36,7 @@ public abstract class LMS_SensorPOA extends org.omg.PortableServer.Servant
        case 0:  // lms_sensor/LMS_Sensor/raiseAlarm
        {
          String zone = in.read_string ();
-         this.raiseAlarm (zone);
+         raiseAlarm (zone);
          out = $rh.createReply();
          break;
        }
@@ -45,7 +46,7 @@ public abstract class LMS_SensorPOA extends org.omg.PortableServer.Servant
          String ior = in.read_string ();
          String zone = in.read_string ();
          String $result = null;
-         $result = this.register (ior, zone);
+         $result = register (ior, zone);
          out = $rh.createReply();
          out.write_string ($result);
          break;
@@ -62,9 +63,10 @@ public abstract class LMS_SensorPOA extends org.omg.PortableServer.Servant
   private static String[] __ids = {
     "IDL:lms_sensor/LMS_Sensor:1.0"};
 
-  public String[] _all_interfaces (org.omg.PortableServer.POA poa, byte[] objectId)
+  @Override
+public String[] _all_interfaces (org.omg.PortableServer.POA poa, byte[] objectId)
   {
-    return (String[])__ids.clone ();
+    return __ids.clone ();
   }
 
   public LMS_Sensor _this() 

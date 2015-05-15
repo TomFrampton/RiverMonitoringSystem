@@ -19,8 +19,8 @@ public final class CorbaModel_Locality implements org.omg.CORBA.portable.IDLEnti
 
   public CorbaModel_Locality (String _name, u1171639.shared.main.java.corba.models.CorbaModel_Zone[] _zones)
   {
-    name = _name;
-    zones = _zones;
+    this.name = _name;
+    this.zones = _zones;
   } // ctor
 
 } // class CorbaModel_Locality

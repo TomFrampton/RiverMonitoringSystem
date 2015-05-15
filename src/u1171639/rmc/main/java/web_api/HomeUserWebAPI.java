@@ -1,13 +1,7 @@
 package u1171639.rmc.main.java.web_api;
 
-import java.io.Closeable;
-import java.io.IOException;
-import java.util.Date;
 import java.util.List;
 
-import javax.annotation.Resources;
-import javax.jws.WebService;
-import javax.jws.soap.SOAPBinding;
 import javax.ws.rs.FormParam;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
@@ -16,8 +10,6 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
-import javax.xml.ws.Endpoint;
-
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -28,8 +20,6 @@ import u1171639.rmc.main.java.users.HomeUserManager;
 import u1171639.shared.main.java.exception.AuthenticationException;
 
 import com.sun.jersey.server.wadl.WadlApplicationContext;
-import com.sun.jersey.simple.container.SimpleServerFactory;
-import com.sun.net.httpserver.HttpServer;
 
 @Path("/home")
 @Produces({ MediaType.APPLICATION_JSON })

@@ -24,12 +24,12 @@ public class Locality {
 	
 	public List<RMCZone> getUpdatedZones() {
 		this.zones = this.lms.getZoneUpdates();
-		return this.getZones();
+		return getZones();
 	}
 	
 	public List<LogItem> getUpdatedLogs() {
 		this.logs = this.lms.getLog();
-		return this.getLogs();
+		return getLogs();
 	}
 	
 	public List<RMCZone> getZones() {
@@ -53,7 +53,7 @@ public class Locality {
 	}
 	
 	public String getName() {
-		return name;
+		return this.name;
 	}
 	
 	public void setName(String name) {
@@ -61,7 +61,7 @@ public class Locality {
 	}
 
 	public LMS getLms() {
-		return lms;
+		return this.lms;
 	}
 
 	public void setLms(LMS lms) {
@@ -70,7 +70,7 @@ public class Locality {
 	
 	public boolean activateSensor(String zoneName, String sensorName) {
 		if(this.lms.activateSensor(zoneName, sensorName)) {
-			this.getZoneByName(zoneName).getSensorByName(sensorName).setActive(true);
+			getZoneByName(zoneName).getSensorByName(sensorName).setActive(true);
 			return true;
 		} else {
 			return false;
@@ -79,7 +79,7 @@ public class Locality {
 	
 	public boolean deactivateSensor(String zoneName, String sensorName) {
 		if(this.lms.deactivateSensor(zoneName, sensorName)) {
-			this.getZoneByName(zoneName).getSensorByName(sensorName).setActive(false);
+			getZoneByName(zoneName).getSensorByName(sensorName).setActive(false);
 			return true;
 		} else {
 			return false;
@@ -88,7 +88,7 @@ public class Locality {
 	
 	public boolean setWarningThreshold(String zoneName, String sensorName, double threshold) {
 		if(this.lms.setWarningThreshold(zoneName, sensorName, threshold)) {
-			this.getZoneByName(zoneName).getSensorByName(sensorName).setThreshold(threshold);
+			getZoneByName(zoneName).getSensorByName(sensorName).setThreshold(threshold);
 			return true;
 		} else {
 			return false;

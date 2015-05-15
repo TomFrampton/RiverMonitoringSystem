@@ -18,7 +18,7 @@ public final class CorbaModel_Log implements org.omg.CORBA.portable.IDLEntity
 
   public CorbaModel_Log (u1171639.shared.main.java.corba.models.CorbaModel_LogItem[] _logItems)
   {
-    logItems = _logItems;
+    this.logItems = _logItems;
   } // ctor
 
 } // class CorbaModel_Log

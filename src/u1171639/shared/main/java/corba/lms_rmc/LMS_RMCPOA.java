@@ -26,7 +26,8 @@ public abstract class LMS_RMCPOA extends org.omg.PortableServer.Servant
     _methods.put ("resetAlarm", new java.lang.Integer (6));
   }
 
-  public org.omg.CORBA.portable.OutputStream _invoke (String $method,
+  @Override
+public org.omg.CORBA.portable.OutputStream _invoke (String $method,
                                 org.omg.CORBA.portable.InputStream in,
                                 org.omg.CORBA.portable.ResponseHandler $rh)
   {
@@ -40,7 +41,7 @@ public abstract class LMS_RMCPOA extends org.omg.PortableServer.Servant
        case 0:  // lms_rmc/LMS_RMC/getZoneUpdates
        {
          u1171639.shared.main.java.corba.models.CorbaModel_Locality $result = null;
-         $result = this.getZoneUpdates ();
+         $result = getZoneUpdates ();
          out = $rh.createReply();
          u1171639.shared.main.java.corba.models.CorbaModel_LocalityHelper.write (out, $result);
          break;
@@ -49,7 +50,7 @@ public abstract class LMS_RMCPOA extends org.omg.PortableServer.Servant
        case 1:  // lms_rmc/LMS_RMC/getLog
        {
          u1171639.shared.main.java.corba.models.CorbaModel_Log $result = null;
-         $result = this.getLog ();
+         $result = getLog ();
          out = $rh.createReply();
          u1171639.shared.main.java.corba.models.CorbaModel_LogHelper.write (out, $result);
          break;
@@ -60,7 +61,7 @@ public abstract class LMS_RMCPOA extends org.omg.PortableServer.Servant
          String zoneName = in.read_string ();
          String sensorName = in.read_string ();
          boolean $result = false;
-         $result = this.activateSensor (zoneName, sensorName);
+         $result = activateSensor (zoneName, sensorName);
          out = $rh.createReply();
          out.write_boolean ($result);
          break;
@@ -71,7 +72,7 @@ public abstract class LMS_RMCPOA extends org.omg.PortableServer.Servant
          String zoneName = in.read_string ();
          String sensorName = in.read_string ();
          boolean $result = false;
-         $result = this.deactivateSensor (zoneName, sensorName);
+         $result = deactivateSensor (zoneName, sensorName);
          out = $rh.createReply();
          out.write_boolean ($result);
          break;
@@ -83,7 +84,7 @@ public abstract class LMS_RMCPOA extends org.omg.PortableServer.Servant
          String sensorName = in.read_string ();
          double threshold = in.read_double ();
          boolean $result = false;
-         $result = this.setWarningThreshold (zoneName, sensorName, threshold);
+         $result = setWarningThreshold (zoneName, sensorName, threshold);
          out = $rh.createReply();
          out.write_boolean ($result);
          break;
@@ -93,8 +94,8 @@ public abstract class LMS_RMCPOA extends org.omg.PortableServer.Servant
        {
          String zoneName = in.read_string ();
          String sensorName = in.read_string ();
-         double $result = (double)0;
-         $result = this.getSensorReading (zoneName, sensorName);
+         double $result = 0;
+         $result = getSensorReading (zoneName, sensorName);
          out = $rh.createReply();
          out.write_double ($result);
          break;
@@ -104,7 +105,7 @@ public abstract class LMS_RMCPOA extends org.omg.PortableServer.Servant
        {
          String zoneName = in.read_string ();
          boolean $result = false;
-         $result = this.resetAlarm (zoneName);
+         $result = resetAlarm (zoneName);
          out = $rh.createReply();
          out.write_boolean ($result);
          break;
@@ -121,9 +122,10 @@ public abstract class LMS_RMCPOA extends org.omg.PortableServer.Servant
   private static String[] __ids = {
     "IDL:lms_rmc/LMS_RMC:1.0"};
 
-  public String[] _all_interfaces (org.omg.PortableServer.POA poa, byte[] objectId)
+  @Override
+public String[] _all_interfaces (org.omg.PortableServer.POA poa, byte[] objectId)
   {
-    return (String[])__ids.clone ();
+    return __ids.clone ();
   }
 
   public LMS_RMC _this() 

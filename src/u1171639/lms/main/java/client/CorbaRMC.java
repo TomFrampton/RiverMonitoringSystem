@@ -1,7 +1,5 @@
 package u1171639.lms.main.java.client;
 
-import org.omg.CosNaming.NamingContextPackage.NotFound;
-
 import u1171639.lms.main.java.utils.LMSConfig;
 import u1171639.shared.main.java.corba.rmc.RMCHelper;
 import u1171639.shared.main.java.exception.ConnectionException;
@@ -24,7 +22,7 @@ public class CorbaRMC implements RMC {
 	@Override
 	public void connect() throws ServerNotFoundException, ConnectionException {
 		try {
-			if(rmcIOR == null) {
+			if(this.rmcIOR == null) {
 				this.rmcIOR = CorbaUtils.resolveService(this.servantName);
 			}
 			

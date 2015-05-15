@@ -8,9 +8,7 @@ import org.junit.Test;
 
 import u1171639.sensor.main.java.monitor.SimulatedWaterLevelMonitor;
 import u1171639.sensor.main.java.utils.SensorConfig;
-import u1171639.sensor.main.java.client.LMS;
 import u1171639.sensor.main.java.controller.SensorController;
-import u1171639.sensor.test.mocks.MockLMS;
 import u1171639.sensor.test.mocks.MockLogger;
 
 public class SimulatedWaterLevelMonitorTest {
@@ -25,9 +23,9 @@ public class SimulatedWaterLevelMonitorTest {
 		this.monitor.setController(new SensorController(null, null, new MockLogger()) {
 			@Override
 			public void raiseAlarm() {
-				alarmRaised = true;
-				synchronized (lock) {
-					lock.notify();
+				SimulatedWaterLevelMonitorTest.this.alarmRaised = true;
+				synchronized (SimulatedWaterLevelMonitorTest.this.lock) {
+					SimulatedWaterLevelMonitorTest.this.lock.notify();
 				}
 			}
 		});
@@ -42,58 +40,58 @@ public class SimulatedWaterLevelMonitorTest {
 
 	@Test
 	public void testMonitor() throws InterruptedException {
-		monitor.monitorWaterLevel();
+		this.monitor.monitorWaterLevel();
 		
-		monitor.setWaterLevel(69);
-		synchronized (lock) {
-			lock.wait(100);
+		this.monitor.setWaterLevel(69);
+		synchronized (this.lock) {
+			this.lock.wait(100);
 		}
 		
-		assertFalse(alarmRaised);
+		assertFalse(this.alarmRaised);
 		
-		monitor.setWaterLevel(70);
-		synchronized (lock) {
-			lock.wait(100);
+		this.monitor.setWaterLevel(70);
+		synchronized (this.lock) {
+			this.lock.wait(100);
 		}
 		
-		assertTrue(alarmRaised);
+		assertTrue(this.alarmRaised);
 		
 	}
 	
 	@Test
 	public void testGetWaterLevel() {
-		monitor.setWaterLevel(65);
-		assertTrue(monitor.getWaterLevel() == 65);
+		this.monitor.setWaterLevel(65);
+		assertTrue(this.monitor.getWaterLevel() == 65);
 		
-		monitor.setWaterLevel(-1);
-		assertTrue(monitor.getWaterLevel() == 65);
+		this.monitor.setWaterLevel(-1);
+		assertTrue(this.monitor.getWaterLevel() == 65);
 	}
 	
 	@Test
 	public void testPauseMonitoring() throws InterruptedException {
-		monitor.monitorWaterLevel();
+		this.monitor.monitorWaterLevel();
 		
-		monitor.setWaterLevel(70);
-		synchronized (lock) {
-			lock.wait(100);
+		this.monitor.setWaterLevel(70);
+		synchronized (this.lock) {
+			this.lock.wait(100);
 		}
 		
-		assertTrue(alarmRaised);
+		assertTrue(this.alarmRaised);
 		
-		monitor.pauseMonitoring();
-		alarmRaised = false;
-		synchronized (lock) {
-			lock.wait(100);
+		this.monitor.pauseMonitoring();
+		this.alarmRaised = false;
+		synchronized (this.lock) {
+			this.lock.wait(100);
 		}
 		
-		assertFalse(alarmRaised);
+		assertFalse(this.alarmRaised);
 		
-		monitor.resumeMonitoring();
-		synchronized (lock) {
-			lock.wait(100);
+		this.monitor.resumeMonitoring();
+		synchronized (this.lock) {
+			this.lock.wait(100);
 		}
 		
-		assertTrue(alarmRaised);
+		assertTrue(this.alarmRaised);
 		
 	}
 

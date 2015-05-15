@@ -17,20 +17,23 @@ public final class LMS_RMCHolder implements org.omg.CORBA.portable.Streamable
 
   public LMS_RMCHolder (u1171639.shared.main.java.corba.lms_rmc.LMS_RMC initialValue)
   {
-    value = initialValue;
+    this.value = initialValue;
   }
 
-  public void _read (org.omg.CORBA.portable.InputStream i)
+  @Override
+public void _read (org.omg.CORBA.portable.InputStream i)
   {
-    value = u1171639.shared.main.java.corba.lms_rmc.LMS_RMCHelper.read (i);
+    this.value = u1171639.shared.main.java.corba.lms_rmc.LMS_RMCHelper.read (i);
   }
 
-  public void _write (org.omg.CORBA.portable.OutputStream o)
+  @Override
+public void _write (org.omg.CORBA.portable.OutputStream o)
   {
-    u1171639.shared.main.java.corba.lms_rmc.LMS_RMCHelper.write (o, value);
+    u1171639.shared.main.java.corba.lms_rmc.LMS_RMCHelper.write (o, this.value);
   }
 
-  public org.omg.CORBA.TypeCode _type ()
+  @Override
+public org.omg.CORBA.TypeCode _type ()
   {
     return u1171639.shared.main.java.corba.lms_rmc.LMS_RMCHelper.type ();
   }

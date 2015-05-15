@@ -16,8 +16,8 @@ public class TransientHomeUserManager implements HomeUserManager {
 	
 	@Override
 	public int addHomeUser(HomeUser newUser) {
-		synchronized(lock) {
-			if(this.getUserByUsername(newUser.getUsername()) == null) {
+		synchronized(this.lock) {
+			if(getUserByUsername(newUser.getUsername()) == null) {
 				newUser.setId(this.homeUsers.size() + 1);
 				this.homeUsers.add(newUser);
 				return newUser.getId();
@@ -51,7 +51,7 @@ public class TransientHomeUserManager implements HomeUserManager {
 
 	@Override
 	public HomeUser authenticateUser(String username, String password) throws AuthenticationException {
-		HomeUser user = this.getUserByUsername(username);
+		HomeUser user = getUserByUsername(username);
 		if(user == null) {
 			throw new AuthenticationException("User not found");
 		}
@@ -66,7 +66,7 @@ public class TransientHomeUserManager implements HomeUserManager {
 
 	@Override
 	public void registerUserWithSensor(int userId, RMCSensor sensor) throws RegistrationException {
-		HomeUser user = this.getUserById(userId);
+		HomeUser user = getUserById(userId);
 		if(user != null && !isUserRegisteredWithSensor(user, sensor)) {
 			user.getRegisteredSensors().add(sensor);
 		} else {
@@ -76,7 +76,7 @@ public class TransientHomeUserManager implements HomeUserManager {
 	
 	@Override
 	public void registerUserWithSensor(String username, RMCSensor sensor) throws RegistrationException {
-		HomeUser user = this.getUserByUsername(username);
+		HomeUser user = getUserByUsername(username);
 		this.registerUserWithSensor(user.getId(), sensor);
 	}
 	

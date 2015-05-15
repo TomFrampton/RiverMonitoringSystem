@@ -2,7 +2,6 @@ package u1171639.shared.main.java.utils;
 
 import org.omg.CORBA.ORB;
 import org.omg.CORBA.ORBPackage.InvalidName;
-import org.omg.CORBA.portable.IDLEntity;
 import org.omg.CosNaming.NameComponent;
 import org.omg.CosNaming.NamingContextExt;
 import org.omg.CosNaming.NamingContextExtHelper;
@@ -10,7 +9,6 @@ import org.omg.CosNaming.NamingContextPackage.CannotProceed;
 import org.omg.CosNaming.NamingContextPackage.NotFound;
 import org.omg.PortableServer.POA;
 import org.omg.PortableServer.POAHelper;
-import org.omg.PortableServer.Servant;
 import org.omg.PortableServer.POAManagerPackage.AdapterInactive;
 
 import u1171639.shared.main.java.exception.ServerNotFoundException;

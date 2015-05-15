@@ -22,7 +22,8 @@ public abstract class RMCPOA extends org.omg.PortableServer.Servant
     _methods.put ("sensorAdded", new java.lang.Integer (2));
   }
 
-  public org.omg.CORBA.portable.OutputStream _invoke (String $method,
+  @Override
+public org.omg.CORBA.portable.OutputStream _invoke (String $method,
                                 org.omg.CORBA.portable.InputStream in,
                                 org.omg.CORBA.portable.ResponseHandler $rh)
   {
@@ -37,7 +38,7 @@ public abstract class RMCPOA extends org.omg.PortableServer.Servant
        {
          String locality = in.read_string ();
          String zone = in.read_string ();
-         this.raiseAlarm (locality, zone);
+         raiseAlarm (locality, zone);
          out = $rh.createReply();
          break;
        }
@@ -46,14 +47,14 @@ public abstract class RMCPOA extends org.omg.PortableServer.Servant
        {
          String ior = in.read_string ();
          String locality = in.read_string ();
-         this.register (ior, locality);
+         register (ior, locality);
          out = $rh.createReply();
          break;
        }
 
        case 2:  // rmc/RMC/sensorAdded
        {
-         this.sensorAdded ();
+         sensorAdded ();
          out = $rh.createReply();
          break;
        }
@@ -69,9 +70,10 @@ public abstract class RMCPOA extends org.omg.PortableServer.Servant
   private static String[] __ids = {
     "IDL:rmc/RMC:1.0"};
 
-  public String[] _all_interfaces (org.omg.PortableServer.POA poa, byte[] objectId)
+  @Override
+public String[] _all_interfaces (org.omg.PortableServer.POA poa, byte[] objectId)
   {
-    return (String[])__ids.clone ();
+    return __ids.clone ();
   }
 
   public RMC _this() 

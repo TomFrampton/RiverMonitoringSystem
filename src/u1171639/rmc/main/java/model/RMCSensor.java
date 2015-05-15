@@ -1,10 +1,5 @@
 package u1171639.rmc.main.java.model;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import u1171639.rmc.main.java.users.HomeUser;
-
 public class RMCSensor {
 	private String name;
 	private double threshold;
@@ -18,11 +13,11 @@ public class RMCSensor {
 	}
 	
 	public String getName() {
-		return name;
+		return this.name;
 	}
 
 	public double getThreshold() {
-		return threshold;
+		return this.threshold;
 	}
 
 	public void setThreshold(double threshold) {
@@ -30,7 +25,7 @@ public class RMCSensor {
 	}
 
 	public boolean isActive() {
-		return active;
+		return this.active;
 	}
 
 	public void setActive(boolean active) {
@@ -38,7 +33,7 @@ public class RMCSensor {
 	}
 
 	public String getLocalityName() {
-		return localityName;
+		return this.localityName;
 	}
 
 	public void setLocalityName(String localityName) {
@@ -46,7 +41,7 @@ public class RMCSensor {
 	}
 
 	public String getZoneName() {
-		return zoneName;
+		return this.zoneName;
 	}
 
 	public void setZoneName(String zoneName) {
@@ -54,7 +49,7 @@ public class RMCSensor {
 	}
 
 	public double getReading() {
-		return reading;
+		return this.reading;
 	}
 
 	public void setReading(double reading) {

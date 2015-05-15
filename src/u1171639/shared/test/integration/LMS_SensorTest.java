@@ -8,8 +8,6 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import u1171639.lms.main.java.client.CorbaRMC;
-import u1171639.lms.main.java.client.RMC;
 import u1171639.lms.main.java.client.Sensor;
 import u1171639.lms.main.java.controller.LMSController;
 import u1171639.lms.main.java.service.LMS_SensorService;
@@ -50,7 +48,7 @@ public class LMS_SensorTest {
 		
 		this.rmc = new MockRMC();
 		this.lmsController = new LMSController(this.rmc, new MockLogger());
-		final LMS_SensorService lmsService = new LMS_SensorService(lmsController);
+		final LMS_SensorService lmsService = new LMS_SensorService(this.lmsController);
 		new Thread(new Runnable() {
 			@Override
 			public void run() {
@@ -87,28 +85,28 @@ public class LMS_SensorTest {
 		SimulatedWaterLevelMonitor monitor2 = (SimulatedWaterLevelMonitor) this.sensor2.getMonitor();
 		
 		monitor1.setWaterLevel(70);
-		synchronized(lock1) { lock1.wait(); }
+		synchronized(this.lock1) { this.lock1.wait(); }
 		assertFalse(this.rmc.isAlarmRaised());
 		
 		monitor1.setWaterLevel(69);
 		monitor2.setWaterLevel(70);
-		synchronized(lock2) { lock2.wait(); }
+		synchronized(this.lock2) { this.lock2.wait(); }
 		assertFalse(this.rmc.isAlarmRaised());
 		
 		monitor1.setWaterLevel(70);
-		synchronized(lock1) { lock1.wait(); }
-		synchronized(lock2) { lock2.wait(); }
+		synchronized(this.lock1) { this.lock1.wait(); }
+		synchronized(this.lock2) { this.lock2.wait(); }
 		assertTrue(this.rmc.isAlarmRaised());
 		
 		this.lmsController.getZoneByName("Zone1").resetAlarms();
 		this.rmc.resetAlarm();
 		monitor2.setWaterLevel(69);
-		synchronized(lock1) { lock1.wait(); }
+		synchronized(this.lock1) { this.lock1.wait(); }
 		assertFalse(this.rmc.isAlarmRaised());
 		
 		this.lmsController.getZoneByName("Zone1").resetAlarms();
 		this.lmsController.getSensorsByZone("Zone1").get(1).deactivate();
-		synchronized(lock1) { lock1.wait(); }
+		synchronized(this.lock1) { this.lock1.wait(); }
 		assertTrue(this.rmc.isAlarmRaised());
 		
 		

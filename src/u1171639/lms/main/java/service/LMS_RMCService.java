@@ -1,12 +1,8 @@
 package u1171639.lms.main.java.service;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import org.omg.PortableServer.POAPackage.ServantNotActive;
 import org.omg.PortableServer.POAPackage.WrongPolicy;
 
-import u1171639.lms.main.java.client.Sensor;
 import u1171639.lms.main.java.controller.LMSController;
 import u1171639.lms.main.java.utils.LMSConfig;
 import u1171639.shared.main.java.corba.lms_rmc.LMS_RMC;
@@ -14,10 +10,6 @@ import u1171639.shared.main.java.corba.lms_rmc.LMS_RMCHelper;
 import u1171639.shared.main.java.corba.lms_rmc.LMS_RMCPOA;
 import u1171639.shared.main.java.corba.models.CorbaModel_Locality;
 import u1171639.shared.main.java.corba.models.CorbaModel_Log;
-import u1171639.shared.main.java.corba.models.CorbaModel_LogItem;
-import u1171639.shared.main.java.corba.models.CorbaModel_Sensor;
-import u1171639.shared.main.java.corba.models.CorbaModel_Zone;
-import u1171639.shared.main.java.logging.LogItem;
 import u1171639.shared.main.java.utils.CorbaUtils;
 import u1171639.shared.main.java.utils.ModelConverter;
 

@@ -6,14 +6,10 @@ import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableRow;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TableColumn.CellDataFeatures;
-import javafx.scene.input.MouseEvent;
-
 import u1171639.rmc.main.java.model.Locality;
 import u1171639.rmc.main.java.utils.FXMLViewLoader;
 import u1171639.rmc.main.java.view.ViewManager;

@@ -20,7 +20,7 @@ public class LMSControllerTest {
 		this.controller = new LMSController(new RMC() {
 			@Override
 			public void raiseAlarm(String zone) {
-				alarmRaised = true;
+				LMSControllerTest.this.alarmRaised = true;
 			}
 
 			@Override

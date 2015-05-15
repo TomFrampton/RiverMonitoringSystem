@@ -12,15 +12,11 @@ import org.junit.Test;
 import u1171639.lms.main.java.client.CorbaRMC;
 import u1171639.lms.main.java.controller.LMSController;
 import u1171639.lms.main.java.service.LMS_RMCService;
-import u1171639.lms.main.java.service.LMS_SensorService;
 import u1171639.lms.main.java.utils.LMSConfig;
 import u1171639.rmc.main.java.controller.RMCController;
 import u1171639.rmc.main.java.service.RMCService;
 import u1171639.rmc.test.mocks.MockHomeUserManager;
 import u1171639.rmc.test.mocks.MockRMCView;
-import u1171639.sensor.main.java.monitor.SimulatedWaterLevelMonitor;
-import u1171639.sensor.main.java.utils.SensorConfig;
-import u1171639.sensor.test.mocks.MockLogger;
 import u1171639.shared.main.java.logging.LogItem;
 import u1171639.shared.main.java.logging.Logger;
 import u1171639.shared.main.java.logging.TransientLogger;
@@ -64,7 +60,7 @@ public class RMC_LMSTest {
 		this.lmsController = new LMSController(this.rmc, this.lmsLogger);
 		
 		// Start LMS service for listening to RMC
-		final LMS_RMCService lmsRmcService = new LMS_RMCService(lmsController);
+		final LMS_RMCService lmsRmcService = new LMS_RMCService(this.lmsController);
 		// Use Array to get around requiring a variable that is being accessed from an anonymous class must be final
 		final String[] lmsRmcServiceIor = new String[1];
 		new Thread(new Runnable() {

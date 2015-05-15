@@ -47,7 +47,7 @@ abstract public class LMS_SensorHelper
 
   public static void write (org.omg.CORBA.portable.OutputStream ostream, u1171639.shared.main.java.corba.lms_sensor.LMS_Sensor value)
   {
-    ostream.write_Object ((org.omg.CORBA.Object) value);
+    ostream.write_Object (value);
   }
 
   public static u1171639.shared.main.java.corba.lms_sensor.LMS_Sensor narrow (org.omg.CORBA.Object obj)

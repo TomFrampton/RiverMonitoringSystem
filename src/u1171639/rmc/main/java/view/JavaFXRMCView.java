@@ -1,21 +1,15 @@
 package u1171639.rmc.main.java.view;
 
-import java.io.File;
-
 import org.controlsfx.control.Notifications;
 
 import javafx.application.Application;
 import javafx.application.Platform;
-import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
-import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import u1171639.rmc.main.java.controller.RMCController;
 import u1171639.rmc.main.java.model.Alarm;
 import u1171639.rmc.main.java.view.fxml.MonitoringViewController;
-import u1171639.sensor.main.java.monitor.SimulatedWaterLevelMonitor;
-import u1171639.sensor.main.java.view.fxml.SimulationViewController;
 
 public class JavaFXRMCView extends Application implements RMCView {
 	private static RMCController controller;
@@ -28,7 +22,7 @@ public class JavaFXRMCView extends Application implements RMCView {
 	@Override
 	public void start(RMCController controller) {
 		JavaFXRMCView.controller = controller;
-		JavaFXRMCView.launch();
+		Application.launch();
 	}
 
 	@Override

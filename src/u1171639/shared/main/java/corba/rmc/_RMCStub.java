@@ -11,7 +11,8 @@ package u1171639.shared.main.java.corba.rmc;
 public class _RMCStub extends org.omg.CORBA.portable.ObjectImpl implements u1171639.shared.main.java.corba.rmc.RMC
 {
 
-  public void raiseAlarm (String locality, String zone)
+  @Override
+public void raiseAlarm (String locality, String zone)
   {
             org.omg.CORBA.portable.InputStream $in = null;
             try {
@@ -31,7 +32,8 @@ public class _RMCStub extends org.omg.CORBA.portable.ObjectImpl implements u1171
             }
   } // raiseAlarm
 
-  public void register (String ior, String locality)
+  @Override
+public void register (String ior, String locality)
   {
             org.omg.CORBA.portable.InputStream $in = null;
             try {
@@ -51,7 +53,8 @@ public class _RMCStub extends org.omg.CORBA.portable.ObjectImpl implements u1171
             }
   } // register
 
-  public void sensorAdded ()
+  @Override
+public void sensorAdded ()
   {
             org.omg.CORBA.portable.InputStream $in = null;
             try {
@@ -73,9 +76,10 @@ public class _RMCStub extends org.omg.CORBA.portable.ObjectImpl implements u1171
   private static String[] __ids = {
     "IDL:rmc/RMC:1.0"};
 
-  public String[] _ids ()
+  @Override
+public String[] _ids ()
   {
-    return (String[])__ids.clone ();
+    return __ids.clone ();
   }
 
   private void readObject (java.io.ObjectInputStream s) throws java.io.IOException

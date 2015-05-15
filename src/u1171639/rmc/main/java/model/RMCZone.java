@@ -10,7 +10,7 @@ public class RMCZone {
 	private List<RMCSensor> sensors;
 	
 	public String getName() {
-		return name;
+		return this.name;
 	}
 	
 	public void setName(String name) {
@@ -18,7 +18,7 @@ public class RMCZone {
 	}
 	
 	public String getLocalityName() {
-		return localityName;
+		return this.localityName;
 	}
 
 	public void setLocalityName(String localityName) {
@@ -26,7 +26,7 @@ public class RMCZone {
 	}
 
 	public boolean isAlarmRaised() {
-		return alarmRaised;
+		return this.alarmRaised;
 	}
 	
 	public void setAlarmRaised(boolean alarmRaised) {
@@ -34,7 +34,7 @@ public class RMCZone {
 	}
 
 	public List<RMCSensor> getSensors() {
-		return sensors;
+		return this.sensors;
 	}
 
 	public void setSensors(List<RMCSensor> sensors) {
